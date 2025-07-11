@@ -1,0 +1,51 @@
+[package]
+name = "valence-coprocessor-ethereum"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "The Valence co-processor domain definition."
+
+[dependencies]
+alloy-primitives = { workspace = true, optional = true }
+alloy-rlp = { workspace = true, optional = true }
+alloy-rpc-types-eth = { workspace = true, optional = true }
+alloy-serde = { workspace = true, optional = true }
+alloy-trie = { workspace = true, optional = true }
+anyhow = { workspace = true, optional = true }
+bincode = { workspace = true, optional = true }
+msgpacker.workspace = true
+rlp = { workspace = true, optional = true }
+serde.workspace = true
+serde_json = { workspace = true, optional = true }
+valence-coprocessor.workspace = true
+valence-coprocessor-wasm = { workspace = true, optional = true }
+
+[dev-dependencies]
+alloy-sol-types.workspace = true
+hex.workspace = true
+rlp.workspace = true
+
+[features]
+default = ["circuit", "controller"]
+circuit = [
+  "anyhow",
+  "alloy-rlp",
+  "alloy-rpc-types-eth",
+  "alloy-trie",
+  "bincode",
+  "serde_json",
+]
+controller = [
+  "anyhow",
+  "alloy-primitives",
+  "alloy-rpc-types-eth",
+  "alloy-serde",
+  "bincode",
+  "rlp",
+  "serde_json",
+  "valence-coprocessor-wasm",
+]
+
+[[test]]
+name = "e2e"
+required-features = ["circuit", "controller"]

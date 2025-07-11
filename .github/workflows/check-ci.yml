@@ -1,0 +1,83 @@
+name: build and test
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+# Ensures that only a single workflow per PR will run at a time. Cancels in-progress jobs if new commit is pushed.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  RUSTFLAGS: "-Dwarnings"
+
+jobs:
+  check-no-std:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ["valence-coprocessor-ethereum-controller"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Build artifacts
+        uses: Swatinem/rust-cache@v2.7.5
+        with:
+          cache-on-failure: true
+          shared-key: ${{ github.event.pull_request.number || github.ref }}
+
+      - name: Install bare metal ARM toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: thumbv7em-none-eabihf
+
+      - name: Run check
+        run: cargo check --package ${{ matrix.package }} --target thumbv7em-none-eabihf --no-default-features
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ["valence-coprocessor-ethereum"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Build artifacts
+        uses: Swatinem/rust-cache@v2.7.5
+        with:
+          cache-on-failure: true
+          shared-key: ${{ github.event.pull_request.number || github.ref }}
+
+      - name: Run cargo fmt
+        run: cargo fmt --all -- --check
+
+      - name: Run cargo build
+        run: cargo build --all
+
+      - name: Run clippy
+        run: cargo clippy --all-targets --verbose --package ${{ matrix.package }} -- -D warnings
+
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ["valence-coprocessor-ethereum"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get cargo
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Add WASM target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Run tests
+        run: cargo test --verbose --package ${{ matrix.package }}
+        env:
+          RUST_BACKTRACE: 1
