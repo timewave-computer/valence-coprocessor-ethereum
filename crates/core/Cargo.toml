@@ -29,6 +29,7 @@ rlp.workspace = true
 default = ["circuit", "controller"]
 circuit = [
   "anyhow",
+  "alloy-primitives",
   "alloy-rlp",
   "alloy-rpc-types-eth",
   "alloy-trie",
