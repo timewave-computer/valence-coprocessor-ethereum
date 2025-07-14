@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/core", "crates/domain"]
+members = ["crates/core", "crates/domain", "crates/lightclient/circuit", "crates/lightclient/service"]
 resolver = "2"
 
 [workspace.package]
@@ -29,11 +29,15 @@ bincode = { version = "2.0.1", default-features = false, features = [
   "alloc",
   "serde",
 ] }
+clap = { version = "4.5.37", features = ["derive"] }
 hex = { version = "0.4.3", default-features = false, features = ["alloc"] }
 msgpacker = { version = "0.4.8", default-features = false, features = [
   "alloc",
   "derive",
 ] }
+poem = { version = "3.1.9", features = ["anyhow"] }
+poem-openapi = { version = "5.1.13", features = ["swagger-ui"] }
+reqwest = { version = "0.12.15", features = ["json"] }
 rlp = { version = "0.6.1", default-features = false }
 serde = { version = "1.0.219", default-features = false, features = [
   "alloc",
@@ -42,5 +46,11 @@ serde = { version = "1.0.219", default-features = false, features = [
 serde_json = { version = "1.0.140", default-features = false, features = [
   "alloc",
 ] }
+tokio = { version = "1.44.2", features = ["full"] }
+tracing = { version = "0.1.41", default-features = false }
+tracing-subscriber = { version = "0.3.19", default-features = true, features = [
+  "env-filter",
+] }
 valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.4", default-features = false }
+valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.4", default-features = false }
 valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.4", default-features = false }

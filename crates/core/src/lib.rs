@@ -1,16 +1,16 @@
 #![no_std]
 
 use alloc::{string::String, vec::Vec};
-use msgpacker::{MsgPacker, Packable as _};
+use msgpacker::MsgPacker;
 use serde::{Deserialize, Serialize};
-use valence_coprocessor::{Hash, Proof, ValidatedBlock};
+use valence_coprocessor::Hash;
 
 extern crate alloc;
 
 pub struct Ethereum;
 
 impl Ethereum {
-    pub const ID: &str = "ethereum-alpha";
+    pub const ID: &str = "ethereum-electra-alpha";
     pub const NETWORK: &str = "eth-mainnet";
 }
 
@@ -57,30 +57,6 @@ pub struct EthereumStorageProof {
 
     /// The Merkle storage proof.
     pub proof: Vec<Vec<u8>>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct ValidateBlockRequest {
-    pub block_number: u64,
-    pub state_root: Hash,
-    pub proof: String,
-    pub inputs: String,
-}
-
-impl From<ValidateBlockRequest> for ValidatedBlock {
-    fn from(req: ValidateBlockRequest) -> Self {
-        let payload = Proof {
-            proof: req.proof,
-            inputs: req.inputs,
-        }
-        .pack_to_vec();
-
-        ValidatedBlock {
-            number: req.block_number,
-            root: req.state_root,
-            payload,
-        }
-    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
