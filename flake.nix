@@ -10,14 +10,18 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
     
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    fp-addons.url = "github:timewave-computer/flake-parts-addons";
+
+    devshell.url = "github:numtide/devshell";
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
-    devshell.url = "github:numtide/devshell";
+    sp1-nix.url = "github:timewave-computer/sp1.nix";
+    crate2nix.url = "github:timewave-computer/crate2nix";
   };
 
   outputs = {
@@ -30,11 +34,14 @@
     flake-parts.lib.mkFlake {inherit inputs;} ({moduleWithSystem, ...}: {
       imports = [
         inputs.devshell.flakeModule
+        inputs.crate2nix.flakeModule
+        inputs.fp-addons.flakeModules.tools
       ];
 
       systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
 
       perSystem = {
+        lib,
         config,
         self',
         inputs',
@@ -147,10 +154,35 @@
           doCheck = false;
         };
       in {
+        crate2nix = {
+          cargoNix = ./Cargo.nix;
+          devshell.name = "default";
+          toolchain = {
+            rust = rustWithWasmTarget;
+            cargo = rustWithWasmTarget;
+          };
+          crateOverrides = inputs'.sp1-nix.tools.crateOverrides // {
+            valence-coprocessor-ethereum-service = attrs:
+              let
+                src = lib.cleanSourceWith {
+                  filter = config.crate2nix.cargoNix.internal.sourceFilter;
+                  src = ./.;
+                };
+              in
+              {
+                inherit src;
+                sourceRoot = "${src.name}/crates/lightclient/service";
+                meta.mainProgram = attrs.crateName;
+              };
+          };
+        };
+
         # Create packages for WASM building
         packages = {
           # Use the inlined sp1-rust and sp1 instead of callPackage
           inherit sp1-rust sp1;
+
+          service = config.crate2nix.packages.valence-coprocessor-ethereum-service;
           
           # Build the WASM binary
           wasm-binary = pkgs.stdenv.mkDerivation {
@@ -1646,5 +1678,24 @@
           };
         };
       };
+
+      flake.systemModules.service = moduleWithSystem (
+        { self', ... }:
+        { lib, ...}:
+        {
+          systemd.services = {
+            valence-coprocessor-ethereum = {
+              enable = true;
+              serviceConfig = {
+                Type = "simple";
+                DynamicUser = true;
+                StateDirectory = "valence-coprocessor-ethereum";
+                ExecStart = lib.getExe self'.packages.service;
+              };
+              wantedBy = [ "system-manager.target" ];
+            };
+          };
+        }
+      );
     });
 }
