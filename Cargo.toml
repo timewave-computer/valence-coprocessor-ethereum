@@ -1,12 +1,17 @@
 [workspace]
-members = ["crates/core", "crates/domain", "crates/lightclient/circuit", "crates/lightclient/service"]
+members = [
+  "crates/core",
+  "crates/domain",
+  "crates/lightclient/circuit",
+  "crates/lightclient/service",
+]
 resolver = "2"
 
 [workspace.package]
 authors = ["Timewave Labs"]
 edition = "2021"
 license = "Apache-2.0"
-version = "0.4.2"
+version = "0.1.0"
 
 [workspace.dependencies]
 alloy-primitives = { version = "0.8.15", default-features = false }
@@ -51,6 +56,6 @@ tracing = { version = "0.1.41", default-features = false }
 tracing-subscriber = { version = "0.3.19", default-features = true, features = [
   "env-filter",
 ] }
-valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.5", default-features = false }
-valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.5", default-features = false }
-valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.5", default-features = false }
+valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.8", default-features = false }
+valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.8", default-features = false }
+valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.8", default-features = false }

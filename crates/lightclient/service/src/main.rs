@@ -28,7 +28,7 @@ struct Cli {
         short,
         long,
         value_name = "PROVER",
-        default_value = "prover.timewave.computer:37282"
+        default_value = "wss://prover.coprocessor.valence.zone"
     )]
     prover: String,
 
@@ -36,7 +36,7 @@ struct Cli {
     #[arg(
         long,
         value_name = "COPROCESSOR",
-        default_value = "prover.timewave.computer:37281"
+        default_value = "https://service.coprocessor.valence.zone"
     )]
     coprocessor: String,
 
@@ -81,7 +81,7 @@ async fn main() -> anyhow::Result<()> {
     tracing::info!("Block provider ready...");
 
     let api_service = OpenApiService::new(Api, env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"))
-        .server(format!("http://{}/api", &bind));
+        .server(format!("{}/api", &bind));
     let ui = api_service.swagger_ui();
     let app = Route::new()
         .nest("/", ui)

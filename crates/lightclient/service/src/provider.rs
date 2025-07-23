@@ -30,7 +30,7 @@ impl Provider {
         let _circuit = Blake3Hasher::hash(self.proving.elf);
         let _elf = self.proving.elf.to_vec();
         let coprocessor = format!(
-            "http://{}/api/registry/domain/{}",
+            "{}/api/registry/domain/{}",
             self.config.coprocessor,
             Ethereum::ID
         );
@@ -122,7 +122,7 @@ impl Provider {
             */
 
             let proof = serde_json::json!({
-                "proof": Base64::encode(&[]),
+                "proof": Base64::encode([]),
                 "inputs": Base64::encode(&witness),
             });
 
@@ -146,7 +146,7 @@ impl Provider {
     pub fn run(self) -> anyhow::Result<()> {
         let key = env::var("ALCHEMY_API_KEY")?;
         let url = format!("https://{}.g.alchemy.com/v2/{key}", self.config.chain);
-        let prover = Prover::new(&self.config.prover)?;
+        let prover = Prover::new(&self.config.prover);
 
         tokio::spawn(self.service(url, prover));
 
