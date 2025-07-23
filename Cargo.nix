@@ -721,12 +721,12 @@ rec {
         };
         resolvedDefaultFeatures = [ "map" "rlp" "serde" ];
       };
-      "alloy-primitives 1.2.1" = rec {
+      "alloy-primitives 1.3.0" = rec {
         crateName = "alloy-primitives";
-        version = "1.2.1";
+        version = "1.3.0";
         edition = "2024";
         description = "Ethereum primitive types";
-        sha256 = "0mgv00k5li3x11imvvz7rbkk120b9r6lkjv51gh88kjxclkfsxv1";
+        sha256 = "1j05nxnw5pkxa7i8r833gbyixdgc5nilh2ldcxxx79c1qplbvziw";
         libName = "alloy_primitives";
         authors = [
           "Alloy Contributors"
@@ -784,7 +784,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "os_rng" ];
@@ -830,6 +830,7 @@ rec {
           "rlp" = [ "dep:alloy-rlp" "ruint/alloy-rlp" ];
           "serde" = [ "dep:serde" "bytes/serde" "hex/serde" "ruint/serde" "hashbrown?/serde" "indexmap?/serde" "rand?/serde" ];
           "sha3-keccak" = [ "dep:sha3" ];
+          "sqlx" = [ "std" "dep:sqlx-core" "ruint/sqlx" ];
           "std" = [ "bytes/std" "hex/std" "ruint/std" "alloy-rlp?/std" "foldhash?/std" "indexmap?/std" "k256?/std" "keccak-asm?/std" "proptest?/std" "rand?/std" "rand?/thread_rng" "rustc-hash?/std" "serde?/std" "sha3?/std" ];
         };
         resolvedDefaultFeatures = [ "k256" "serde" ];
@@ -3548,13 +3549,13 @@ constant-time operation and embedded-friendly no_std support
       };
       "cc" = rec {
         crateName = "cc";
-        version = "1.2.29";
+        version = "1.2.30";
         edition = "2018";
         description = "A build-time dependency for Cargo build scripts to assist in invoking the native
 C compiler to compile native C code into a static archive to be linked into Rust
 code.
 ";
-        sha256 = "0qlkaspjmywvjyfqhpv2x4kwrqs6b69zg33wfi2l8fg2im9rj5aw";
+        sha256 = "1rqs46vb04ffqlpi6kjwfmvvvf64y6jkdn1faql30sfa0yb11v6y";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -7888,10 +7889,10 @@ composability, and iterator-like interfaces.
       };
       "hyper-util" = rec {
         crateName = "hyper-util";
-        version = "0.1.15";
+        version = "0.1.16";
         edition = "2021";
         description = "hyper utilities";
-        sha256 = "1pyi2h8idwyadljs95gpihjvkfkmcxi5vn7s882vy0kg9jyxarkz";
+        sha256 = "0pmw8gqkqjnsdrxdy5wd5q8z1gh7caxqk2an7b4s53byghkhb6wd";
         libName = "hyper_util";
         authors = [
           "Sean McArthur <sean@seanmonstar.com>"
@@ -7954,7 +7955,7 @@ composability, and iterator-like interfaces.
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.6.0";
             optional = true;
             features = [ "all" ];
           }
@@ -8012,7 +8013,7 @@ composability, and iterator-like interfaces.
           }
         ];
         features = {
-          "client" = [ "hyper/client" "dep:tracing" "dep:futures-channel" "dep:tower-service" ];
+          "client" = [ "hyper/client" "tokio/net" "dep:tracing" "dep:futures-channel" "dep:tower-service" ];
           "client-legacy" = [ "client" "dep:socket2" "tokio/sync" "dep:libc" "dep:futures-util" ];
           "client-proxy" = [ "client" "dep:base64" "dep:ipnet" "dep:percent-encoding" ];
           "client-proxy-system" = [ "dep:system-configuration" "dep:windows-registry" ];
@@ -8023,7 +8024,7 @@ composability, and iterator-like interfaces.
           "server-auto" = [ "server" "http1" "http2" ];
           "server-graceful" = [ "server" "tokio/sync" ];
           "service" = [ "dep:tower-service" ];
-          "tokio" = [ "dep:tokio" "tokio/net" "tokio/rt" "tokio/time" ];
+          "tokio" = [ "dep:tokio" "tokio/rt" "tokio/time" ];
           "tracing" = [ "dep:tracing" ];
         };
         resolvedDefaultFeatures = [ "client" "client-legacy" "client-proxy" "client-proxy-system" "default" "http1" "http2" "server" "server-auto" "service" "tokio" ];
@@ -8657,10 +8658,10 @@ composability, and iterator-like interfaces.
       };
       "io-uring" = rec {
         crateName = "io-uring";
-        version = "0.7.8";
+        version = "0.7.9";
         edition = "2021";
         description = "The low-level `io_uring` userspace interface for Rust";
-        sha256 = "04whnj5a4pml44jhsmmf4p87bpgr7swkcijx4yjcng8900pj0vmq";
+        sha256 = "1i60fxfbxypfgfmq883kwxgldxcjlnnwjazgjiys3893fvrqfdfr";
         libName = "io_uring";
         authors = [
           "quininer <quininer@live.com>"
@@ -9126,10 +9127,10 @@ and keccak-p variants
       };
       "libredox" = rec {
         crateName = "libredox";
-        version = "0.1.4";
+        version = "0.1.6";
         edition = "2021";
         description = "Redox stable ABI";
-        sha256 = "0f06ikfym363zrqy9llp4asgcbakz0aiq0ds0rkljdg52088100m";
+        sha256 = "1h43psqhnqciwlg1c8jwryvxxdyr4sqxh1mrmm4f9pi8jd5mk224";
         authors = [
           "4lDO2 <4lDO2@protonmail.com>"
         ];
@@ -12614,7 +12615,7 @@ equation coefficients
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
             usesDefaultFeatures = false;
             features = [ "alloc" ];
           }
@@ -12794,7 +12795,7 @@ equation coefficients
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.5.10";
             target = { target, features }: (!((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null)));
           }
           {
@@ -12879,7 +12880,7 @@ equation coefficients
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
           }
           {
             name = "ring";
@@ -12970,7 +12971,7 @@ equation coefficients
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.5.10";
             target = { target, features }: (!((builtins.elem "wasm" target."family") && ("unknown" == target."os" or null)));
           }
           {
@@ -13100,13 +13101,13 @@ equation coefficients
         };
         resolvedDefaultFeatures = [ "alloc" "default" "getrandom" "libc" "min_const_gen" "rand_chacha" "serde" "small_rng" "std" "std_rng" ];
       };
-      "rand 0.9.1" = rec {
+      "rand 0.9.2" = rec {
         crateName = "rand";
-        version = "0.9.1";
+        version = "0.9.2";
         edition = "2021";
         description = "Random number generators and other randomness functionality.
 ";
-        sha256 = "15yxfcxbgmwba5cv7mjg9bhc1r5c9483dfcdfspg62x4jk8dkgwz";
+        sha256 = "1lah73ainvrgl7brcxx0pwhpnqa3sm3qaj672034jz8i0q7pgckd";
         authors = [
           "The Rand Project Developers"
           "The Rust Project Developers"
@@ -13407,10 +13408,10 @@ equation coefficients
       };
       "redox_syscall" = rec {
         crateName = "redox_syscall";
-        version = "0.5.13";
+        version = "0.5.15";
         edition = "2021";
         description = "A Rust library to access raw Redox system calls";
-        sha256 = "1mlzna9bcd7ss1973bmysr3hpjrys82b3bd7l03h4jkbxv8bf10d";
+        sha256 = "1v28zzpfl6w2gpfbrl1vh64r8hqrjf3x8h57wq8n004lw3fz12ky";
         libName = "syscall";
         authors = [
           "Jeremy Soller <jackpot51@gmail.com>"
@@ -14256,7 +14257,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
             rename = "rand-09";
             optional = true;
             usesDefaultFeatures = false;
@@ -14291,7 +14292,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
             rename = "rand-09";
           }
         ];
@@ -14425,10 +14426,10 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
       };
       "rustix" = rec {
         crateName = "rustix";
-        version = "1.0.7";
+        version = "1.0.8";
         edition = "2021";
         description = "Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls";
-        sha256 = "0rhjh16bnxi86nrn9qwcnw5632mvd5m1vdy61s4n9zz7mzb867n7";
+        sha256 = "1j6ajqi61agdnh1avr4bplrsgydjw1n4mycdxw3v8g94pyx1y60i";
         authors = [
           "Dan Gohman <dev@sunfishcode.online>"
           "Jakub Konka <kubkon@jakubkonka.com>"
@@ -14490,7 +14491,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.59.0";
+            packageId = "windows-sys 0.60.2";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_Networking_WinSock" ];
           }
@@ -14509,7 +14510,6 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
         ];
         features = {
           "all-apis" = [ "event" "fs" "io_uring" "mm" "mount" "net" "param" "pipe" "process" "pty" "rand" "runtime" "shm" "stdio" "system" "termios" "thread" "time" ];
-          "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
           "default" = [ "std" ];
           "io_uring" = [ "event" "fs" "net" "thread" "linux-raw-sys/io_uring" ];
@@ -14522,7 +14522,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "process" = [ "linux-raw-sys/prctl" ];
           "pty" = [ "fs" ];
           "runtime" = [ "linux-raw-sys/prctl" ];
-          "rustc-dep-of-std" = [ "core" "rustc-std-workspace-alloc" "compiler_builtins" "linux-raw-sys/rustc-dep-of-std" "bitflags/rustc-dep-of-std" "compiler_builtins?/rustc-dep-of-std" ];
+          "rustc-dep-of-std" = [ "core" "rustc-std-workspace-alloc" "linux-raw-sys/rustc-dep-of-std" "bitflags/rustc-dep-of-std" ];
           "rustc-std-workspace-alloc" = [ "dep:rustc-std-workspace-alloc" ];
           "shm" = [ "fs" ];
           "std" = [ "bitflags/std" "alloc" "libc?/std" "libc_errno?/std" ];
@@ -14904,10 +14904,10 @@ shorthands for guards with one of the implemented strategies.
       };
       "sdd" = rec {
         crateName = "sdd";
-        version = "3.0.9";
+        version = "3.0.10";
         edition = "2021";
         description = "Scalable lock-free delayed memory reclaimer";
-        sha256 = "1d061ar78mncfh3vn1g8gk65lks91rmqb9vb4gymmpdx5dymbxb2";
+        sha256 = "1jj1brjjasx7r3lf6iyhhrpglx47vzr0z1qi1n0fcszjzv5wy3a9";
         authors = [
           "wvwwvwwv <wvwwvwwv@me.com>"
         ];
@@ -15206,10 +15206,10 @@ Elliptic-Curve-Point-to-Octet-String encoding
       };
       "serde_json" = rec {
         crateName = "serde_json";
-        version = "1.0.140";
+        version = "1.0.141";
         edition = "2021";
         description = "A JSON serialization file format";
-        sha256 = "0wwkp4vc20r87081ihj3vpyz5qf7wqkqipq17v99nv6wjrp8n1i0";
+        sha256 = "1lq39h6lmkib00r4xipg26npl22pmkcy2r7cqqb84wdy3vrfzf9h";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -15833,7 +15833,7 @@ the accelerated variant TurboSHAKE
         };
         resolvedDefaultFeatures = [ "bls381" ];
       };
-      "socket2" = rec {
+      "socket2 0.5.10" = rec {
         crateName = "socket2";
         version = "0.5.10";
         edition = "2021";
@@ -15854,6 +15854,35 @@ possible intended.
           {
             name = "windows-sys";
             packageId = "windows-sys 0.52.0";
+            target = { target, features }: (target."windows" or false);
+            features = [ "Win32_Foundation" "Win32_Networking_WinSock" "Win32_System_IO" "Win32_System_Threading" "Win32_System_WindowsProgramming" ];
+          }
+        ];
+        features = {
+        };
+        resolvedDefaultFeatures = [ "all" ];
+      };
+      "socket2 0.6.0" = rec {
+        crateName = "socket2";
+        version = "0.6.0";
+        edition = "2021";
+        description = "Utilities for handling networking sockets with a maximal amount of configuration
+possible intended.
+";
+        sha256 = "01qqdzfnr0bvdwq6wl56c9c4m2cvbxn43dfpcv8gjx208sph8d93";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+          "Thomas de Zeeuw <thomasdezeeuw@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            target = { target, features }: (target."unix" or false);
+          }
+          {
+            name = "windows-sys";
+            packageId = "windows-sys 0.59.0";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_Networking_WinSock" "Win32_System_IO" "Win32_System_Threading" "Win32_System_WindowsProgramming" ];
           }
@@ -17227,7 +17256,7 @@ possible intended.
         dependencies = [
           {
             name = "alloy-primitives";
-            packageId = "alloy-primitives 1.2.1";
+            packageId = "alloy-primitives 1.3.0";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "k256" "serde" ];
@@ -18559,7 +18588,7 @@ backed applications.
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.5.10";
             optional = true;
             target = { target, features }: (!(builtins.elem "wasm" target."family"));
             features = [ "all" ];
@@ -18584,7 +18613,7 @@ backed applications.
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.5.10";
             target = { target, features }: (!(builtins.elem "wasm" target."family"));
           }
           {
@@ -19079,7 +19108,7 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "socket2";
-            packageId = "socket2";
+            packageId = "socket2 0.5.10";
             optional = true;
             features = [ "all" ];
           }
@@ -19921,7 +19950,24 @@ clients and servers.
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
+          }
+          {
+            name = "rustls";
+            packageId = "rustls";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+          {
+            name = "rustls-native-certs";
+            packageId = "rustls-native-certs";
+            optional = true;
+          }
+          {
+            name = "rustls-pki-types";
+            packageId = "rustls-pki-types";
+            optional = true;
           }
           {
             name = "sha1";
@@ -19940,7 +19986,7 @@ clients and servers.
         devDependencies = [
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
           }
         ];
         features = {
@@ -19962,7 +20008,7 @@ clients and servers.
           "url" = [ "dep:url" ];
           "webpki-roots" = [ "dep:webpki-roots" ];
         };
-        resolvedDefaultFeatures = [ "data-encoding" "default" "handshake" "http" "httparse" "sha1" ];
+        resolvedDefaultFeatures = [ "__rustls-tls" "data-encoding" "default" "handshake" "http" "httparse" "rustls" "rustls-native-certs" "rustls-pki-types" "rustls-tls-native-roots" "sha1" ];
       };
       "twirp-rs" = rec {
         crateName = "twirp-rs";
@@ -20252,14 +20298,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.3.5";
+        version = "0.3.8";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "4fa2cb08f164e6ed710ff6f2987de00738debfe6";
-          ref = "refs/tags/v0.3.5";
+          rev = "8c4fe69a4e3df1ba2f03501657812050c51c02d9";
+          ref = "refs/tags/v0.3.8";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -20335,7 +20381,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "0.4.2";
+        version = "0.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -20465,7 +20511,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "0.4.2";
+        version = "0.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -20507,7 +20553,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "0.4.2";
+        version = "0.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -20632,15 +20678,15 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.3.5";
+        version = "0.3.8";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "4fa2cb08f164e6ed710ff6f2987de00738debfe6";
-          ref = "refs/tags/v0.3.5";
+          rev = "8c4fe69a4e3df1ba2f03501657812050c51c02d9";
+          ref = "refs/tags/v0.3.8";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -20681,7 +20727,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "rand";
-            packageId = "rand 0.9.1";
+            packageId = "rand 0.9.2";
           }
           {
             name = "serde";
@@ -20711,6 +20757,7 @@ Unicode Standard Annex #31.
           {
             name = "tungstenite";
             packageId = "tungstenite";
+            features = [ "rustls-tls-native-roots" ];
           }
           {
             name = "valence-coprocessor";
@@ -20727,14 +20774,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.3.5";
+        version = "0.3.8";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "4fa2cb08f164e6ed710ff6f2987de00738debfe6";
-          ref = "refs/tags/v0.3.5";
+          rev = "8c4fe69a4e3df1ba2f03501657812050c51c02d9";
+          ref = "refs/tags/v0.3.8";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -20827,14 +20874,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.3.5";
+        version = "0.3.8";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "4fa2cb08f164e6ed710ff6f2987de00738debfe6";
-          ref = "refs/tags/v0.3.5";
+          rev = "8c4fe69a4e3df1ba2f03501657812050c51c02d9";
+          ref = "refs/tags/v0.3.8";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
@@ -21814,10 +21861,10 @@ dependency.
       };
       "webpki-roots" = rec {
         crateName = "webpki-roots";
-        version = "1.0.1";
+        version = "1.0.2";
         edition = "2021";
         description = "Mozilla's CA root certificates for use with webpki";
-        sha256 = "00mm4bhkvis59pm2a7yz3ak6q8rykcj0ddj09wxfskm285ddv0l7";
+        sha256 = "1ck1wa1prinrvz3q34c3xp4cpa2f3i4x5npwgj0gpmikmg1q72by";
         libName = "webpki_roots";
         dependencies = [
           {
@@ -23856,7 +23903,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_System" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
       };
       "windows-targets 0.48.5" = rec {
         crateName = "windows-targets";
