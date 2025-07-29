@@ -1,9 +1,18 @@
-use std::{env, fs, path::PathBuf};
+use std::{env, fs, path::PathBuf, process::Command};
 
 use sp1_sdk::{HashableKey as _, Prover as _, ProverClient};
 use zerocopy::IntoBytes as _;
 
 fn main() {
+    if !Command::new("cargo")
+        .args(["prove", "--version"])
+        .status()
+        .map(|s| s.success())
+        .unwrap_or(false)
+    {
+        return ();
+    }
+
     sp1_build::build_program("../circuit");
 
     let manifest = env::var("CARGO_MANIFEST_DIR").unwrap();
