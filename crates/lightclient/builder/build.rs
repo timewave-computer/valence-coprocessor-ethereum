@@ -10,7 +10,7 @@ fn main() {
         .map(|s| s.success())
         .unwrap_or(false)
     {
-        return ();
+        return;
     }
 
     sp1_build::build_program("../circuit");
