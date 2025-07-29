@@ -1,34 +1,20 @@
-use std::net::SocketAddr;
+use std::time::Duration;
 
 use clap::Parser;
-use poem::{listener::TcpListener, EndpointExt as _, Route};
-use poem_openapi::OpenApiService;
-use sp1_sdk::SP1VerifyingKey;
 use tracing_subscriber::{fmt, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter};
-
-use crate::{
-    api::{Api, Config, ProvingData, State},
-    provider::Provider,
-};
-
-mod api;
-mod provider;
-
-const ELF: &[u8] = include_bytes!("../../elf/valence-coprocessor-ethereum-service-circuit");
-const VK: &[u8] = include_bytes!("../../elf/valence-coprocessor-ethereum-service-vk");
+use valence_coprocessor::DomainData;
+use valence_coprocessor_client::Client as Coprocessor;
+use valence_coprocessor_ethereum_lightclient::ServiceState;
+use valence_coprocessor_prover::client::Client as Prover;
 
 #[derive(Parser)]
 struct Cli {
-    /// Bind to the provided socket
-    #[arg(short, long, value_name = "SOCKET", default_value = "0.0.0.0:37283")]
-    bind: SocketAddr,
-
     /// Socket to the Prover service backend.
     #[arg(
         short,
         long,
         value_name = "PROVER",
-        default_value = "wss://prover.coprocessor.valence.zone"
+        default_value = "ws://prover.timewave.computer:37282"
     )]
     prover: String,
 
@@ -44,15 +30,14 @@ struct Cli {
     #[arg(long, value_name = "CHAIN", default_value = "eth-mainnet")]
     chain: String,
 
-    /// Proof interval.
-    #[arg(short, long, value_name = "INTERVAL", default_value = "300000")]
+    /// Proof interval (ms).
+    #[arg(short, long, value_name = "INTERVAL", default_value = "60000")]
     interval: u64,
 }
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let Cli {
-        bind,
         prover,
         coprocessor,
         chain,
@@ -69,30 +54,120 @@ async fn main() -> anyhow::Result<()> {
 
     tracing::info!("Loading state data...");
 
-    let vk: SP1VerifyingKey = postcard::from_bytes(VK)?;
-    let proving = ProvingData::new(vk, ELF);
-    let config = Config::new(prover, coprocessor, chain, interval);
-    let state = State::default();
+    let id = DomainData::identifier_from_parts(&chain);
+    let id = hex::encode(id);
+    let interval = Duration::from_millis(interval);
 
-    tracing::info!("State loaded...");
+    tracing::info!("Controller set to `{id}`...");
 
-    Provider::new(config.clone(), proving.clone(), state.clone()).run()?;
+    let coprocessor = Coprocessor::default().with_coprocessor(coprocessor);
+    let prover = Prover::new(prover);
 
-    tracing::info!("Block provider ready...");
+    tracing::info!("Clients loaded...");
 
-    let api_service = OpenApiService::new(Api, env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"))
-        .server(format!("{}/api", &bind));
-    let ui = api_service.swagger_ui();
-    let app = Route::new()
-        .nest("/", ui)
-        .nest("/api", api_service)
-        .data(proving)
-        .data(config)
-        .data(state);
+    loop {
+        let service = match coprocessor.get_storage_file(&id, ServiceState::PATH).await {
+            Ok(s) => {
+                tracing::debug!("Loading service state...");
 
-    tracing::info!("API loaded, listening on `{}`...", &bind);
+                ServiceState::try_from_slice(&s)
+            }
+            Err(e) => {
+                tracing::warn!("Service state not available: {e}");
+                tracing::info!("Initializing service state...");
 
-    poem::Server::new(TcpListener::bind(&bind)).run(app).await?;
+                ServiceState::genesis(&prover)
+            }
+        };
 
-    Ok(())
+        let mut service = match service {
+            Ok(s) => s,
+            Err(e) => {
+                tracing::warn!("Service state corrupted: {e}");
+                tracing::warn!("Forcing state initialization...");
+
+                ServiceState::genesis(&prover)?
+            }
+        };
+
+        tracing::debug!("Service state loaded...");
+
+        let state = match service.to_state() {
+            Ok(s) => s,
+            Err(e) => {
+                tracing::error!("Inner state corrupted: {e}");
+                tracing::warn!("Forcing state initialization...");
+
+                service = ServiceState::genesis(&prover)?;
+                service.to_state()?
+            }
+        };
+
+        tracing::debug!("Loaded inner state...");
+
+        let input = match state.fetch_input().await {
+            Some(i) => i,
+            None => {
+                tracing::warn!("No state input available...");
+                tokio::time::sleep(interval).await;
+                continue;
+            }
+        };
+
+        tracing::debug!("Loaded input...");
+
+        let proof = match service.prove(&prover, input) {
+            Ok(p) => p,
+            Err(e) => {
+                tracing::error!("Error computing service proof: {e}");
+                tokio::time::sleep(interval).await;
+                continue;
+            }
+        };
+
+        tracing::debug!("Proof computed...");
+
+        match proof.to_validated_block() {
+            Ok(a) => tracing::info!(
+                "Submitting block number {}, root {}",
+                a.number,
+                hex::encode(a.root)
+            ),
+            Err(e) => {
+                tracing::error!("invalid wrapper proof: {e}");
+                tokio::time::sleep(interval).await;
+                continue;
+            }
+        };
+
+        tracing::debug!("Proof parsed...");
+
+        let service = service.encode();
+        let proof = proof.encode();
+        let args = serde_json::json!({
+            "service": service,
+            "proof": proof,
+        });
+
+        tracing::debug!(
+            "Publishing block `{}`...",
+            serde_json::to_string(&args).unwrap_or_default()
+        );
+
+        match coprocessor.add_domain_block(&chain, &args).await {
+            Ok(b) => {
+                tracing::info!(
+                    "Block `{}`, root `{}` confirmed.",
+                    b.number,
+                    hex::encode(b.root)
+                );
+            }
+
+            Err(e) => {
+                tracing::error!("Error publishing block: {e}");
+            }
+        }
+
+        tokio::time::sleep(interval).await;
+    }
 }

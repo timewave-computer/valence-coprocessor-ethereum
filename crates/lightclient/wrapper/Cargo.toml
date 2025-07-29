@@ -1,9 +1,10 @@
 [package]
 version = "0.1.0"
-name = "valence-coprocessor-ethereum-service-circuit"
+name = "valence-coprocessor-ethereum-service-circuit-wrapper"
 edition = "2021"
 
 [dependencies]
+msgpacker.workspace = true
 serde_cbor.workspace = true
 sp1-zkvm.workspace = true
 valence-coprocessor.workspace = true

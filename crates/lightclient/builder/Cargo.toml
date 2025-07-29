@@ -1,0 +1,13 @@
+[package]
+name = "valence-coprocessor-ethereum-lightclient-builder"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "The Valence co-processor domain definition."
+
+[dependencies]
+
+[build-dependencies]
+sp1-build.workspace = true
+sp1-sdk.workspace = true
+zerocopy.workspace = true

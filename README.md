@@ -2,6 +2,19 @@
 
 A Ethereum domain utility for the Valence co-processor.
 
+## Environment
+
+- `VALENCE_PROVER_SERVICE`: the prover service token
+- `ANKR_API_KEY`: An Ankr API key with premium support for Ethereum beacon.
+
+## Executing
+
+The lightclient is a stateless service that can be executed via:
+
+```shell
+cargo run -p valence-coprocessor-ethereum-service --release
+```
+
 ## Controller witness generation
 
 ```rust,ignore
@@ -84,4 +97,14 @@ pub fn verify_proof(proof: &StateProof) -> anyhow::Result<Vec<EthereumStoragePro
 
     Ok(storage)
 }
+```
+
+# Contributing
+
+## Rebuilding the circuits
+
+After modifying any of the circuits, we need to update the ELF files:
+
+```shell
+cargo build -p valence-coprocessor-ethereum-lightclient-builder
 ```

@@ -10,7 +10,11 @@ anyhow.workspace = true
 msgpacker.workspace = true
 serde_json.workspace = true
 valence-coprocessor.workspace = true
+valence-coprocessor-wasm.workspace = true
 
+valence-coprocessor-ethereum-lightclient = { path = "../lightclient/lib", default-features = false, features = [
+  "verifier",
+] }
 valence-coprocessor-ethereum = { path = "../core", default-features = false, features = [
   "controller",
 ] }

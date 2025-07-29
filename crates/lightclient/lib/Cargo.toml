@@ -1,0 +1,39 @@
+[package]
+name = "valence-coprocessor-ethereum-lightclient"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "The Valence co-processor domain definition."
+
+[dependencies]
+alloy-primitives.workspace = true
+anyhow.workspace = true
+helios-consensus-core.workspace = true
+msgpacker.workspace = true
+serde.workspace = true
+serde_cbor.workspace = true
+serde_json.workspace = true
+sha2-v0-10-8.workspace = true
+valence-coprocessor.workspace = true
+zerocopy.workspace = true
+
+helios-ethereum = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+reqwest = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+tree_hash = { workspace = true, optional = true }
+
+valence-coprocessor-prover = { workspace = true, optional = true }
+
+sp1-sdk = { workspace = true, optional = true }
+sp1-verifier = { workspace = true, optional = true }
+
+[dev-dependencies]
+sp1-sdk.workspace = true
+
+[features]
+default = ["integrator", "prover", "verifier"]
+integrator = ["helios-ethereum", "hex", "reqwest", "std", "tokio", "tree_hash"]
+prover = ["sp1-sdk", "valence-coprocessor-prover"]
+std = []
+verifier = ["sp1-sdk", "sp1-verifier"]
