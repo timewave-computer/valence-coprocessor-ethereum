@@ -26,9 +26,9 @@ struct Cli {
     )]
     coprocessor: String,
 
-    /// Block provider chain.
-    #[arg(long, value_name = "CHAIN", default_value = "eth-mainnet")]
-    chain: String,
+    /// Co-processor domain name.
+    #[arg(long, value_name = "CHAIN", default_value = "ethereum-electra-alpha")]
+    domain: String,
 
     /// Proof interval (ms).
     #[arg(short, long, value_name = "INTERVAL", default_value = "60000")]
@@ -40,7 +40,7 @@ async fn main() -> anyhow::Result<()> {
     let Cli {
         prover,
         coprocessor,
-        chain,
+        domain,
         interval,
     } = Cli::parse();
 
@@ -54,7 +54,7 @@ async fn main() -> anyhow::Result<()> {
 
     tracing::info!("Loading state data...");
 
-    let id = DomainData::identifier_from_parts(&chain);
+    let id = DomainData::identifier_from_parts(&domain);
     let id = hex::encode(id);
     let interval = Duration::from_millis(interval);
 
@@ -154,7 +154,7 @@ async fn main() -> anyhow::Result<()> {
             serde_json::to_string(&args).unwrap_or_default()
         );
 
-        match coprocessor.add_domain_block(&chain, &args).await {
+        match coprocessor.add_domain_block(&domain, &args).await {
             Ok(b) => {
                 tracing::info!(
                     "Block `{}`, root `{}` confirmed.",
