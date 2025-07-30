@@ -54,20 +54,23 @@
             rust = pkgs.rust-bin.nightly.latest.default;
             cargo = pkgs.rust-bin.nightly.latest.default;
           };
-          crateOverrides = inputs'.sp1-nix.tools.crateOverrides // {
-            valence-coprocessor-ethereum-service = attrs:
-              let
-                src = lib.cleanSourceWith {
-                  filter = config.crate2nix.cargoNix.internal.sourceFilter;
-                  src = ./.;
-                };
-              in
-              {
+          crateOverrides =
+            let
+              src = lib.cleanSourceWith {
+                filter = config.crate2nix.cargoNix.internal.sourceFilter;
+                src = ./.;
+              };
+            in inputs'.sp1-nix.tools.crateOverrides // {
+              valence-coprocessor-ethereum-service = attrs: {
                 inherit src;
                 sourceRoot = "${src.name}/crates/lightclient/service";
                 meta.mainProgram = attrs.crateName;
               };
-          };
+              valence-coprocessor-ethereum-lightclient = attrs: {
+                inherit src;
+                sourceRoot = "${src.name}/crates/lightclient/lib";
+              };
+            };
         };
 
         packages = {
