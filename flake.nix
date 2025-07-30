@@ -74,6 +74,10 @@
           service = config.crate2nix.packages.valence-coprocessor-ethereum-service;
         };
 
+        checks = {
+          service = config.crate2nix.checks.valence-coprocessor-ethereum-service;
+        };
+
         devshells.default = {
           packages = with pkgs; [
             curl
