@@ -20,7 +20,7 @@ default-members = [
 authors = ["Timewave Labs"]
 edition = "2021"
 license = "Apache-2.0"
-version = "1.0.0"
+version = "1.1.0"
 
 [workspace.dependencies]
 alloy-primitives = { version = "0.8.15", default-features = false }
@@ -67,20 +67,20 @@ serde_json = { version = "1.0.140", default-features = false, features = [
 sha2-v0-10-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", tag = "patch-sha2-0.10.8-sp1-4.0.0", default-features = false, features = [
   "oid",
 ] }
-sp1-build = "5.0.8"
-sp1-sdk = "5.0.8"
-sp1-verifier = { version = "5.0.8", default-features = false }
-sp1-zkvm = { version = "5.0.8", features = ["verify"] }
+sp1-build = "=5.0.8"
+sp1-sdk = "=5.0.8"
+sp1-verifier = { version = "=5.0.8", default-features = false }
+sp1-zkvm = { version = "=5.0.8", features = ["verify"] }
 tokio = { version = "1.44.2", features = ["full"] }
 tracing = { version = "0.1.41", default-features = false }
 tracing-subscriber = { version = "0.3.19", default-features = true, features = [
   "env-filter",
 ] }
 tree_hash = "0.9.0"
-valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.12", default-features = false }
-valence-coprocessor-client = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.12", default-features = false }
-valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.12", default-features = false }
-valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.3.12", default-features = false }
+valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.0", default-features = false }
+valence-coprocessor-client = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.0", default-features = false }
+valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.0", default-features = false }
+valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.0", default-features = false }
 zerocopy = "0.8.26"
 
 [patch.crates-io]

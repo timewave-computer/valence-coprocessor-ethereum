@@ -12,7 +12,7 @@ impl DomainCircuit for Ethereum {
     type Output = EthereumProvenAccount;
 
     fn verify(proof: &StateProof) -> anyhow::Result<Self::Output> {
-        let root = proof.root;
+        let root = proof.state_root;
         let payload = proof.payload.clone();
         let proof = EthereumStateProof::unpack(&proof.proof)?.1;
 

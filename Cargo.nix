@@ -4994,7 +4994,6 @@ constant-time operation and embedded-friendly no_std support
           "traits-preview" = [ "dep:digest" ];
           "zeroize" = [ "dep:zeroize" "arrayvec/zeroize" ];
         };
-        resolvedDefaultFeatures = [ "std" ];
       };
       "block-buffer 0.10.4" = rec {
         crateName = "block-buffer";
@@ -5628,13 +5627,13 @@ constant-time operation and embedded-friendly no_std support
       };
       "cc" = rec {
         crateName = "cc";
-        version = "1.2.30";
+        version = "1.2.31";
         edition = "2018";
         description = "A build-time dependency for Cargo build scripts to assist in invoking the native
 C compiler to compile native C code into a static archive to be linked into Rust
 code.
 ";
-        sha256 = "1rqs46vb04ffqlpi6kjwfmvvvf64y6jkdn1faql30sfa0yb11v6y";
+        sha256 = "1ljzmb5djr6gnq9d06jyd4lik7hpizcg1b7anfld6sbbpf22v963";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -5836,11 +5835,11 @@ item that gets emitted.
       };
       "clap" = rec {
         crateName = "clap";
-        version = "4.5.41";
+        version = "4.5.42";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
         crateBin = [];
-        sha256 = "1ydd3a22bxkn2a7bajnw57cwjhawqciyhz2x3rqm8fi4h0pd74my";
+        sha256 = "10m8lrwagli325bs9q30hki3xjsrq75az6r86xsschdv63ask1zd";
         dependencies = [
           {
             name = "clap_builder";
@@ -5879,10 +5878,10 @@ item that gets emitted.
       };
       "clap_builder" = rec {
         crateName = "clap_builder";
-        version = "4.5.41";
+        version = "4.5.42";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
-        sha256 = "0g8w6da5y13kv93psl8c00c7f4q01753wmwx84wr2bv2x50snzkh";
+        sha256 = "0rmrg896szc23rsvpa4jyfnsax0rraickap9qzrsz53wqzrz7x34";
         dependencies = [
           {
             name = "anstream";
@@ -7579,10 +7578,10 @@ parameters, associated types, and type constraints.
       };
       "dyn-clone" = rec {
         crateName = "dyn-clone";
-        version = "1.0.19";
+        version = "1.0.20";
         edition = "2018";
         description = "Clone trait that is dyn-compatible";
-        sha256 = "01ahm5abl20480v48nxy4ffyx80cs6263q9zf0gnrxpvm6w8yyhw";
+        sha256 = "0m956cxcg8v2n8kmz6xs5zl13k2fak3zkapzfzzp7pxih6hix26h";
         libName = "dyn_clone";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -11293,7 +11292,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             usesDefaultFeatures = false;
           }
           {
@@ -11329,7 +11328,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             usesDefaultFeatures = false;
             features = [ "tls12" ];
           }
@@ -13410,7 +13409,7 @@ and keccak-p variants
           }
           {
             name = "windows-targets";
-            packageId = "windows-targets 0.53.2";
+            packageId = "windows-targets 0.53.3";
             target = { target, features }: (target."windows" or false);
           }
         ];
@@ -13433,10 +13432,10 @@ and keccak-p variants
       };
       "libredox" = rec {
         crateName = "libredox";
-        version = "0.1.6";
+        version = "0.1.9";
         edition = "2021";
         description = "Redox stable ABI";
-        sha256 = "1h43psqhnqciwlg1c8jwryvxxdyr4sqxh1mrmm4f9pi8jd5mk224";
+        sha256 = "1qqczzfqcc3sw3bl7la6qv7i9hy1s7sxhxmdvpxkfgdd3c9904ir";
         authors = [
           "4lDO2 <4lDO2@protonmail.com>"
         ];
@@ -13838,14 +13837,14 @@ and keccak-p variants
       };
       "msgpacker-derive" = rec {
         crateName = "msgpacker-derive";
-        version = "0.3.1";
+        version = "0.3.2";
         edition = "2021";
         description = "Derive macros for the MessagePack protocol implementation for Rust.";
-        sha256 = "0nkvymzhwq8vjxbj686dzm5gy74axrhsnrq628c615qdmjjyq9p9";
+        sha256 = "0gw5z4rjy8vnk06alr537a984h5g0c7rq5215rf9rwnllrvsnd63";
         procMacro = true;
         libName = "msgpacker_derive";
         authors = [
-          "Victor Lopez <victor@codx.io>"
+          "Victor Lopez <vhrlopes@gmail.com>"
         ];
         dependencies = [
           {
@@ -16865,7 +16864,7 @@ equation coefficients
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -16976,7 +16975,7 @@ equation coefficients
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -17485,10 +17484,10 @@ equation coefficients
       };
       "redox_syscall" = rec {
         crateName = "redox_syscall";
-        version = "0.5.15";
+        version = "0.5.17";
         edition = "2021";
         description = "A Rust library to access raw Redox system calls";
-        sha256 = "1v28zzpfl6w2gpfbrl1vh64r8hqrjf3x8h57wq8n004lw3fz12ky";
+        sha256 = "0xrvpchkaxph3r5ww2i04v9nwg3843fp3prf8kqlh1gv01b4c1sl";
         libName = "syscall";
         authors = [
           "Jeremy Soller <jackpot51@gmail.com>"
@@ -17885,7 +17884,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             optional = true;
             usesDefaultFeatures = false;
             target = { target, features }: (!("wasm32" == target."arch" or null));
@@ -18856,11 +18855,11 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
       };
       "rustc-demangle" = rec {
         crateName = "rustc-demangle";
-        version = "0.1.25";
+        version = "0.1.26";
         edition = "2015";
         description = "Rust compiler symbol demangling.
 ";
-        sha256 = "0kxq6m0drr40434ch32j31dkg00iaf4zxmqg7sqxajhcz0wng7lq";
+        sha256 = "1kja3nb0yhlm4j2p1hl8d7sjmn2g9fa1s4pj0qma5kj2lcndkxsn";
         libName = "rustc_demangle";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -19100,12 +19099,12 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
         };
         resolvedDefaultFeatures = [ "log" "logging" "tls12" ];
       };
-      "rustls 0.23.29" = rec {
+      "rustls 0.23.31" = rec {
         crateName = "rustls";
-        version = "0.23.29";
+        version = "0.23.31";
         edition = "2021";
         description = "Rustls is a modern TLS library written in Rust.";
-        sha256 = "1lcvzvzqk8xx8jzg0x5v3mkqgwkwr7v6zdq8zw8rp6xj74h3i494";
+        sha256 = "1k5ncablbb2h7hzllq3j3panqnks295v56xd488zrq1xy39cpsy0";
         dependencies = [
           {
             name = "log";
@@ -20085,10 +20084,10 @@ a panic occurs.";
       };
       "serde_json" = rec {
         crateName = "serde_json";
-        version = "1.0.141";
+        version = "1.0.142";
         edition = "2021";
         description = "A JSON serialization file format";
-        sha256 = "1lq39h6lmkib00r4xipg26npl22pmkcy2r7cqqb84wdy3vrfzf9h";
+        sha256 = "19y5mz1npafnd6vlaiv41ns3pb0pv3q9nirdy3bcn3b0havys3q3";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -21629,10 +21628,10 @@ possible intended.
       };
       "sp1-derive" = rec {
         crateName = "sp1-derive";
-        version = "5.0.8";
+        version = "5.1.0";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "1yqfr6j0lb3wrbz018xc6cmygymxan0cjdmxiwyn7475h70hmkdq";
+        sha256 = "0d4bdk3pm6iy6y10bp0scwbjfsxmy8zddpp26mpchkac14wi9z2y";
         procMacro = true;
         libName = "sp1_derive";
         dependencies = [
@@ -21650,10 +21649,10 @@ possible intended.
       };
       "sp1-lib" = rec {
         crateName = "sp1-lib";
-        version = "5.0.8";
+        version = "5.1.0";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0k0j10g0gs2rxj746bhrinavzp1bkbfx4x3ylgdgrh21hwynxfvz";
+        sha256 = "1rb54pky8c724kjfw995qzhg266qi6aji3nqib0fz1g3l05sfh0b";
         libName = "sp1_lib";
         dependencies = [
           {
@@ -21684,10 +21683,10 @@ possible intended.
       };
       "sp1-primitives" = rec {
         crateName = "sp1-primitives";
-        version = "5.0.8";
+        version = "5.1.0";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0ppj91r96mapfcn8r9kny72x2nipxgavcqc8byc79kmc0fcbxlm4";
+        sha256 = "0pgkyn0qa5vk3rvag4p3wwznwz81119gyjgwy6l5y1my4ajda12m";
         libName = "sp1_primitives";
         dependencies = [
           {
@@ -22310,10 +22309,10 @@ possible intended.
       };
       "sp1-recursion-derive" = rec {
         crateName = "sp1-recursion-derive";
-        version = "5.0.8";
+        version = "5.1.0";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "1753m7c65zs25miaz6q9m1n0ji4x6q1riqmibwlb3dbpf73kpd5p";
+        sha256 = "0wl9am756k9jxz7p6mfz5sqscffah9qchi8zbzhplks1cv1ic83f";
         procMacro = true;
         libName = "sp1_recursion_derive";
         dependencies = [
@@ -22729,10 +22728,10 @@ possible intended.
       };
       "sp1-verifier" = rec {
         crateName = "sp1-verifier";
-        version = "5.1.0";
+        version = "5.0.8";
         edition = "2021";
         description = "Verifier for SP1 Groth16 and Plonk proofs.";
-        sha256 = "10jh1p5kp828l47h41xj866zs8lwvn55675v6gbkbdjaxdbj2cjz";
+        sha256 = "1qgvivgq2qnjx9ckk87a4acm9kwxqgzldv8k4wqan0vvml63zsk7";
         libName = "sp1_verifier";
         dependencies = [
           {
@@ -24034,12 +24033,12 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
       };
       "tokio" = rec {
         crateName = "tokio";
-        version = "1.46.1";
+        version = "1.47.1";
         edition = "2021";
         description = "An event-driven, non-blocking I/O platform for writing asynchronous I/O
 backed applications.
 ";
-        sha256 = "05sxldy7kcgysnxyzz1h1l8j3d9mjyqfh7r48ni27gmg9lsa5hqc";
+        sha256 = "0f2hp5v3payg6x04ijj67si1wsdhksskhmjs2k9p5f7bmpyrmr49";
         authors = [
           "Tokio Contributors <team@tokio.rs>"
         ];
@@ -24106,7 +24105,7 @@ backed applications.
           }
           {
             name = "socket2";
-            packageId = "socket2 0.5.10";
+            packageId = "socket2 0.6.0";
             optional = true;
             target = { target, features }: (!(builtins.elem "wasm" target."family"));
             features = [ "all" ];
@@ -24118,7 +24117,7 @@ backed applications.
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.52.0";
+            packageId = "windows-sys 0.59.0";
             optional = true;
             target = { target, features }: (target."windows" or false);
           }
@@ -24131,12 +24130,12 @@ backed applications.
           }
           {
             name = "socket2";
-            packageId = "socket2 0.5.10";
+            packageId = "socket2 0.6.0";
             target = { target, features }: (!(builtins.elem "wasm" target."family"));
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.52.0";
+            packageId = "windows-sys 0.59.0";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_Security_Authorization" ];
           }
@@ -24268,7 +24267,7 @@ for nonblocking I/O streams.
         dependencies = [
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -25575,7 +25574,7 @@ clients and servers.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.29";
+            packageId = "rustls 0.23.31";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -26055,14 +26054,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.3.12";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "5cb5b00e2494bfb54ac6ed49badcb54acbc6572e";
-          ref = "refs/tags/v0.3.12";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -26080,11 +26079,6 @@ Unicode Standard Annex #31.
             packageId = "base64 0.22.1";
             usesDefaultFeatures = false;
             features = [ "alloc" ];
-          }
-          {
-            name = "blake3";
-            packageId = "blake3";
-            usesDefaultFeatures = false;
           }
           {
             name = "buf-fs";
@@ -26124,6 +26118,14 @@ Unicode Standard Annex #31.
             usesDefaultFeatures = false;
           }
           {
+            name = "valence-coprocessor-merkle";
+            packageId = "valence-coprocessor-merkle";
+          }
+          {
+            name = "valence-coprocessor-types";
+            packageId = "valence-coprocessor-types";
+          }
+          {
             name = "zerocopy";
             packageId = "zerocopy";
             features = [ "alloc" "derive" ];
@@ -26132,20 +26134,20 @@ Unicode Standard Annex #31.
         features = {
           "default" = [ "std" ];
           "reqwest" = [ "dep:reqwest" ];
-          "std" = [ "base64/std" "blake3/std" "serde/std" "reqwest" ];
+          "std" = [ "base64/std" "serde/std" "reqwest" ];
         };
         resolvedDefaultFeatures = [ "default" "reqwest" "std" ];
       };
       "valence-coprocessor-client" = rec {
         crateName = "valence-coprocessor-client";
-        version = "0.3.12";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor client";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "5cb5b00e2494bfb54ac6ed49badcb54acbc6572e";
-          ref = "refs/tags/v0.3.12";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
           submodules = true;
         };
         libName = "valence_coprocessor_client";
@@ -26161,6 +26163,8 @@ Unicode Standard Annex #31.
           {
             name = "hex";
             packageId = "hex";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
           }
           {
             name = "reqwest";
@@ -26203,7 +26207,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.0.0";
+        version = "1.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26333,7 +26337,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.0.0";
+        version = "1.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26386,7 +26390,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.0.0";
+        version = "1.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26512,13 +26516,13 @@ Unicode Standard Annex #31.
           "tokio" = [ "dep:tokio" ];
           "tree_hash" = [ "dep:tree_hash" ];
           "valence-coprocessor-prover" = [ "dep:valence-coprocessor-prover" ];
-          "verifier" = [ "sp1-sdk" "sp1-verifier" ];
+          "verifier" = [ "sp1-verifier" ];
         };
         resolvedDefaultFeatures = [ "default" "helios-ethereum" "hex" "integrator" "prover" "reqwest" "sp1-sdk" "sp1-verifier" "std" "tokio" "tree_hash" "valence-coprocessor-prover" "verifier" ];
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.0.0";
+        version = "1.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/builder; };
@@ -26544,7 +26548,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.0.0";
+        version = "1.1.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26705,17 +26709,69 @@ Unicode Standard Annex #31.
         ];
 
       };
+      "valence-coprocessor-merkle" = rec {
+        crateName = "valence-coprocessor-merkle";
+        version = "0.4.0";
+        edition = "2021";
+        description = "The Valence co-processor Merkle primitives";
+        workspace_member = null;
+        src = builtins.fetchGit {
+          url = "https://github.com/timewave-computer/valence-coprocessor.git";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
+          submodules = true;
+        };
+        libName = "valence_coprocessor_merkle";
+        authors = [
+          "Timewave Labs"
+        ];
+        dependencies = [
+          {
+            name = "anyhow";
+            packageId = "anyhow";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "hex";
+            packageId = "hex";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "msgpacker";
+            packageId = "msgpacker";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "derive" ];
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "derive" ];
+          }
+          {
+            name = "valence-coprocessor-types";
+            packageId = "valence-coprocessor-types";
+          }
+          {
+            name = "zerocopy";
+            packageId = "zerocopy";
+            features = [ "alloc" "derive" ];
+          }
+        ];
+
+      };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.3.12";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "5cb5b00e2494bfb54ac6ed49badcb54acbc6572e";
-          ref = "refs/tags/v0.3.12";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -26744,6 +26800,8 @@ Unicode Standard Annex #31.
           {
             name = "hex";
             packageId = "hex";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
           }
           {
             name = "lru";
@@ -26815,14 +26873,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.3.12";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "5cb5b00e2494bfb54ac6ed49badcb54acbc6572e";
-          ref = "refs/tags/v0.3.12";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -26913,16 +26971,79 @@ Unicode Standard Annex #31.
         };
         resolvedDefaultFeatures = [ "anyhow" "bincode" "default" "host" "lru" "sp1-sdk" "std" ];
       };
+      "valence-coprocessor-types" = rec {
+        crateName = "valence-coprocessor-types";
+        version = "0.4.0";
+        edition = "2021";
+        description = "The Valence co-processor types definition";
+        workspace_member = null;
+        src = builtins.fetchGit {
+          url = "https://github.com/timewave-computer/valence-coprocessor.git";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
+          submodules = true;
+        };
+        libName = "valence_coprocessor_types";
+        authors = [
+          "Timewave Labs"
+        ];
+        dependencies = [
+          {
+            name = "anyhow";
+            packageId = "anyhow";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "base64";
+            packageId = "base64 0.22.1";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "blake3";
+            packageId = "blake3";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "msgpacker";
+            packageId = "msgpacker";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "derive" ];
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "derive" ];
+          }
+          {
+            name = "tracing";
+            packageId = "tracing";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "zerocopy";
+            packageId = "zerocopy";
+            features = [ "alloc" "derive" ];
+          }
+        ];
+        features = {
+          "blake3" = [ "dep:blake3" ];
+          "default" = [ "blake3" ];
+        };
+        resolvedDefaultFeatures = [ "blake3" "default" ];
+      };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.3.12";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "5cb5b00e2494bfb54ac6ed49badcb54acbc6572e";
-          ref = "refs/tags/v0.3.12";
+          rev = "b5f149ad196a261be95d56de8e256980c17ebf9e";
+          ref = "refs/tags/v0.4.0";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
@@ -29552,7 +29673,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Security" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_Console" "Win32_System_IO" "Win32_System_Pipes" "Win32_System_SystemServices" "Win32_System_Threading" "Win32_System_WindowsProgramming" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_IO" "Win32_System_Threading" "Win32_System_WindowsProgramming" "default" ];
       };
       "windows-sys 0.59.0" = rec {
         crateName = "windows-sys";
@@ -29812,7 +29933,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Wdk" "Wdk_Foundation" "Wdk_Storage" "Wdk_Storage_FileSystem" "Wdk_System" "Wdk_System_IO" "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Security" "Win32_Security_Authentication" "Win32_Security_Authentication_Identity" "Win32_Security_Credentials" "Win32_Security_Cryptography" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_Console" "Win32_System_IO" "Win32_System_LibraryLoader" "Win32_System_Memory" "Win32_System_Pipes" "Win32_System_SystemInformation" "Win32_System_Threading" "Win32_System_WindowsProgramming" "Win32_UI" "Win32_UI_Input" "Win32_UI_Input_KeyboardAndMouse" "default" ];
+        resolvedDefaultFeatures = [ "Wdk" "Wdk_Foundation" "Wdk_Storage" "Wdk_Storage_FileSystem" "Wdk_System" "Wdk_System_IO" "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Security" "Win32_Security_Authentication" "Win32_Security_Authentication_Identity" "Win32_Security_Credentials" "Win32_Security_Cryptography" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_Console" "Win32_System_IO" "Win32_System_LibraryLoader" "Win32_System_Memory" "Win32_System_Pipes" "Win32_System_SystemInformation" "Win32_System_SystemServices" "Win32_System_Threading" "Win32_System_WindowsProgramming" "Win32_UI" "Win32_UI_Input" "Win32_UI_Input_KeyboardAndMouse" "default" ];
       };
       "windows-sys 0.60.2" = rec {
         crateName = "windows-sys";
@@ -29827,7 +29948,7 @@ dependency.
         dependencies = [
           {
             name = "windows-targets";
-            packageId = "windows-targets 0.53.2";
+            packageId = "windows-targets 0.53.3";
             usesDefaultFeatures = false;
           }
         ];
@@ -30183,17 +30304,23 @@ dependency.
         ];
 
       };
-      "windows-targets 0.53.2" = rec {
+      "windows-targets 0.53.3" = rec {
         crateName = "windows-targets";
-        version = "0.53.2";
+        version = "0.53.3";
         edition = "2021";
         description = "Import libs for Windows";
-        sha256 = "1vwanhx2br7dh8mmrszdbcf01bccjr01mcyxcscxl4ffr7y6jvy6";
+        sha256 = "14fwwm136dhs3i1impqrrip7nvkra3bdxa4nqkblj604qhqn1znm";
         libName = "windows_targets";
         authors = [
           "Microsoft"
         ];
         dependencies = [
+          {
+            name = "windows-link";
+            packageId = "windows-link";
+            usesDefaultFeatures = false;
+            target = { target, features }: (target."windows_raw_dylib" or false);
+          }
           {
             name = "windows_aarch64_gnullvm";
             packageId = "windows_aarch64_gnullvm 0.53.0";

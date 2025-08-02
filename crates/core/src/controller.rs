@@ -4,7 +4,7 @@ use alloy_rpc_types_eth::EIP1186AccountProofResponse;
 use alloy_serde::JsonStorageKey;
 use msgpacker::Packable as _;
 use serde_json::{json, Value};
-use valence_coprocessor::{DomainController, Hash, StateProof, ValidatedDomainBlock};
+use valence_coprocessor::{DomainController, DomainData, Hash, StateProof, ValidatedDomainBlock};
 use valence_coprocessor_wasm::abi;
 
 use crate::{
@@ -40,6 +40,7 @@ impl Ethereum {
             storage,
             payload,
             root,
+            block,
             ..
         } = args;
 
@@ -71,11 +72,15 @@ impl Ethereum {
         }
         .pack_to_vec();
 
+        let domain = DomainData::identifier_from_parts(Self::ID);
+        let state_root = root;
+
         Ok(StateProof {
-            domain: Self::ID.into(),
-            root,
+            domain,
+            state_root,
             payload,
             proof,
+            number: block,
         })
     }
 }
