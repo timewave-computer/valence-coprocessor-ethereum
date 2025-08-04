@@ -20793,10 +20793,10 @@ the accelerated variant TurboSHAKE
       };
       "signal-hook-registry" = rec {
         crateName = "signal-hook-registry";
-        version = "1.4.5";
+        version = "1.4.6";
         edition = "2015";
         description = "Backend crate for signal-hook";
-        sha256 = "042lkqrpnlrgvrrcirgigxyp1zk70d8v0fsr5w7a18k3bw2vh0wj";
+        sha256 = "12y2v1ms5z111fymaw1v8k93m5chnkp21h0jknrydkj8zydp395j";
         libName = "signal_hook_registry";
         authors = [
           "Michal 'vorner' Vaner <vorner@vorner.cz>"
@@ -21628,10 +21628,10 @@ possible intended.
       };
       "sp1-derive" = rec {
         crateName = "sp1-derive";
-        version = "5.1.0";
+        version = "5.1.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0d4bdk3pm6iy6y10bp0scwbjfsxmy8zddpp26mpchkac14wi9z2y";
+        sha256 = "0blfzjjd8m6rh7lw70cbirsmy68rq7wmqf20yas1i3a1c6pvgg3w";
         procMacro = true;
         libName = "sp1_derive";
         dependencies = [
@@ -21649,10 +21649,10 @@ possible intended.
       };
       "sp1-lib" = rec {
         crateName = "sp1-lib";
-        version = "5.1.0";
+        version = "5.1.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "1rb54pky8c724kjfw995qzhg266qi6aji3nqib0fz1g3l05sfh0b";
+        sha256 = "0hp0d6wgh2bxxijf9qkhkqdp04alr554rxgpwfg1v9q4mbwmp87b";
         libName = "sp1_lib";
         dependencies = [
           {
@@ -21683,10 +21683,10 @@ possible intended.
       };
       "sp1-primitives" = rec {
         crateName = "sp1-primitives";
-        version = "5.1.0";
+        version = "5.1.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0pgkyn0qa5vk3rvag4p3wwznwz81119gyjgwy6l5y1my4ajda12m";
+        sha256 = "0k2gpx45wd94b7yg79zp849fdywyvpz4vhwymbbafgfhhpmyndvn";
         libName = "sp1_primitives";
         dependencies = [
           {
@@ -22309,10 +22309,10 @@ possible intended.
       };
       "sp1-recursion-derive" = rec {
         crateName = "sp1-recursion-derive";
-        version = "5.1.0";
+        version = "5.1.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0wl9am756k9jxz7p6mfz5sqscffah9qchi8zbzhplks1cv1ic83f";
+        sha256 = "1arsnkn7mzpqgk1z1gz1nfrq35d17yh7mjh7cgg7hxz4j9kgp3fq";
         procMacro = true;
         libName = "sp1_recursion_derive";
         dependencies = [
@@ -24347,11 +24347,11 @@ for nonblocking I/O streams.
       };
       "tokio-util" = rec {
         crateName = "tokio-util";
-        version = "0.7.15";
+        version = "0.7.16";
         edition = "2021";
         description = "Additional utilities for working with Tokio.
 ";
-        sha256 = "1pypd9lm1fdnpw0779pqvc16qqrxjy63dgfm20ajhpbdmnlkk9b6";
+        sha256 = "1r9wdrg1k5hna3m0kc8kcb8jdb6n52g7vnw93kw2xxw4cyc7qc0l";
         libName = "tokio_util";
         authors = [
           "Tokio Contributors <team@tokio.rs>"
@@ -24394,13 +24394,14 @@ for nonblocking I/O streams.
         features = {
           "__docs_rs" = [ "futures-util" ];
           "compat" = [ "futures-io" ];
-          "full" = [ "codec" "compat" "io-util" "time" "net" "rt" ];
+          "full" = [ "codec" "compat" "io-util" "time" "net" "rt" "join-map" ];
           "futures-io" = [ "dep:futures-io" ];
           "futures-util" = [ "dep:futures-util" ];
           "hashbrown" = [ "dep:hashbrown" ];
           "io-util" = [ "io" "tokio/rt" "tokio/io-util" ];
+          "join-map" = [ "rt" "hashbrown" ];
           "net" = [ "tokio/net" ];
-          "rt" = [ "tokio/rt" "tokio/sync" "futures-util" "hashbrown" ];
+          "rt" = [ "tokio/rt" "tokio/sync" "futures-util" ];
           "slab" = [ "dep:slab" ];
           "time" = [ "tokio/time" "slab" ];
           "tracing" = [ "dep:tracing" ];
@@ -26054,7 +26055,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.0";
+        version = "0.4.1";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
@@ -26711,7 +26712,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.0";
+        version = "0.4.1";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
@@ -26873,7 +26874,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.0";
+        version = "0.4.1";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
@@ -26973,7 +26974,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.0";
+        version = "0.4.1";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;

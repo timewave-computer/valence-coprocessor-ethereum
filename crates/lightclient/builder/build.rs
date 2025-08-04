@@ -1,19 +1,14 @@
-use std::{env, fs, path::PathBuf, process::Command};
+use std::{env, fs, path::PathBuf};
 
 use sp1_sdk::{HashableKey as _, Prover as _, ProverClient};
 use zerocopy::IntoBytes as _;
 
 fn main() {
-    if !Command::new("cargo")
-        .args(["prove", "--version"])
-        .status()
-        .map(|s| s.success())
-        .unwrap_or(false)
-    {
+    println!("cargo:rerun-if-env-changed=VALENCE_REBUILD");
+
+    if env::var("VALENCE_REBUILD").is_err() {
         return;
     }
-
-    sp1_build::build_program("../circuit");
 
     let manifest = env::var("CARGO_MANIFEST_DIR").unwrap();
     let manifest = PathBuf::from(manifest).parent().unwrap().to_path_buf();
@@ -28,6 +23,8 @@ fn main() {
         .join("elf-compilation")
         .join("riscv32im-succinct-zkvm-elf")
         .join("release");
+
+    sp1_build::build_program("../circuit");
 
     let inner = release.join("valence-coprocessor-ethereum-service-circuit");
 
@@ -47,5 +44,9 @@ fn main() {
 
     let wrapper_elf = fs::read(&wrapper).unwrap();
 
+    let (_, wrapper_vk) = prover.setup(&wrapper_elf);
+    let wrapper_vk = wrapper_vk.vk.hash_u32();
+
     fs::write(out.join("wrapper.bin"), wrapper_elf).unwrap();
+    fs::write(out.join("wrapper-vkh32.bin"), wrapper_vk.as_bytes()).unwrap();
 }
