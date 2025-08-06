@@ -2927,10 +2927,10 @@ and proof generator for prefix-sorted nibbles
       };
       "anstream" = rec {
         crateName = "anstream";
-        version = "0.6.19";
+        version = "0.6.20";
         edition = "2021";
-        description = "A simple cross platform library for writing colored text to a terminal.";
-        sha256 = "0crr9a207dyn8k66xgvhvmlxm9raiwpss3syfa35c6265s9z26ih";
+        description = "IO stream adapters for writing colored text that will gracefully degrade according to your terminal's capabilities.";
+        sha256 = "14k1iqdf3dx7hdjllmql0j9sjxkwr1lfdddi3adzff0r7mjn7r9s";
         dependencies = [
           {
             name = "anstyle";
@@ -3005,15 +3005,15 @@ and proof generator for prefix-sorted nibbles
       };
       "anstyle-query" = rec {
         crateName = "anstyle-query";
-        version = "1.1.3";
+        version = "1.1.4";
         edition = "2021";
         description = "Look up colored console capabilities";
-        sha256 = "1sgs2hq54wayrmpvy784ww2ccv9f8yhhpasv12z872bx0jvdx2vc";
+        sha256 = "1qir6d6fl5a4y2gmmw9a5w93ckwx6xn51aryd83p26zn6ihiy8wy";
         libName = "anstyle_query";
         dependencies = [
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.59.0";
+            packageId = "windows-sys 0.60.2";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_System_Console" "Win32_Foundation" ];
           }
@@ -3022,10 +3022,10 @@ and proof generator for prefix-sorted nibbles
       };
       "anstyle-wincon" = rec {
         crateName = "anstyle-wincon";
-        version = "3.0.9";
+        version = "3.0.10";
         edition = "2021";
         description = "Styling legacy Windows terminals";
-        sha256 = "10n8mcgr89risdf35i73zc67aaa392bhggwzqlri1fv79297ags0";
+        sha256 = "0ajz9wsf46a2l3pds7v62xbhq2cffj7wrilamkx2z8r28m0k61iy";
         libName = "anstyle_wincon";
         dependencies = [
           {
@@ -3039,7 +3039,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.59.0";
+            packageId = "windows-sys 0.60.2";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_System_Console" "Win32_Foundation" ];
           }
@@ -18662,10 +18662,10 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
       };
       "ruint" = rec {
         crateName = "ruint";
-        version = "1.15.0";
+        version = "1.16.0";
         edition = "2021";
         description = "Unsigned integer type with const-generic bit length";
-        sha256 = "1d3zkj42w569v502fy54cwikvwwjwlh0gvrrdyn5d3y6x1gnn98i";
+        sha256 = "1xmw2h7awp0cl9qbagxpm67f6dp5qkbm5vv27mf0rwkp4kw3ijwy";
         authors = [
           "Remco Bloemen <remco@wicked.ventures>"
         ];
@@ -18809,6 +18809,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "arbitrary" = [ "dep:arbitrary" "std" ];
           "ark-ff" = [ "dep:ark-ff-03" ];
           "ark-ff-04" = [ "dep:ark-ff-04" ];
+          "bigdecimal" = [ "dep:bigdecimal" "num-bigint" ];
           "bn-rs" = [ "dep:bn-rs" "std" ];
           "borsh" = [ "dep:borsh" ];
           "bytemuck" = [ "dep:bytemuck" ];
@@ -18829,6 +18830,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "quickcheck" = [ "dep:quickcheck" "std" ];
           "rand" = [ "dep:rand-08" ];
           "rand-09" = [ "dep:rand-09" ];
+          "rkyv" = [ "dep:rkyv" "alloc" ];
           "rlp" = [ "dep:rlp" "alloc" ];
           "serde" = [ "dep:serde" "alloc" ];
           "sqlx" = [ "dep:sqlx-core" "std" "dep:thiserror" ];
@@ -21628,10 +21630,10 @@ possible intended.
       };
       "sp1-derive" = rec {
         crateName = "sp1-derive";
-        version = "5.1.1";
+        version = "5.2.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0blfzjjd8m6rh7lw70cbirsmy68rq7wmqf20yas1i3a1c6pvgg3w";
+        sha256 = "139wiqjzimk250rvvaiw9c93bd9z8jbs3v1krxp1savmc7kbqdm7";
         procMacro = true;
         libName = "sp1_derive";
         dependencies = [
@@ -21649,10 +21651,10 @@ possible intended.
       };
       "sp1-lib" = rec {
         crateName = "sp1-lib";
-        version = "5.1.1";
+        version = "5.2.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0hp0d6wgh2bxxijf9qkhkqdp04alr554rxgpwfg1v9q4mbwmp87b";
+        sha256 = "06kd21kmppascv5y119prphhw7p4iaa2yr6bf28ly4w7dwdyh7qf";
         libName = "sp1_lib";
         dependencies = [
           {
@@ -21683,10 +21685,10 @@ possible intended.
       };
       "sp1-primitives" = rec {
         crateName = "sp1-primitives";
-        version = "5.1.1";
+        version = "5.2.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "0k2gpx45wd94b7yg79zp849fdywyvpz4vhwymbbafgfhhpmyndvn";
+        sha256 = "0av99xcnl3h1jjrhd7s6ppdbg07hkjdjxy6pw00cbha05018vpfx";
         libName = "sp1_primitives";
         dependencies = [
           {
@@ -22309,10 +22311,10 @@ possible intended.
       };
       "sp1-recursion-derive" = rec {
         crateName = "sp1-recursion-derive";
-        version = "5.1.1";
+        version = "5.2.1";
         edition = "2021";
         description = "SP1 is a performant, 100% open-source, contributor-friendly zkVM.";
-        sha256 = "1arsnkn7mzpqgk1z1gz1nfrq35d17yh7mjh7cgg7hxz4j9kgp3fq";
+        sha256 = "1g337iphl32v7jriyxqj7ihfkimazskqcqwf7pjg2fw7vrx4dj0l";
         procMacro = true;
         libName = "sp1_recursion_derive";
         dependencies = [
@@ -26055,7 +26057,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.1";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
@@ -26712,7 +26714,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.1";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
@@ -26874,7 +26876,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.1";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
@@ -26974,7 +26976,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.1";
+        version = "0.4.0";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;
@@ -30200,7 +30202,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_Console" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
       };
       "windows-targets 0.48.5" = rec {
         crateName = "windows-targets";
@@ -31089,10 +31091,10 @@ even WASM!
       };
       "zerovec" = rec {
         crateName = "zerovec";
-        version = "0.11.2";
+        version = "0.11.3";
         edition = "2021";
         description = "Zero-copy vector backed by a byte array";
-        sha256 = "0a2457fmz39k9vrrj3rm82q5ykdhgxgbwfz2r6fa6nq11q4fn1aa";
+        sha256 = "1k9p9la1hgbybslplhb75khzp9z84fvsz4kldvwipcbmx8i93fxx";
         authors = [
           "The ICU4X Project Developers"
         ];
