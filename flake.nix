@@ -109,7 +109,7 @@
         };
       };
 
-      flake.systemModules.service = moduleWithSystem (
+      flake.nixosModules.service = moduleWithSystem (
         { self', ... }:
         { lib, ...}:
         {
@@ -122,7 +122,7 @@
                 StateDirectory = "valence-coprocessor-ethereum";
                 ExecStart = lib.getExe self'.packages.service;
               };
-              wantedBy = [ "system-manager.target" ];
+              wantedBy = [ "multi-user.target" ];
             };
           };
         }
