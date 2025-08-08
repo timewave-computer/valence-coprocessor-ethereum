@@ -7,7 +7,6 @@ use helios_consensus_core::{
 };
 use serde::de::DeserializeOwned;
 use serde_json::Value;
-use tree_hash::TreeHash as _;
 
 use crate::{Input, State};
 
@@ -45,12 +44,16 @@ impl State {
     pub async fn bootstrap() -> anyhow::Result<Self> {
         let mut store = LightClientStore::default();
 
-        let finality_update: FinalityUpdate<MainnetConsensusSpec> =
-            Self::fetch("/light_client/finality_update").await?;
-        let root = finality_update.finalized_header().beacon().tree_hash_root();
-        let root = hex::encode(root);
+        // pick the previous root so there is provable input available
+        let root = Self::fetch::<_, Value>("/states/finalized/finality_checkpoints")
+            .await?
+            .get("previous_justified")
+            .and_then(|j| j.get("root"))
+            .and_then(Value::as_str)
+            .map(String::from)
+            .ok_or_else(|| anyhow::anyhow!("failed to fetch previous state root"))?;
 
-        let bootstrap = format!("/light_client/bootstrap/0x{root}");
+        let bootstrap = format!("/light_client/bootstrap/{root}");
         let bootstrap = Self::fetch(bootstrap).await?;
 
         apply_bootstrap(&mut store, &bootstrap);
@@ -110,15 +113,9 @@ impl State {
 
 #[tokio::test]
 #[ignore = "depends on ankr api key"]
-async fn state_bootstrap_works() {
-    State::bootstrap().await.unwrap();
-}
-
-#[tokio::test]
-#[ignore = "depends on ankr api key"]
 async fn state_fetch_input_works() {
-    let state = include_bytes!("../assets/state.json");
-    let state: State = serde_json::from_slice(state).unwrap();
+    let mut state = State::bootstrap().await.unwrap();
+    let input = state.fetch_input().await.unwrap();
 
-    state.fetch_input().await.unwrap();
+    state.apply(&input).unwrap();
 }

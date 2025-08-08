@@ -1,6 +1,7 @@
 use std::{env, fs, path::PathBuf};
 
 use sp1_sdk::{HashableKey as _, Prover as _, ProverClient};
+use valence_coprocessor::DomainData;
 use zerocopy::IntoBytes as _;
 
 fn main() {
@@ -24,6 +25,8 @@ fn main() {
         .join("riscv32im-succinct-zkvm-elf")
         .join("release");
 
+    // circuit
+
     sp1_build::build_program("../circuit");
 
     let inner = release.join("valence-coprocessor-ethereum-service-circuit");
@@ -33,10 +36,14 @@ fn main() {
     let prover = ProverClient::builder().cpu().build();
 
     let (_, inner_vk) = prover.setup(&inner_elf);
+    let inner_vk_b32 = inner_vk.bytes32();
     let inner_vk = inner_vk.vk.hash_u32();
 
     fs::write(out.join("inner.bin"), inner_elf).unwrap();
+    fs::write(out.join("wrapper-bytes32"), inner_vk_b32).unwrap();
     fs::write(out.join("inner-vkh32.bin"), inner_vk.as_bytes()).unwrap();
+
+    // wrapper
 
     sp1_build::build_program("../wrapper");
 
@@ -45,8 +52,17 @@ fn main() {
     let wrapper_elf = fs::read(&wrapper).unwrap();
 
     let (_, wrapper_vk) = prover.setup(&wrapper_elf);
+    let wrapper_vk_b32 = wrapper_vk.bytes32();
     let wrapper_vk = wrapper_vk.vk.hash_u32();
 
     fs::write(out.join("wrapper.bin"), wrapper_elf).unwrap();
+    fs::write(out.join("wrapper-bytes32"), wrapper_vk_b32).unwrap();
     fs::write(out.join("wrapper-vkh32.bin"), wrapper_vk.as_bytes()).unwrap();
+
+    // id
+
+    let id = DomainData::identifier_from_parts("ethereum-electra-alpha");
+    let id = hex::encode(id);
+
+    fs::write(out.join("id"), id).unwrap();
 }
