@@ -20,7 +20,7 @@ default-members = [
 authors = ["Timewave Labs"]
 edition = "2021"
 license = "Apache-2.0"
-version = "1.1.0"
+version = "1.1.1"
 
 [workspace.dependencies]
 alloy-primitives = { version = "0.8.15", default-features = false }
@@ -79,10 +79,10 @@ tracing-subscriber = { version = "0.3.19", default-features = true, features = [
 tree_hash = "0.9.0"
 zerocopy = "0.8.26"
 
-valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.3", default-features = false }
-valence-coprocessor-client = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.3", default-features = false }
-valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.3", default-features = false }
-valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.3", default-features = false }
+valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.4", default-features = false }
+valence-coprocessor-client = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.4", default-features = false }
+valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.4", default-features = false }
+valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.4", default-features = false }
 
 [patch.crates-io]
 sha2-v0-9-9 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", tag = "patch-sha2-0.9.9-sp1-4.0.0" }

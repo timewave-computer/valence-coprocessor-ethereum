@@ -19360,10 +19360,10 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
       };
       "rustversion" = rec {
         crateName = "rustversion";
-        version = "1.0.21";
+        version = "1.0.22";
         edition = "2018";
         description = "Conditional compilation according to rustc compiler version";
-        sha256 = "07bb1xx05hhwpnl43sqrhsmxyk5sd5m5baadp19nxp69s9xij3ca";
+        sha256 = "0vfl70jhv72scd9rfqgr2n11m5i9l1acnk684m2w83w0zbqdx75k";
         procMacro = true;
         build = "build/build.rs";
         authors = [
@@ -26057,14 +26057,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -26150,14 +26150,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-client" = rec {
         crateName = "valence-coprocessor-client";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor client";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_client";
@@ -26217,7 +26217,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.0";
+        version = "1.1.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26347,7 +26347,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.0";
+        version = "1.1.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26400,7 +26400,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.0";
+        version = "1.1.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26532,7 +26532,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.0";
+        version = "1.1.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26611,7 +26611,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.0";
+        version = "1.1.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26774,14 +26774,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_merkle";
@@ -26826,15 +26826,15 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -26854,7 +26854,7 @@ Unicode Standard Annex #31.
           {
             name = "clap";
             packageId = "clap";
-            features = [ "derive" ];
+            features = [ "derive" "env" ];
           }
           {
             name = "flume";
@@ -26936,14 +26936,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -27036,14 +27036,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_types";
@@ -27099,14 +27099,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "c67e52635db65296f335529db6847fd7eff5b385";
-          ref = "refs/tags/v0.4.3";
+          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
+          ref = "refs/tags/v0.4.4";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
