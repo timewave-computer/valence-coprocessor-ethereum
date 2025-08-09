@@ -1,6 +1,7 @@
 use std::time::Duration;
 
 use clap::Parser;
+use serde_json::Value;
 use tracing_subscriber::{fmt, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter};
 use valence_coprocessor::DomainData;
 use valence_coprocessor_client::Client as Coprocessor;
@@ -156,11 +157,9 @@ async fn main() -> anyhow::Result<()> {
 
         match coprocessor.add_domain_block(&domain, &args).await {
             Ok(b) => {
-                tracing::info!(
-                    "Block `{}`, root `{}` confirmed.",
-                    b.number,
-                    hex::encode(b.root)
-                );
+                let number = b.get("number").and_then(Value::as_u64).unwrap_or_default();
+
+                tracing::info!("Block `{}` confirmed.", number,);
             }
 
             Err(e) => {

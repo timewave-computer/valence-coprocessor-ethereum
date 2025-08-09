@@ -7,6 +7,30 @@ A Ethereum domain utility for the Valence co-processor.
 - `VALENCE_PROVER_SERVICE`: the prover service token
 - `ANKR_API_KEY`: An Ankr API key with premium support for Ethereum beacon.
 
+## Deployment
+
+To bootstrap a new genesis state:
+
+```shell
+cargo run -p valence-coprocessor-ethereum-lightclient-builder -- bootstrap
+```
+
+To recreate the artifacts:
+
+```shell
+ANKR_API_KEY=key \
+    VALENCE_REBUILD=1 cargo build \
+    -p valence-coprocessor-ethereum-lightclient-builder
+```
+
+To deploy:
+
+```shell
+cargo run -p valence-coprocessor-ethereum-lightclient-builder -- deploy
+```
+
+To deploy
+
 ## Executing
 
 The lightclient is a stateless service that can be executed via:
