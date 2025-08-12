@@ -125,10 +125,27 @@ pub fn verify_proof(proof: &StateProof) -> anyhow::Result<Vec<EthereumStoragePro
 
 # Contributing
 
-## Rebuilding the circuits
+## Rebuilding the controller
 
-After modifying any of the circuits, we need to update the ELF files:
+Note: there is a problem with SP1 release of bls12_381 that will not allow it to compile on WASM. You may have to comment its patch under Cargo.toml.
 
 ```shell
-cargo build -p valence-coprocessor-ethereum-lightclient-builder
+VALENCE_REBUILD=1 \
+  VALENCE_REBUILD_SKIP_CIRCUIT=1 \
+  cargo build \
+  -p valence-coprocessor-ethereum-lightclient-builder
+```
+
+## Rebuilding the circuits
+
+```shell
+VALENCE_REBUILD=1 \
+  cargo build \
+  -p valence-coprocessor-ethereum-lightclient-builder
+```
+
+## Deploying
+
+```shell
+cargo run -p valence-coprocessor-ethereum-lightclient-builder deploy       
 ```
