@@ -159,7 +159,7 @@ impl EthereumStorageLayoutBuilder {
                 value: Some(rlp::encode(&base_slot).to_vec()),
             });
 
-            let base_slot = alloy_primitives::keccak256(key.as_le_slice());
+            let base_slot = alloy_primitives::keccak256(key.to_be_bytes::<32>()); 
             let base_slot = U256::from_be_slice(base_slot.as_slice());
 
             for (i, c) in value.chunks(32).enumerate() {
