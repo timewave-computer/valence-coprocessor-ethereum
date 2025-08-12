@@ -138,6 +138,7 @@
                   DynamicUser = true;
                   StateDirectory = "valence-coprocessor-ethereum";
                   ExecStart = "${lib.getExe cfg.package} ${lib.escapeShellArgs cfg.flags}";
+                  Restart = "on-failure";
                 };
                 wantedBy = [ "multi-user.target" ];
               };
