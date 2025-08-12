@@ -132,10 +132,25 @@ impl EthereumStorageLayoutBuilder {
         self.add_value(value)
     }
 
-    /// Adds a single entry.
+    /// Adds a single entry
+    ///
+    /// Only for types that fit into a single slot and don't have a special encoding (e.g. strings, bytes...)
+    pub fn add_value<T>(mut self, value: T) -> Self
+    where
+        T: AsRef<[u8]>,
+    {
+        let value = value.as_ref();
+        let key = self.next_slot_entry();
+
+        let value = Some(rlp::encode(&value).to_vec());
+        self.storage.push(EthereumStorageProofArg { key, value });
+        self
+    }
+
+    /// Adds a single string entry.
     ///
     /// Will consume multiple slots if the length is greater or equal than 32.
-    pub fn add_value<T>(mut self, value: T) -> Self
+    pub fn add_string_value<T>(mut self, value: T) -> Self
     where
         T: AsRef<[u8]>,
     {
@@ -144,8 +159,11 @@ impl EthereumStorageLayoutBuilder {
 
         if len < 32 {
             let key = self.next_slot_entry();
-            let value = Some(rlp::encode(&value).to_vec());
+            let mut slot_value = [0u8; 32];
+            slot_value[..len as usize].copy_from_slice(value); // Left-align the data
+            slot_value[31] = (len * 2) as u8; // Length * 2 in rightmost byte
 
+            let value = Some(rlp::encode(&slot_value.to_vec()).to_vec());
             self.storage.push(EthereumStorageProofArg { key, value });
         } else {
             let key = self.base;
@@ -159,7 +177,7 @@ impl EthereumStorageLayoutBuilder {
                 value: Some(rlp::encode(&base_slot).to_vec()),
             });
 
-            let base_slot = alloy_primitives::keccak256(key.as_le_slice());
+            let base_slot = alloy_primitives::keccak256(key.to_be_bytes::<32>());
             let base_slot = U256::from_be_slice(base_slot.as_slice());
 
             for (i, c) in value.chunks(32).enumerate() {
