@@ -96,7 +96,7 @@ impl From<WithdrawRequest> for Vec<EthereumStorageProofArg> {
             .add_combined_values([&withdraw.owner.into_array()[..], &withdraw.id.to_be_bytes()])
             .add_value(withdraw.redemptionRate.to_be_bytes_trimmed_vec())
             .add_value(withdraw.sharesAmount.to_be_bytes_trimmed_vec())
-            .add_value(withdraw.receiver)
+            .add_string_value(withdraw.receiver)
             .build()
     }
 }
