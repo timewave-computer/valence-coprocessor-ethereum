@@ -901,7 +901,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -1154,7 +1154,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -1262,7 +1262,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -1705,7 +1705,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
           {
@@ -2106,7 +2106,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -2280,7 +2280,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -2397,7 +2397,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -2706,7 +2706,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -3048,10 +3048,10 @@ and proof generator for prefix-sorted nibbles
       };
       "anyhow" = rec {
         crateName = "anyhow";
-        version = "1.0.98";
+        version = "1.0.99";
         edition = "2018";
         description = "Flexible concrete Error type built on std::error::Error";
-        sha256 = "11ylvjdrcjs0q9jgk1af4r5cx1qppj63plxqkq595vmc24rjsvg1";
+        sha256 = "001icqvkfl28rxxmk99rm4gvdzxqngj5v50yg2bh3dzcvqfllrxh";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -5243,10 +5243,10 @@ constant-time operation and embedded-friendly no_std support
       };
       "buf-fs" = rec {
         crateName = "buf-fs";
-        version = "0.1.2";
+        version = "0.1.3";
         edition = "2024";
         description = "A buffer based, in-memory filesystem.";
-        sha256 = "11haxi88wplrk83qp4rrwp1q3j28fdz7xwmaks9p9y6pxwwck02i";
+        sha256 = "1fjbhfppsir8hrlfspa2yf26p7nybzjbcgjwnkh9v7yzrsbic50v";
         libName = "buf_fs";
         authors = [
           "Victor Lopez <vhrlopes@gmail.com>"
@@ -5835,11 +5835,11 @@ item that gets emitted.
       };
       "clap" = rec {
         crateName = "clap";
-        version = "4.5.43";
+        version = "4.5.44";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
         crateBin = [];
-        sha256 = "0vzc91f7968q57fmbr9lxg2hwa3lyb37m49ilf553693vk4rgzah";
+        sha256 = "1y2gv8zxil1bf4w78zd1c0sd3p8rjvvizi3m6d6fbqspmrmha7qw";
         dependencies = [
           {
             name = "clap_builder";
@@ -5878,10 +5878,10 @@ item that gets emitted.
       };
       "clap_builder" = rec {
         crateName = "clap_builder";
-        version = "4.5.43";
+        version = "4.5.44";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
-        sha256 = "0rcgrp7lfcfsbg2qih4jf2q4qni2jp68bbrl413a07sf54q5hny3";
+        sha256 = "1a48x3c9q1l7r6wbgy71mq6kfsihpqzxsnbaaamcgwvp88hz9rxk";
         dependencies = [
           {
             name = "anstream";
@@ -9416,11 +9416,11 @@ composability, and iterator-like interfaces.
       };
       "glob" = rec {
         crateName = "glob";
-        version = "0.3.2";
+        version = "0.3.3";
         edition = "2015";
         description = "Support for matching file paths against Unix shell style patterns.
 ";
-        sha256 = "1cm2w34b5w45fxr522h5b0fv1bxchfswcj560m3pnjbia7asvld8";
+        sha256 = "106jpd3syfzjfj2k70mwm0v436qbx96wig98m4q8x071yrq35hhc";
         authors = [
           "The Rust Project Developers"
         ];
@@ -13377,10 +13377,10 @@ and keccak-p variants
       };
       "libc" = rec {
         crateName = "libc";
-        version = "0.2.174";
+        version = "0.2.175";
         edition = "2021";
         description = "Raw FFI bindings to platform libraries like libc.";
-        sha256 = "0xl7pqvw7g2874dy3kjady2fjr4rhj5lxsnxkkhr5689jcr6jw8i";
+        sha256 = "0hw5sb3gjr0ivah7s3fmavlpvspjpd4mr009abmam2sr7r4sx0ka";
         authors = [
           "The Rust Project Developers"
         ];
@@ -16144,7 +16144,7 @@ cryptographic private keys.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             optional = true;
           }
           {
@@ -16593,10 +16593,10 @@ equation coefficients
       };
       "proc-macro2" = rec {
         crateName = "proc-macro2";
-        version = "1.0.95";
+        version = "1.0.97";
         edition = "2021";
         description = "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.";
-        sha256 = "0y7pwxv6sh4fgg6s715ygk1i7g3w02c0ljgcsfm046isibkfbcq2";
+        sha256 = "1wgnf8a4xw9grvn7q1s77208mlnvvwpizs2zx9sfpvwxf7bqj5yn";
         libName = "proc_macro2";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -16876,7 +16876,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
           }
           {
             name = "tokio";
@@ -16992,7 +16992,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
           }
           {
             name = "tinyvec";
@@ -17756,10 +17756,10 @@ finite automata and guarantees linear time matching on all inputs.
       };
       "reqwest" = rec {
         crateName = "reqwest";
-        version = "0.12.22";
+        version = "0.12.23";
         edition = "2021";
         description = "higher level HTTP client library";
-        sha256 = "0cbmfrcrk6wbg93apmji0fln1ca9322af2kc7dpa18vcgs9k3jfb";
+        sha256 = "1svw1k0jx17cmlwhixwqfv3bgpjapciw7klkghnd9cljh16g6afl";
         authors = [
           "Sean McArthur <sean@seanmonstar.com>"
         ];
@@ -17954,7 +17954,7 @@ finite automata and guarantees linear time matching on all inputs.
             packageId = "tower 0.5.2";
             usesDefaultFeatures = false;
             target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "timeout" "util" ];
+            features = [ "retry" "timeout" "util" ];
           }
           {
             name = "tower-http";
@@ -17991,7 +17991,7 @@ finite automata and guarantees linear time matching on all inputs.
             name = "web-sys";
             packageId = "web-sys";
             target = { target, features }: ("wasm32" == target."arch" or null);
-            features = [ "AbortController" "AbortSignal" "Headers" "Request" "RequestInit" "RequestMode" "Response" "Window" "FormData" "Blob" "BlobPropertyBag" "ServiceWorkerGlobalScope" "RequestCredentials" "File" "ReadableStream" ];
+            features = [ "AbortController" "AbortSignal" "Headers" "Request" "RequestInit" "RequestMode" "Response" "Window" "FormData" "Blob" "BlobPropertyBag" "ServiceWorkerGlobalScope" "RequestCredentials" "File" "ReadableStream" "RequestCache" ];
           }
           {
             name = "webpki-roots";
@@ -22768,7 +22768,7 @@ possible intended.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
             usesDefaultFeatures = false;
           }
         ];
@@ -23690,19 +23690,19 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         ];
 
       };
-      "thiserror 2.0.12" = rec {
+      "thiserror 2.0.14" = rec {
         crateName = "thiserror";
-        version = "2.0.12";
+        version = "2.0.14";
         edition = "2021";
         description = "derive(Error)";
-        sha256 = "024791nsc0np63g2pq30cjf9acj38z3jwx9apvvi8qsqmqnqlysn";
+        sha256 = "07pl090jsmj7nyfzg1bhxdnm2450lppdd1hn7zgcnhn8lv1lj28b";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
         dependencies = [
           {
             name = "thiserror-impl";
-            packageId = "thiserror-impl 2.0.12";
+            packageId = "thiserror-impl 2.0.14";
           }
         ];
         features = {
@@ -23737,12 +23737,12 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         ];
 
       };
-      "thiserror-impl 2.0.12" = rec {
+      "thiserror-impl 2.0.14" = rec {
         crateName = "thiserror-impl";
-        version = "2.0.12";
+        version = "2.0.14";
         edition = "2021";
         description = "Implementation detail of the `thiserror` crate";
-        sha256 = "07bsn7shydaidvyyrm7jz29vp78vrxr9cr9044rfmn078lmz8z3z";
+        sha256 = "09zjv8jplnyc2jqn4n4zfk019ql8hg7bxrhj0l7dsbwwmfs48nyc";
         procMacro = true;
         libName = "thiserror_impl";
         authors = [
@@ -24970,7 +24970,7 @@ clients and servers.
           "tracing" = [ "dep:tracing" ];
           "util" = [ "__common" "futures-util" "pin-project-lite" "sync_wrapper" ];
         };
-        resolvedDefaultFeatures = [ "__common" "futures-core" "futures-util" "log" "make" "pin-project-lite" "sync_wrapper" "timeout" "tokio" "tracing" "util" ];
+        resolvedDefaultFeatures = [ "__common" "futures-core" "futures-util" "log" "make" "pin-project-lite" "retry" "sync_wrapper" "timeout" "tokio" "tracing" "util" ];
       };
       "tower-http" = rec {
         crateName = "tower-http";
@@ -25599,7 +25599,7 @@ clients and servers.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.12";
+            packageId = "thiserror 2.0.14";
           }
           {
             name = "utf-8";
@@ -25988,10 +25988,10 @@ Unicode Standard Annex #31.
       };
       "uuid" = rec {
         crateName = "uuid";
-        version = "1.17.0";
+        version = "1.18.0";
         edition = "2018";
         description = "A library to generate and parse UUIDs.";
-        sha256 = "07ckq4fdiygy02gmislzfp727hx9zw6lskk9dbcds5ax3sfikx1w";
+        sha256 = "1gn1vlggiwrdpizqcpc5hyxsqz9s5215bbay1b182mqn7rj9ccgk";
         authors = [
           "Ashley Mannix<ashleymannix@live.com.au>"
           "Dylan DPC<dylan.dpc@gmail.com>"
@@ -26057,14 +26057,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -26150,14 +26150,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-client" = rec {
         crateName = "valence-coprocessor-client";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor client";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_client";
@@ -26217,7 +26217,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.1";
+        version = "1.1.2";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26347,7 +26347,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.1";
+        version = "1.1.2";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26400,7 +26400,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.1";
+        version = "1.1.2";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26532,7 +26532,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.1";
+        version = "1.1.2";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26611,7 +26611,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.1";
+        version = "1.1.2";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26774,14 +26774,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_merkle";
@@ -26826,15 +26826,15 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -26936,14 +26936,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -27036,14 +27036,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_types";
@@ -27099,14 +27099,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.4.4";
+        version = "0.4.5";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "17c157dba0c18617e475b9b8021cf2d8786bd951";
-          ref = "refs/tags/v0.4.4";
+          rev = "1657c855c1f8231f0647b20fd130f308a31b0acd";
+          ref = "refs/tags/v0.4.5";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
@@ -28188,7 +28188,7 @@ dependency.
           "default" = [ "std" ];
           "std" = [ "wasm-bindgen/std" "js-sys/std" ];
         };
-        resolvedDefaultFeatures = [ "AbortController" "AbortSignal" "AddEventListenerOptions" "BinaryType" "Blob" "BlobPropertyBag" "CloseEvent" "CloseEventInit" "Document" "Element" "ErrorEvent" "Event" "EventTarget" "File" "FileReader" "FormData" "Headers" "History" "HtmlElement" "HtmlHeadElement" "Location" "MessageEvent" "Node" "Performance" "ProgressEvent" "QueuingStrategy" "ReadableByteStreamController" "ReadableStream" "ReadableStreamByobReader" "ReadableStreamByobRequest" "ReadableStreamDefaultController" "ReadableStreamDefaultReader" "ReadableStreamGetReaderOptions" "ReadableStreamReadResult" "ReadableStreamReaderMode" "ReadableStreamType" "ReadableWritablePair" "Request" "RequestCredentials" "RequestInit" "RequestMode" "Response" "ServiceWorkerGlobalScope" "StreamPipeOptions" "TransformStream" "TransformStreamDefaultController" "Transformer" "UnderlyingSink" "UnderlyingSource" "WebSocket" "Window" "Worker" "WorkerGlobalScope" "WritableStream" "WritableStreamDefaultController" "WritableStreamDefaultWriter" "default" "std" ];
+        resolvedDefaultFeatures = [ "AbortController" "AbortSignal" "AddEventListenerOptions" "BinaryType" "Blob" "BlobPropertyBag" "CloseEvent" "CloseEventInit" "Document" "Element" "ErrorEvent" "Event" "EventTarget" "File" "FileReader" "FormData" "Headers" "History" "HtmlElement" "HtmlHeadElement" "Location" "MessageEvent" "Node" "Performance" "ProgressEvent" "QueuingStrategy" "ReadableByteStreamController" "ReadableStream" "ReadableStreamByobReader" "ReadableStreamByobRequest" "ReadableStreamDefaultController" "ReadableStreamDefaultReader" "ReadableStreamGetReaderOptions" "ReadableStreamReadResult" "ReadableStreamReaderMode" "ReadableStreamType" "ReadableWritablePair" "Request" "RequestCache" "RequestCredentials" "RequestInit" "RequestMode" "Response" "ServiceWorkerGlobalScope" "StreamPipeOptions" "TransformStream" "TransformStreamDefaultController" "Transformer" "UnderlyingSink" "UnderlyingSource" "WebSocket" "Window" "Worker" "WorkerGlobalScope" "WritableStream" "WritableStreamDefaultController" "WritableStreamDefaultWriter" "default" "std" ];
       };
       "web-time" = rec {
         crateName = "web-time";

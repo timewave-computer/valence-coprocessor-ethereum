@@ -28,6 +28,7 @@ pub fn validate_block(args: Value) -> anyhow::Result<ValidatedBlock> {
     block.payload = payload;
 
     let replace = abi::get_storage_file(ServiceState::PATH)
+        .map(Option::unwrap_or_default)
         .and_then(ServiceState::try_from_slice)
         .and_then(|s| s.to_state())
         .and_then(|s| s.to_output())
