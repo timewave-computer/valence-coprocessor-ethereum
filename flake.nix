@@ -111,18 +111,36 @@
 
       flake.nixosModules.service = moduleWithSystem (
         { self', ... }:
-        { lib, ...}:
+        { lib, config, ...}:
+        let
+          cfg = config.services.valence-coprocessor.ethereum;
+        in
         {
-          systemd.services = {
-            valence-coprocessor-ethereum = {
-              enable = true;
-              serviceConfig = {
-                Type = "simple";
-                DynamicUser = true;
-                StateDirectory = "valence-coprocessor-ethereum";
-                ExecStart = lib.getExe self'.packages.service;
+          options = {
+            services.valence-coprocessor.ethereum = {
+              package = lib.mkOption {
+                type = lib.types.package;
+                default = self'.packages.service;
               };
-              wantedBy = [ "multi-user.target" ];
+              flags = lib.mkOption {
+                type = lib.types.listOf (lib.types.str);
+                default = [];
+              };
+            };
+          };
+          config = {
+            systemd.services = {
+              valence-coprocessor-ethereum = {
+                enable = true;
+                restartIfChanged = false;
+                serviceConfig = {
+                  Type = "simple";
+                  DynamicUser = true;
+                  StateDirectory = "valence-coprocessor-ethereum";
+                  ExecStart = "${lib.getExe cfg.package} ${lib.concatStringsSep " " cfg.flags}";
+                };
+                wantedBy = [ "multi-user.target" ];
+              };
             };
           };
         }
