@@ -5835,11 +5835,11 @@ item that gets emitted.
       };
       "clap" = rec {
         crateName = "clap";
-        version = "4.5.44";
+        version = "4.5.45";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
         crateBin = [];
-        sha256 = "1y2gv8zxil1bf4w78zd1c0sd3p8rjvvizi3m6d6fbqspmrmha7qw";
+        sha256 = "0663m85dd0aq1g3mkwz5b8pkjv4f5k2smlz7bagib4iqf15fgh0z";
         dependencies = [
           {
             name = "clap_builder";
@@ -5918,10 +5918,10 @@ item that gets emitted.
       };
       "clap_derive" = rec {
         crateName = "clap_derive";
-        version = "4.5.41";
+        version = "4.5.45";
         edition = "2021";
         description = "Parse command line argument by defining a struct, derive crate.";
-        sha256 = "14glxqpfjs7z6m37f3ycrhgdkpyqmgwbr4vk1y34rjjrd8w54kzg";
+        sha256 = "1xir8wn5d10wpmnzmzjf2k1ib7j5mmzsm6v3yap6qlvx1axk3jql";
         procMacro = true;
         dependencies = [
           {
@@ -26217,7 +26217,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.2";
+        version = "1.1.3";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26347,11 +26347,11 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.2";
+        version = "1.1.3";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
-        libName = "valence_coprocessor_ethereum_controller";
+        libName = "valence_coprocessor_ethereum_controller";type = [ "cdylib" ];
         authors = [
           "Timewave Labs"
         ];
@@ -26400,7 +26400,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.2";
+        version = "1.1.3";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26532,7 +26532,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.2";
+        version = "1.1.3";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26611,7 +26611,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.2";
+        version = "1.1.3";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
