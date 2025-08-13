@@ -1031,11 +1031,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1754979969,
-        "narHash": "sha256-P0S8JrHOz95Gk9c10wYWAh7SPWAs7zGAbFxZ2NpkMeM=",
+        "lastModified": 1755047951,
+        "narHash": "sha256-TI+zONCyi2DE4ORpAjkPbGuIREzS071dHdJk0JvwPG4=",
         "owner": "timewave-computer",
         "repo": "sp1.nix",
-        "rev": "71124993ab7cf1e513bd3bd07f1514e9d8aee919",
+        "rev": "1518a80dcd6b65822cb4c6c5137fa266e49994c7",
         "type": "github"
       },
       "original": {
