@@ -4,9 +4,12 @@ use std::{
 };
 
 use clap::{Parser, Subcommand};
-use valence_coprocessor_client::Client as Coprocessor;
 use valence_coprocessor_ethereum::Ethereum;
 use valence_coprocessor_ethereum_lightclient::State;
+use valence_domain_clients::{
+    clients::coprocessor::CoprocessorClient as Coprocessor,
+    coprocessor::base_client::CoprocessorBaseClient as _,
+};
 
 #[derive(Parser)]
 struct Cli {
@@ -87,9 +90,8 @@ async fn main() -> anyhow::Result<()> {
             let controller = fs::read(path.join("controller.wasm"))?;
             let circuit = fs::read(path.join("wrapper.bin"))?;
 
-            let id = Coprocessor::default()
-                .with_coprocessor(coprocessor)
-                .deploy_domain(name, controller, circuit)
+            let id = Coprocessor::new(coprocessor)
+                .deploy_domain(&name, &controller, &circuit)
                 .await?;
 
             serde_json::json!({

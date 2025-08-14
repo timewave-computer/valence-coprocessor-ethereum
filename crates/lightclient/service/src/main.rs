@@ -4,9 +4,12 @@ use clap::Parser;
 use serde_json::Value;
 use tracing_subscriber::{fmt, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter};
 use valence_coprocessor::DomainData;
-use valence_coprocessor_client::Client as Coprocessor;
 use valence_coprocessor_ethereum_lightclient::ServiceState;
 use valence_coprocessor_prover::client::Client as Prover;
+use valence_domain_clients::{
+    clients::coprocessor::CoprocessorClient as Coprocessor,
+    coprocessor::base_client::CoprocessorBaseClient as _,
+};
 
 #[derive(Parser)]
 struct Cli {
@@ -61,20 +64,20 @@ async fn main() -> anyhow::Result<()> {
 
     tracing::info!("Controller set to `{id}`...");
 
-    let coprocessor = Coprocessor::default().with_coprocessor(coprocessor);
+    let coprocessor = Coprocessor::new(coprocessor);
     let prover = Prover::new(prover);
 
     tracing::info!("Clients loaded...");
 
     loop {
         let service = match coprocessor.get_storage_file(&id, ServiceState::PATH).await {
-            Ok(s) => {
+            Ok(Some(s)) => {
                 tracing::debug!("Loading service state...");
 
                 ServiceState::try_from_slice(&s)
             }
-            Err(e) => {
-                tracing::warn!("Service state not available: {e}");
+            _ => {
+                tracing::warn!("Service state not available!");
                 tracing::info!("Initializing service state...");
 
                 ServiceState::genesis(&prover)
