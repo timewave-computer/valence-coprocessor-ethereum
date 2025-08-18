@@ -212,41 +212,6 @@ rec {
           "rustc-dep-of-std" = [ "core" ];
         };
       };
-      "aes" = rec {
-        crateName = "aes";
-        version = "0.8.4";
-        edition = "2021";
-        description = "Pure Rust implementation of the Advanced Encryption Standard (a.k.a. Rijndael)";
-        sha256 = "1853796anlwp4kqim0s6wm1srl4ib621nm0cl2h3c8klsjkgfsdi";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "cfg-if";
-            packageId = "cfg-if";
-          }
-          {
-            name = "cipher";
-            packageId = "cipher";
-          }
-          {
-            name = "cpufeatures";
-            packageId = "cpufeatures";
-            target = { target, features }: (("aarch64" == target."arch" or null) || ("x86_64" == target."arch" or null) || ("x86" == target."arch" or null));
-          }
-        ];
-        devDependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher";
-            features = [ "dev" ];
-          }
-        ];
-        features = {
-          "zeroize" = [ "dep:zeroize" ];
-        };
-      };
       "ahash" = rec {
         crateName = "ahash";
         version = "0.8.12";
@@ -357,12 +322,6 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "alloy-contract";
-            packageId = "alloy-contract";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-core";
             packageId = "alloy-core";
             usesDefaultFeatures = false;
@@ -392,20 +351,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "alloy-node-bindings";
-            packageId = "alloy-node-bindings";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-provider";
             packageId = "alloy-provider";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -434,12 +381,6 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "alloy-signer-local";
-            packageId = "alloy-signer-local";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-transport";
             packageId = "alloy-transport";
             optional = true;
@@ -448,18 +389,6 @@ rec {
           {
             name = "alloy-transport-http";
             packageId = "alloy-transport-http";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport-ipc";
-            packageId = "alloy-transport-ipc";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport-ws";
-            packageId = "alloy-transport-ws";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -547,7 +476,7 @@ rec {
           "transports" = [ "dep:alloy-transport" ];
           "wasm-bindgen" = [ "alloy-transport?/wasm-bindgen" ];
         };
-        resolvedDefaultFeatures = [ "consensus" "contract" "default" "dyn-abi" "eips" "full" "hyper" "json" "json-abi" "json-rpc" "k256" "kzg" "network" "node-bindings" "provider-http" "provider-ipc" "provider-ws" "providers" "pubsub" "reqwest" "rlp" "rpc" "rpc-client" "rpc-types" "rpc-types-debug" "rpc-types-trace" "signer-keystore" "signer-local" "signer-mnemonic" "signers" "sol-types" "ssz" "std" "transport-http" "transport-ipc" "transport-ws" "transports" ];
+        resolvedDefaultFeatures = [ "consensus" "default" "eips" "json-rpc" "k256" "network" "provider-http" "providers" "reqwest" "rlp" "rpc" "rpc-client" "rpc-types" "signers" "sol-types" "ssz" "std" "transport-http" "transports" ];
       };
       "alloy-chains" = rec {
         crateName = "alloy-chains";
@@ -688,7 +617,7 @@ rec {
           "serde_with" = [ "dep:serde_with" ];
           "std" = [ "alloy-eips/std" "c-kzg?/std" ];
         };
-        resolvedDefaultFeatures = [ "k256" "kzg" "serde" "std" ];
+        resolvedDefaultFeatures = [ "k256" "serde" "std" ];
       };
       "alloy-consensus-any" = rec {
         crateName = "alloy-consensus-any";
@@ -744,98 +673,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "serde" "std" ];
       };
-      "alloy-contract" = rec {
-        crateName = "alloy-contract";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Interact with on-chain contracts";
-        sha256 = "032n67d0lgfsn86igxika8sgp5mkag32m6x4apvjc1pa3xn8h8az";
-        libName = "alloy_contract";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-dyn-abi";
-            packageId = "alloy-dyn-abi";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "alloy-json-abi";
-            packageId = "alloy-json-abi";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-network";
-            packageId = "alloy-network";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-network-primitives";
-            packageId = "alloy-network-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "map" ];
-          }
-          {
-            name = "alloy-provider";
-            packageId = "alloy-provider";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-rpc-types-eth";
-            packageId = "alloy-rpc-types-eth";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport";
-            packageId = "alloy-transport";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-          {
-            name = "futures-util";
-            packageId = "futures-util";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.14";
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "alloy-provider";
-            packageId = "alloy-provider";
-            usesDefaultFeatures = false;
-            features = [ "anvil-node" ];
-          }
-        ];
-        features = {
-          "pubsub" = [ "alloy-provider/pubsub" "dep:alloy-pubsub" ];
-        };
-        resolvedDefaultFeatures = [ "pubsub" ];
-      };
       "alloy-core" = rec {
         crateName = "alloy-core";
         version = "0.8.25";
@@ -872,7 +709,7 @@ rec {
           }
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -904,7 +741,7 @@ rec {
           "std" = [ "alloy-primitives/std" "alloy-json-abi?/std" "alloy-dyn-abi?/std" "alloy-sol-types?/std" "alloy-rlp?/std" ];
           "tiny-keccak" = [ "alloy-primitives/tiny-keccak" ];
         };
-        resolvedDefaultFeatures = [ "default" "dyn-abi" "json" "json-abi" "k256" "rlp" "serde" "sol-types" "std" ];
+        resolvedDefaultFeatures = [ "default" "k256" "rlp" "sol-types" "std" ];
       };
       "alloy-dyn-abi" = rec {
         crateName = "alloy-dyn-abi";
@@ -934,7 +771,7 @@ rec {
           }
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             usesDefaultFeatures = false;
           }
           {
@@ -1064,7 +901,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -1181,7 +1018,7 @@ rec {
           "ssz" = [ "std" "dep:ethereum_ssz" "dep:ethereum_ssz_derive" ];
           "std" = [ "alloy-primitives/std" "alloy-rlp/std" "serde?/std" "c-kzg?/std" "once_cell?/std" ];
         };
-        resolvedDefaultFeatures = [ "k256" "kzg" "kzg-sidecar" "serde" "sha2" "ssz" "std" ];
+        resolvedDefaultFeatures = [ "k256" "kzg-sidecar" "serde" "sha2" "ssz" "std" ];
       };
       "alloy-genesis" = rec {
         crateName = "alloy-genesis";
@@ -1300,7 +1137,7 @@ rec {
           }
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             usesDefaultFeatures = false;
           }
           {
@@ -1317,7 +1154,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -1396,7 +1233,7 @@ rec {
           }
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             usesDefaultFeatures = false;
           }
           {
@@ -1425,7 +1262,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -1477,170 +1314,6 @@ rec {
           "default" = [ "std" ];
           "std" = [ "alloy-primitives/std" ];
         };
-      };
-      "alloy-node-bindings" = rec {
-        crateName = "alloy-node-bindings";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Ethereum execution-layer client bindings";
-        sha256 = "1fp3cm7ab1m19pj0a8bi9azrdyy72j4w6jwfr4r0rhnfqm5ws825";
-        libName = "alloy_node_bindings";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-genesis";
-            packageId = "alloy-genesis";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "std" "k256" "serde" ];
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "std" ];
-          }
-          {
-            name = "tempfile";
-            packageId = "tempfile";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.14";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-          }
-          {
-            name = "url";
-            packageId = "url";
-          }
-        ];
-
-      };
-      "alloy-primitives 0.7.7" = rec {
-        crateName = "alloy-primitives";
-        version = "0.7.7";
-        edition = "2021";
-        description = "Ethereum primitive types";
-        sha256 = "1x0bri8hchiq7ym6rqi6jbp1d70b5ya4j5lnmz42nlzl8zaymcyc";
-        libName = "alloy_primitives";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-rlp";
-            packageId = "alloy-rlp";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "cfg-if";
-            packageId = "cfg-if";
-          }
-          {
-            name = "const-hex";
-            packageId = "const-hex";
-            rename = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 0.99.20";
-          }
-          {
-            name = "hex-literal";
-            packageId = "hex-literal";
-          }
-          {
-            name = "itoa";
-            packageId = "itoa";
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-          {
-            name = "keccak-asm";
-            packageId = "keccak-asm";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "proptest";
-            packageId = "proptest";
-            optional = true;
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "getrandom" ];
-          }
-          {
-            name = "ruint";
-            packageId = "ruint";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" "derive" ];
-          }
-          {
-            name = "tiny-keccak";
-            packageId = "tiny-keccak";
-            features = [ "keccak" ];
-          }
-        ];
-        features = {
-          "allocative" = [ "dep:allocative" ];
-          "arbitrary" = [ "std" "dep:arbitrary" "dep:derive_arbitrary" "dep:proptest" "dep:proptest-derive" "ruint/arbitrary" "ruint/proptest" "ethereum_ssz?/arbitrary" ];
-          "asm-keccak" = [ "dep:keccak-asm" ];
-          "default" = [ "std" ];
-          "getrandom" = [ "dep:getrandom" ];
-          "hex-compat" = [ "hex/hex" ];
-          "k256" = [ "dep:k256" ];
-          "postgres" = [ "std" "dep:postgres-types" "ruint/postgres" ];
-          "rand" = [ "dep:rand" "getrandom" "ruint/rand" ];
-          "rlp" = [ "dep:alloy-rlp" "ruint/alloy-rlp" ];
-          "serde" = [ "dep:serde" "bytes/serde" "hex/serde" "ruint/serde" ];
-          "ssz" = [ "std" "dep:ethereum_ssz" "ruint/ssz" ];
-          "std" = [ "bytes/std" "hex/std" "ruint/std" "alloy-rlp?/std" "keccak-asm?/std" "proptest?/std" "rand?/std" "serde?/std" "k256?/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "alloy-primitives 0.8.25" = rec {
         crateName = "alloy-primitives";
@@ -1789,12 +1462,12 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "k256" "map" "map-foldhash" "rlp" "serde" "std" ];
       };
-      "alloy-primitives 1.3.0" = rec {
+      "alloy-primitives 1.3.1" = rec {
         crateName = "alloy-primitives";
-        version = "1.3.0";
+        version = "1.3.1";
         edition = "2024";
         description = "Ethereum primitive types";
-        sha256 = "1j05nxnw5pkxa7i8r833gbyixdgc5nilh2ldcxxx79c1qplbvziw";
+        sha256 = "1fgdm6isqs473p6qs1m7y7x4jgc0hx66n6kkg893hd72dp2qb55w";
         libName = "alloy_primitives";
         authors = [
           "Alloy Contributors"
@@ -1879,7 +1552,7 @@ rec {
         ];
         features = {
           "allocative" = [ "dep:allocative" ];
-          "arbitrary" = [ "std" "dep:arbitrary" "dep:derive_arbitrary" "dep:proptest" "dep:proptest-derive" "ruint/arbitrary" "ruint/proptest" "indexmap?/arbitrary" ];
+          "arbitrary" = [ "std" "dep:arbitrary" "dep:proptest" "dep:proptest-derive" "ruint/arbitrary" "ruint/proptest" "indexmap?/arbitrary" ];
           "asm-keccak" = [ "dep:keccak-asm" ];
           "default" = [ "std" "map" "map-foldhash" ];
           "diesel" = [ "std" "dep:diesel" "ruint/diesel" ];
@@ -1945,37 +1618,13 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "alloy-node-bindings";
-            packageId = "alloy-node-bindings";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-primitives";
             packageId = "alloy-primitives 0.8.25";
             usesDefaultFeatures = false;
           }
           {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-rpc-client";
             packageId = "alloy-rpc-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-rpc-types-anvil";
-            packageId = "alloy-rpc-types-anvil";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-rpc-types-debug";
-            packageId = "alloy-rpc-types-debug";
-            optional = true;
             usesDefaultFeatures = false;
           }
           {
@@ -1985,24 +1634,6 @@ rec {
             features = [ "serde" ];
           }
           {
-            name = "alloy-rpc-types-trace";
-            packageId = "alloy-rpc-types-trace";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-signer";
-            packageId = "alloy-signer";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-signer-local";
-            packageId = "alloy-signer-local";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-transport";
             packageId = "alloy-transport";
             usesDefaultFeatures = false;
@@ -2010,18 +1641,6 @@ rec {
           {
             name = "alloy-transport-http";
             packageId = "alloy-transport-http";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport-ipc";
-            packageId = "alloy-transport-ipc";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport-ws";
-            packageId = "alloy-transport-ws";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -2064,7 +1683,7 @@ rec {
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -2086,7 +1705,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
           {
@@ -2117,11 +1736,6 @@ rec {
             features = [ "kzg" ];
           }
           {
-            name = "alloy-node-bindings";
-            packageId = "alloy-node-bindings";
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-primitives";
             packageId = "alloy-primitives 0.8.25";
             usesDefaultFeatures = false;
@@ -2134,16 +1748,6 @@ rec {
             features = [ "reqwest" ];
           }
           {
-            name = "alloy-signer";
-            packageId = "alloy-signer";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-signer-local";
-            packageId = "alloy-signer-local";
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-transport-http";
             packageId = "alloy-transport-http";
             usesDefaultFeatures = false;
@@ -2151,7 +1755,7 @@ rec {
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             usesDefaultFeatures = false;
           }
           {
@@ -2181,75 +1785,7 @@ rec {
           "txpool-api" = [ "dep:alloy-rpc-types-txpool" ];
           "ws" = [ "pubsub" "alloy-rpc-client/ws" "alloy-transport-ws" ];
         };
-        resolvedDefaultFeatures = [ "alloy-transport-ipc" "alloy-transport-ws" "anvil-api" "anvil-node" "debug-api" "hyper" "ipc" "pubsub" "reqwest" "trace-api" "ws" ];
-      };
-      "alloy-pubsub" = rec {
-        crateName = "alloy-pubsub";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Ethereum JSON-RPC publish-subscribe tower service and type definitions";
-        sha256 = "08qflb2bykzmkzfqnk6fxw0j7l4c2j9v4g1sqqkmyl3vbxizss92";
-        libName = "alloy_pubsub";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-json-rpc";
-            packageId = "alloy-json-rpc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport";
-            packageId = "alloy-transport";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bimap";
-            packageId = "bimap";
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" "alloc" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            features = [ "macros" "sync" ];
-          }
-          {
-            name = "tokio-stream";
-            packageId = "tokio-stream";
-            features = [ "sync" ];
-          }
-          {
-            name = "tower";
-            packageId = "tower 0.5.2";
-            features = [ "util" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-          }
-        ];
-
+        resolvedDefaultFeatures = [ "reqwest" ];
       };
       "alloy-rlp" = rec {
         crateName = "alloy-rlp";
@@ -2310,7 +1846,7 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -2338,12 +1874,6 @@ rec {
             features = [ "map" ];
           }
           {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-transport";
             packageId = "alloy-transport";
             usesDefaultFeatures = false;
@@ -2351,19 +1881,6 @@ rec {
           {
             name = "alloy-transport-http";
             packageId = "alloy-transport-http";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport-ipc";
-            packageId = "alloy-transport-ipc";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "alloy-transport-ws";
-            packageId = "alloy-transport-ws";
-            optional = true;
             usesDefaultFeatures = false;
           }
           {
@@ -2376,7 +1893,7 @@ rec {
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -2428,17 +1945,6 @@ rec {
             packageId = "alloy-primitives 0.8.25";
             usesDefaultFeatures = false;
           }
-          {
-            name = "alloy-transport-ipc";
-            packageId = "alloy-transport-ipc";
-            usesDefaultFeatures = false;
-            features = [ "mock" ];
-          }
-          {
-            name = "alloy-transport-ws";
-            packageId = "alloy-transport-ws";
-            usesDefaultFeatures = false;
-          }
         ];
         features = {
           "default" = [ "reqwest" ];
@@ -2448,7 +1954,7 @@ rec {
           "reqwest" = [ "dep:url" "dep:reqwest" "alloy-transport-http/reqwest" ];
           "ws" = [ "pubsub" "dep:alloy-transport-ws" "dep:url" ];
         };
-        resolvedDefaultFeatures = [ "hyper" "ipc" "pubsub" "reqwest" "ws" ];
+        resolvedDefaultFeatures = [ "reqwest" ];
       };
       "alloy-rpc-types" = rec {
         crateName = "alloy-rpc-types";
@@ -2488,12 +1994,6 @@ rec {
             features = [ "serde" ];
           }
           {
-            name = "alloy-rpc-types-trace";
-            packageId = "alloy-rpc-types-trace";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-serde";
             packageId = "alloy-serde";
             usesDefaultFeatures = false;
@@ -2522,44 +2022,7 @@ rec {
           "trace" = [ "dep:alloy-rpc-types-trace" ];
           "txpool" = [ "dep:alloy-rpc-types-txpool" ];
         };
-        resolvedDefaultFeatures = [ "eth" "k256" "kzg" "ssz" "trace" ];
-      };
-      "alloy-rpc-types-anvil" = rec {
-        crateName = "alloy-rpc-types-anvil";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Types for the Anvil development node's Ethereum JSON-RPC namespace";
-        sha256 = "0d4zrvxxr9k19hws0xihxkaillw1iccck92nfp11y56kr2w5qj8i";
-        libName = "alloy_rpc_types_anvil";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "alloy-rpc-types-eth";
-            packageId = "alloy-rpc-types-eth";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "alloy-serde";
-            packageId = "alloy-serde";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" "alloc" ];
-          }
-        ];
-
+        resolvedDefaultFeatures = [ "eth" "k256" "ssz" ];
       };
       "alloy-rpc-types-any" = rec {
         crateName = "alloy-rpc-types-any";
@@ -2643,7 +2106,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -2651,32 +2114,6 @@ rec {
           "ssz" = [ "dep:ethereum_ssz" "dep:ethereum_ssz_derive" "alloy-rpc-types-engine/ssz" ];
         };
         resolvedDefaultFeatures = [ "ssz" ];
-      };
-      "alloy-rpc-types-debug" = rec {
-        crateName = "alloy-rpc-types-debug";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Ethereum RPC debug types";
-        sha256 = "0b5cipfj91qhs1ggldq7x4k9nb6z03xw39l9fldfpfa0ff6nm39m";
-        libName = "alloy_rpc_types_debug";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "serde" "std" "map" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" "alloc" ];
-          }
-        ];
-
       };
       "alloy-rpc-types-engine" = rec {
         crateName = "alloy-rpc-types-engine";
@@ -2766,7 +2203,7 @@ rec {
           "ssz" = [ "std" "dep:ethereum_ssz" "dep:ethereum_ssz_derive" "alloy-eips/ssz" ];
           "std" = [ "alloy-consensus/std" "derive_more/std" "strum/std" ];
         };
-        resolvedDefaultFeatures = [ "kzg" "serde" "ssz" "std" ];
+        resolvedDefaultFeatures = [ "serde" "ssz" "std" ];
       };
       "alloy-rpc-types-eth" = rec {
         crateName = "alloy-rpc-types-eth";
@@ -2819,7 +2256,7 @@ rec {
           }
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             usesDefaultFeatures = false;
           }
           {
@@ -2843,7 +2280,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -2876,62 +2313,6 @@ rec {
           "std" = [ "alloy-primitives/std" "alloy-consensus/std" "alloy-eips/std" ];
         };
         resolvedDefaultFeatures = [ "k256" "serde" "std" ];
-      };
-      "alloy-rpc-types-trace" = rec {
-        crateName = "alloy-rpc-types-trace";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Types for the `trace` Ethereum JSON-RPC namespace";
-        sha256 = "0jg1xl6vyihjchzp8c87sb5hg4fz1mbb9yv74cvx3ivc0mz20f6d";
-        libName = "alloy_rpc_types_trace";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "rlp" "serde" ];
-          }
-          {
-            name = "alloy-rpc-types-eth";
-            packageId = "alloy-rpc-types-eth";
-            usesDefaultFeatures = false;
-            features = [ "std" "serde" ];
-          }
-          {
-            name = "alloy-serde";
-            packageId = "alloy-serde";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" "alloc" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.14";
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-            features = [ "rand" "rlp" "serde" "arbitrary" ];
-          }
-        ];
-
       };
       "alloy-serde" = rec {
         crateName = "alloy-serde";
@@ -3016,7 +2397,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -3024,145 +2405,7 @@ rec {
           "eip712" = [ "dep:alloy-sol-types" "dep:alloy-dyn-abi" ];
         };
       };
-      "alloy-signer-local" = rec {
-        crateName = "alloy-signer-local";
-        version = "0.9.2";
-        edition = "2021";
-        description = "sepc256k1 ECDSA and YubiHSM signer implementations";
-        sha256 = "1k2cx34jy93idb4gkvnv7q71r12b855blrnapby864nskv767p7v";
-        libName = "alloy_signer_local";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-consensus";
-            packageId = "alloy-consensus";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "alloy-network";
-            packageId = "alloy-network";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.8.25";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-signer";
-            packageId = "alloy-signer";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "async-trait";
-            packageId = "async-trait";
-          }
-          {
-            name = "coins-bip32";
-            packageId = "coins-bip32";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "coins-bip39";
-            packageId = "coins-bip39";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "english" ];
-          }
-          {
-            name = "eth-keystore";
-            packageId = "eth-keystore";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.14";
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "alloy-consensus";
-            packageId = "alloy-consensus";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "alloy-network";
-            packageId = "alloy-network";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "eip712" = [ "alloy-signer/eip712" ];
-          "keystore" = [ "dep:eth-keystore" ];
-          "keystore-geth-compat" = [ "keystore" "eth-keystore?/geth-compat" ];
-          "mnemonic" = [ "dep:coins-bip32" "dep:coins-bip39" ];
-          "mnemonic-all-languages" = [ "mnemonic" "coins-bip39?/all-langs" ];
-          "yubihsm" = [ "dep:yubihsm" "dep:elliptic-curve" ];
-        };
-        resolvedDefaultFeatures = [ "keystore" "mnemonic" ];
-      };
-      "alloy-sol-macro 0.7.7" = rec {
-        crateName = "alloy-sol-macro";
-        version = "0.7.7";
-        edition = "2021";
-        description = "Solidity to Rust procedural macro";
-        sha256 = "02fd0wbzkki95y3c27x9k7k804nf07v715wmkzsndhnwviykjh1b";
-        procMacro = true;
-        libName = "alloy_sol_macro";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-sol-macro-expander";
-            packageId = "alloy-sol-macro-expander 0.7.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-sol-macro-input";
-            packageId = "alloy-sol-macro-input 0.7.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "proc-macro-error";
-            packageId = "proc-macro-error";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" ];
-          }
-        ];
-        features = {
-          "json" = [ "alloy-sol-macro-expander/json" ];
-        };
-      };
-      "alloy-sol-macro 0.8.25" = rec {
+      "alloy-sol-macro" = rec {
         crateName = "alloy-sol-macro";
         version = "0.8.25";
         edition = "2021";
@@ -3176,12 +2419,12 @@ rec {
         dependencies = [
           {
             name = "alloy-sol-macro-expander";
-            packageId = "alloy-sol-macro-expander 0.8.25";
+            packageId = "alloy-sol-macro-expander";
             usesDefaultFeatures = false;
           }
           {
             name = "alloy-sol-macro-input";
-            packageId = "alloy-sol-macro-input 0.8.25";
+            packageId = "alloy-sol-macro-input";
             usesDefaultFeatures = false;
           }
           {
@@ -3198,80 +2441,15 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" ];
           }
         ];
         features = {
           "json" = [ "alloy-sol-macro-expander/json" ];
         };
-        resolvedDefaultFeatures = [ "json" ];
       };
-      "alloy-sol-macro-expander 0.7.7" = rec {
-        crateName = "alloy-sol-macro-expander";
-        version = "0.7.7";
-        edition = "2021";
-        description = "Expander used in the Solidity to Rust procedural macro";
-        sha256 = "0985kbyc2zhi3cklzr52bhgn4nrdlpngycvkijhgx00lsrlm8yl6";
-        libName = "alloy_sol_macro_expander";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-sol-macro-input";
-            packageId = "alloy-sol-macro-input 0.7.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "const-hex";
-            packageId = "const-hex";
-            rename = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "heck";
-            packageId = "heck 0.5.0";
-          }
-          {
-            name = "indexmap";
-            packageId = "indexmap 2.10.0";
-          }
-          {
-            name = "proc-macro-error";
-            packageId = "proc-macro-error";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" ];
-          }
-          {
-            name = "syn-solidity";
-            packageId = "syn-solidity 0.7.7";
-            usesDefaultFeatures = false;
-            features = [ "visit" "visit-mut" ];
-          }
-          {
-            name = "tiny-keccak";
-            packageId = "tiny-keccak";
-            features = [ "keccak" ];
-          }
-        ];
-        features = {
-          "json" = [ "dep:alloy-json-abi" "alloy-sol-macro-input/json" ];
-        };
-      };
-      "alloy-sol-macro-expander 0.8.25" = rec {
+      "alloy-sol-macro-expander" = rec {
         crateName = "alloy-sol-macro-expander";
         version = "0.8.25";
         edition = "2021";
@@ -3283,14 +2461,8 @@ rec {
         ];
         dependencies = [
           {
-            name = "alloy-json-abi";
-            packageId = "alloy-json-abi";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "alloy-sol-macro-input";
-            packageId = "alloy-sol-macro-input 0.8.25";
+            packageId = "alloy-sol-macro-input";
             usesDefaultFeatures = false;
           }
           {
@@ -3322,12 +2494,12 @@ rec {
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" ];
           }
           {
             name = "syn-solidity";
-            packageId = "syn-solidity 0.8.25";
+            packageId = "syn-solidity";
             usesDefaultFeatures = false;
             features = [ "visit" "visit-mut" ];
           }
@@ -3341,57 +2513,8 @@ rec {
         features = {
           "json" = [ "dep:alloy-json-abi" "alloy-sol-macro-input/json" ];
         };
-        resolvedDefaultFeatures = [ "json" ];
       };
-      "alloy-sol-macro-input 0.7.7" = rec {
-        crateName = "alloy-sol-macro-input";
-        version = "0.7.7";
-        edition = "2021";
-        description = "Input types for sol!-like macros";
-        sha256 = "0a15lwzkw2jd805shhf1hnjsmlqbabmav6gmq3dzmdij7b1jsj1f";
-        libName = "alloy_sol_macro_input";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "const-hex";
-            packageId = "const-hex";
-            rename = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "dunce";
-            packageId = "dunce";
-          }
-          {
-            name = "heck";
-            packageId = "heck 0.5.0";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-          }
-          {
-            name = "syn-solidity";
-            packageId = "syn-solidity 0.7.7";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "json" = [ "dep:alloy-json-abi" "dep:serde_json" ];
-        };
-      };
-      "alloy-sol-macro-input 0.8.25" = rec {
+      "alloy-sol-macro-input" = rec {
         crateName = "alloy-sol-macro-input";
         version = "0.8.25";
         edition = "2021";
@@ -3402,12 +2525,6 @@ rec {
           "Alloy Contributors"
         ];
         dependencies = [
-          {
-            name = "alloy-json-abi";
-            packageId = "alloy-json-abi";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
           {
             name = "const-hex";
             packageId = "const-hex";
@@ -3436,26 +2553,18 @@ rec {
             packageId = "quote";
           }
           {
-            name = "serde_json";
-            packageId = "serde_json";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
           {
             name = "syn-solidity";
-            packageId = "syn-solidity 0.8.25";
+            packageId = "syn-solidity";
             usesDefaultFeatures = false;
           }
         ];
         features = {
           "json" = [ "dep:alloy-json-abi" "dep:serde_json" ];
         };
-        resolvedDefaultFeatures = [ "json" ];
       };
       "alloy-sol-type-parser" = rec {
         crateName = "alloy-sol-type-parser";
@@ -3490,66 +2599,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "serde" "std" ];
       };
-      "alloy-sol-types 0.7.7" = rec {
-        crateName = "alloy-sol-types";
-        version = "0.7.7";
-        edition = "2021";
-        description = "Compile-time ABI and EIP-712 implementations";
-        sha256 = "1irq3vam4d7x2irj7xd256pwj74xars3xf2172fax4q7l87s8759";
-        libName = "alloy_sol_types";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.7.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-sol-macro";
-            packageId = "alloy-sol-macro 0.7.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "const-hex";
-            packageId = "const-hex";
-            rename = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" "derive" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.7.7";
-            usesDefaultFeatures = false;
-            features = [ "arbitrary" "serde" "rlp" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "derive" ];
-          }
-        ];
-        features = {
-          "arbitrary" = [ "alloy-primitives/arbitrary" ];
-          "default" = [ "std" ];
-          "eip712-serde" = [ "dep:serde" "alloy-primitives/serde" ];
-          "json" = [ "dep:alloy-json-abi" "alloy-sol-macro/json" ];
-          "std" = [ "alloy-primitives/std" "hex/std" "serde?/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "alloy-sol-types 0.8.25" = rec {
+      "alloy-sol-types" = rec {
         crateName = "alloy-sol-types";
         version = "0.8.25";
         edition = "2021";
@@ -3573,7 +2623,7 @@ rec {
           }
           {
             name = "alloy-sol-macro";
-            packageId = "alloy-sol-macro 0.8.25";
+            packageId = "alloy-sol-macro";
             usesDefaultFeatures = false;
           }
           {
@@ -3612,7 +2662,7 @@ rec {
           "json" = [ "dep:alloy-json-abi" "alloy-sol-macro/json" ];
           "std" = [ "alloy-primitives/std" "hex/std" "alloy-json-abi?/std" "serde?/std" ];
         };
-        resolvedDefaultFeatures = [ "default" "eip712-serde" "json" "std" ];
+        resolvedDefaultFeatures = [ "default" "eip712-serde" "std" ];
       };
       "alloy-transport" = rec {
         crateName = "alloy-transport";
@@ -3656,7 +2706,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -3712,28 +2762,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "http-body-util";
-            packageId = "http-body-util";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "hyper";
-            packageId = "hyper 1.6.0";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "hyper-util";
-            packageId = "hyper-util";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "full" ];
-          }
-          {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "json" ];
@@ -3770,146 +2800,7 @@ rec {
           "reqwest-native-tls" = [ "reqwest?/native-tls" ];
           "reqwest-rustls-tls" = [ "reqwest?/rustls-tls" ];
         };
-        resolvedDefaultFeatures = [ "hyper" "reqwest" "reqwest-default-tls" ];
-      };
-      "alloy-transport-ipc" = rec {
-        crateName = "alloy-transport-ipc";
-        version = "0.9.2";
-        edition = "2021";
-        description = "IPC transport implementation";
-        sha256 = "01f2ibp39qn5lymyx01anw225wgwrbg2cvb6k6sml5d5r55s8kgs";
-        libName = "alloy_transport_ipc";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-json-rpc";
-            packageId = "alloy-json-rpc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport";
-            packageId = "alloy-transport";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-          {
-            name = "interprocess";
-            packageId = "interprocess";
-            features = [ "tokio" ];
-          }
-          {
-            name = "pin-project";
-            packageId = "pin-project";
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-          }
-          {
-            name = "tokio-util";
-            packageId = "tokio-util";
-            features = [ "io" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-          }
-        ];
-        features = {
-          "mock" = [ "dep:serde" "dep:tempfile" ];
-        };
-      };
-      "alloy-transport-ws" = rec {
-        crateName = "alloy-transport-ws";
-        version = "0.9.2";
-        edition = "2021";
-        description = "Websocket transport implementation";
-        sha256 = "1qhmrszx85cya4smrg55c21zg0difmyhgy8dni6k6yzin92if0aq";
-        libName = "alloy_transport_ws";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "alloy-pubsub";
-            packageId = "alloy-pubsub";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "alloy-transport";
-            packageId = "alloy-transport";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-          {
-            name = "http";
-            packageId = "http 1.3.1";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "rustls";
-            packageId = "rustls 0.23.31";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "std" "tls12" "ring" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            features = [ "sync" "rt" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "sync" "rt" "time" ];
-          }
-          {
-            name = "tokio-tungstenite";
-            packageId = "tokio-tungstenite";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "rustls-tls-webpki-roots" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-          }
-          {
-            name = "ws_stream_wasm";
-            packageId = "ws_stream_wasm";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-          }
-        ];
-
+        resolvedDefaultFeatures = [ "reqwest" "reqwest-default-tls" ];
       };
       "alloy-trie" = rec {
         crateName = "alloy-trie";
@@ -4170,44 +3061,6 @@ and proof generator for prefix-sorted nibbles
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
-      "ark-bls12-381" = rec {
-        crateName = "ark-bls12-381";
-        version = "0.4.0";
-        edition = "2021";
-        description = "The BLS12-381 pairing-friendly elliptic curve";
-        sha256 = "127lmg29wz42jcvsb2ls8k3q21x5nrxm9syawjmagjv9478z0xf7";
-        libName = "ark_bls12_381";
-        authors = [
-          "arkworks contributors"
-        ];
-        dependencies = [
-          {
-            name = "ark-ec";
-            packageId = "ark-ec 0.4.2";
-          }
-          {
-            name = "ark-ff";
-            packageId = "ark-ff 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-serialize";
-            packageId = "ark-serialize 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-std";
-            packageId = "ark-std 0.4.0";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "curve" = [ "scalar_field" ];
-          "default" = [ "curve" ];
-          "std" = [ "ark-std/std" "ark-ff/std" "ark-ec/std" ];
-        };
-        resolvedDefaultFeatures = [ "curve" "default" "scalar_field" ];
-      };
       "ark-bn254" = rec {
         crateName = "ark-bn254";
         version = "0.5.0";
@@ -4221,7 +3074,7 @@ and proof generator for prefix-sorted nibbles
         dependencies = [
           {
             name = "ark-ec";
-            packageId = "ark-ec 0.5.0";
+            packageId = "ark-ec";
             usesDefaultFeatures = false;
           }
           {
@@ -4244,76 +3097,7 @@ and proof generator for prefix-sorted nibbles
         };
         resolvedDefaultFeatures = [ "curve" "default" "scalar_field" ];
       };
-      "ark-ec 0.4.2" = rec {
-        crateName = "ark-ec";
-        version = "0.4.2";
-        edition = "2021";
-        description = "A library for elliptic curves and pairings";
-        sha256 = "1fkh0rswp4d5rn4hmmbibz2wh6x6k3sp21faijb29b2nkm1rmzfy";
-        libName = "ark_ec";
-        authors = [
-          "arkworks contributors"
-        ];
-        dependencies = [
-          {
-            name = "ark-ff";
-            packageId = "ark-ff 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-poly";
-            packageId = "ark-poly 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-serialize";
-            packageId = "ark-serialize 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-std";
-            packageId = "ark-std 0.4.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "derivative";
-            packageId = "derivative";
-            features = [ "use_core" ];
-          }
-          {
-            name = "hashbrown";
-            packageId = "hashbrown 0.13.2";
-          }
-          {
-            name = "itertools";
-            packageId = "itertools 0.10.5";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "num-traits";
-            packageId = "num-traits";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rayon";
-            packageId = "rayon";
-            optional = true;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            usesDefaultFeatures = false;
-            features = [ "zeroize_derive" ];
-          }
-        ];
-        features = {
-          "parallel" = [ "std" "rayon" "ark-std/parallel" ];
-          "rayon" = [ "dep:rayon" ];
-          "std" = [ "ark-std/std" "ark-ff/std" "ark-serialize/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "parallel" "rayon" "std" ];
-      };
-      "ark-ec 0.5.0" = rec {
+      "ark-ec" = rec {
         crateName = "ark-ec";
         version = "0.5.0";
         edition = "2021";
@@ -4337,7 +3121,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "ark-poly";
-            packageId = "ark-poly 0.5.0";
+            packageId = "ark-poly";
             usesDefaultFeatures = false;
           }
           {
@@ -4528,11 +3312,6 @@ and proof generator for prefix-sorted nibbles
             packageId = "paste";
           }
           {
-            name = "rayon";
-            packageId = "rayon";
-            optional = true;
-          }
-          {
             name = "zeroize";
             packageId = "zeroize";
             usesDefaultFeatures = false;
@@ -4550,7 +3329,7 @@ and proof generator for prefix-sorted nibbles
           "rayon" = [ "dep:rayon" ];
           "std" = [ "ark-std/std" "ark-serialize/std" "itertools/use_std" ];
         };
-        resolvedDefaultFeatures = [ "asm" "default" "parallel" "rayon" "std" ];
+        resolvedDefaultFeatures = [ "std" ];
       };
       "ark-ff 0.5.0" = rec {
         crateName = "ark-ff";
@@ -4695,7 +3474,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "parsing" "extra-traits" ];
           }
         ];
@@ -4805,57 +3584,13 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "parsing" "extra-traits" ];
           }
         ];
 
       };
-      "ark-poly 0.4.2" = rec {
-        crateName = "ark-poly";
-        version = "0.4.2";
-        edition = "2021";
-        description = "A library for efficient polynomial arithmetic via FFTs over finite fields";
-        sha256 = "1gw6zrbl1rx1jwcnwwaq2p727fda66yaipxsrjcxi1g19v2by86k";
-        libName = "ark_poly";
-        authors = [
-          "arkworks contributors"
-        ];
-        dependencies = [
-          {
-            name = "ark-ff";
-            packageId = "ark-ff 0.4.2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ark-serialize";
-            packageId = "ark-serialize 0.4.2";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "ark-std";
-            packageId = "ark-std 0.4.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "derivative";
-            packageId = "derivative";
-            usesDefaultFeatures = false;
-            features = [ "use_core" ];
-          }
-          {
-            name = "hashbrown";
-            packageId = "hashbrown 0.13.2";
-          }
-        ];
-        features = {
-          "parallel" = [ "std" "ark-ff/parallel" "rayon" "ark-std/parallel" ];
-          "rayon" = [ "dep:rayon" ];
-          "std" = [ "ark-std/std" "ark-ff/std" ];
-        };
-      };
-      "ark-poly 0.5.0" = rec {
+      "ark-poly" = rec {
         crateName = "ark-poly";
         version = "0.5.0";
         edition = "2021";
@@ -4952,11 +3687,6 @@ and proof generator for prefix-sorted nibbles
         ];
         dependencies = [
           {
-            name = "ark-serialize-derive";
-            packageId = "ark-serialize-derive 0.4.2";
-            optional = true;
-          }
-          {
             name = "ark-std";
             packageId = "ark-std 0.4.0";
             usesDefaultFeatures = false;
@@ -4977,7 +3707,7 @@ and proof generator for prefix-sorted nibbles
           "derive" = [ "ark-serialize-derive" ];
           "std" = [ "ark-std/std" ];
         };
-        resolvedDefaultFeatures = [ "ark-serialize-derive" "default" "derive" "std" ];
+        resolvedDefaultFeatures = [ "std" ];
       };
       "ark-serialize 0.5.0" = rec {
         crateName = "ark-serialize";
@@ -4992,7 +3722,7 @@ and proof generator for prefix-sorted nibbles
         dependencies = [
           {
             name = "ark-serialize-derive";
-            packageId = "ark-serialize-derive 0.5.0";
+            packageId = "ark-serialize-derive";
             optional = true;
           }
           {
@@ -5025,34 +3755,7 @@ and proof generator for prefix-sorted nibbles
         };
         resolvedDefaultFeatures = [ "ark-serialize-derive" "default" "derive" ];
       };
-      "ark-serialize-derive 0.4.2" = rec {
-        crateName = "ark-serialize-derive";
-        version = "0.4.2";
-        edition = "2021";
-        description = "A library for deriving serialization traits for the arkworks ecosystem";
-        sha256 = "1sl2yrpk88v4lfgkblwgd2yqa89hw48jbd9jmx4ybmqgdny82cmf";
-        procMacro = true;
-        libName = "ark_serialize_derive";
-        authors = [
-          "arkworks Contributors"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 1.0.109";
-          }
-        ];
-
-      };
-      "ark-serialize-derive 0.5.0" = rec {
+      "ark-serialize-derive" = rec {
         crateName = "ark-serialize-derive";
         version = "0.5.0";
         edition = "2021";
@@ -5074,7 +3777,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -5133,11 +3836,6 @@ and proof generator for prefix-sorted nibbles
             usesDefaultFeatures = false;
             features = [ "std_rng" ];
           }
-          {
-            name = "rayon";
-            packageId = "rayon";
-            optional = true;
-          }
         ];
         devDependencies = [
           {
@@ -5154,7 +3852,7 @@ and proof generator for prefix-sorted nibbles
           "print-trace" = [ "std" "colored" ];
           "rayon" = [ "dep:rayon" ];
         };
-        resolvedDefaultFeatures = [ "parallel" "rayon" "std" ];
+        resolvedDefaultFeatures = [ "std" ];
       };
       "ark-std 0.5.0" = rec {
         crateName = "ark-std";
@@ -5297,7 +3995,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "visit-mut" ];
           }
         ];
@@ -5325,52 +4023,12 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "full" "parsing" "printing" "proc-macro" "visit-mut" ];
           }
         ];
 
-      };
-      "async_io_stream" = rec {
-        crateName = "async_io_stream";
-        version = "0.3.3";
-        edition = "2021";
-        description = "IntoAsyncRead on steriods";
-        sha256 = "0k5rv51935p3il74q59hwaaid6sy9kv05vz3lw48jpgkrpgbkmxn";
-        authors = [
-          "Naja Melan <najamelan@autistici.org>"
-        ];
-        dependencies = [
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-          {
-            name = "pharos";
-            packageId = "pharos";
-            optional = true;
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "rustc_version";
-            packageId = "rustc_version 0.4.1";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-        ];
-        features = {
-          "map_pharos" = [ "pharos" ];
-          "pharos" = [ "dep:pharos" ];
-          "tokio" = [ "dep:tokio" ];
-          "tokio_io" = [ "tokio" ];
-        };
-        resolvedDefaultFeatures = [ "map_pharos" "pharos" ];
       };
       "atomic" = rec {
         crateName = "atomic";
@@ -5468,7 +4126,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "visit" "visit-mut" ];
           }
         ];
@@ -5524,7 +4182,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             optional = true;
           }
           {
@@ -5583,7 +4241,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "sync_wrapper";
-            packageId = "sync_wrapper 1.0.2";
+            packageId = "sync_wrapper";
           }
           {
             name = "tokio";
@@ -5706,7 +4364,7 @@ and proof generator for prefix-sorted nibbles
           }
           {
             name = "sync_wrapper";
-            packageId = "sync_wrapper 1.0.2";
+            packageId = "sync_wrapper";
           }
           {
             name = "tower-layer";
@@ -5944,37 +4602,6 @@ constant-time operation and embedded-friendly no_std support
         };
         resolvedDefaultFeatures = [ "alloc" ];
       };
-      "bech32 0.11.0" = rec {
-        crateName = "bech32";
-        version = "0.11.0";
-        edition = "2018";
-        description = "Encodes and decodes the Bech32 format and implements the bech32 and bech32m checksums";
-        sha256 = "07cmbj8ynqpj01wzj4pgj27i2c6n66gf8zma8k6xxdz3jrhl8rfr";
-        authors = [
-          "Clark Moody"
-          "Andrew Poelstra"
-          "Tobin Harding"
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "alloc" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "default" "std" ];
-      };
-      "bech32 0.9.1" = rec {
-        crateName = "bech32";
-        version = "0.9.1";
-        edition = "2018";
-        description = "Encodes and decodes the Bech32 format";
-        sha256 = "0igl565rfpxwbh0g36cb7469sjkiap8yd21kcr0ppi2jfbwr6syq";
-        authors = [
-          "Clark Moody"
-        ];
-        features = {
-          "default" = [ "std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
       "beef" = rec {
         crateName = "beef";
         version = "0.5.2";
@@ -5998,21 +4625,6 @@ constant-time operation and embedded-friendly no_std support
           "serde" = [ "dep:serde" ];
         };
         resolvedDefaultFeatures = [ "default" "impl_serde" "serde" ];
-      };
-      "bimap" = rec {
-        crateName = "bimap";
-        version = "0.6.3";
-        edition = "2018";
-        description = "Bijective maps";
-        sha256 = "1xx4dns6hj0mf1sl47lh3r0z4jcvmhqhsr7qacjs69d3lqf5y313";
-        authors = [
-          "Billy Rieger <wrieger@protonmail.com>"
-        ];
-        features = {
-          "default" = [ "std" ];
-          "serde" = [ "dep:serde" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "bincode 1.3.3" = rec {
         crateName = "bincode";
@@ -6091,7 +4703,7 @@ constant-time operation and embedded-friendly no_std support
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "cexpr";
@@ -6144,7 +4756,7 @@ constant-time operation and embedded-friendly no_std support
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "extra-traits" "visit-mut" ];
           }
         ];
@@ -6157,103 +4769,6 @@ constant-time operation and embedded-friendly no_std support
           "static" = [ "clang-sys/static" ];
         };
         resolvedDefaultFeatures = [ "default" "logging" "prettyplease" "runtime" ];
-      };
-      "bip32" = rec {
-        crateName = "bip32";
-        version = "0.5.3";
-        edition = "2021";
-        description = "BIP32 hierarchical key derivation implemented in a generic, no_std-friendly
-manner. Supports deriving keys using the pure Rust k256 crate or the
-C library-backed secp256k1 crate
-";
-        sha256 = "0saw83qxz1i9knn0f5nf27dv186al0pn8i68g0fh6kmbpvgx6h6v";
-        authors = [
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "bs58";
-            packageId = "bs58";
-            usesDefaultFeatures = false;
-            features = [ "check" ];
-          }
-          {
-            name = "hmac";
-            packageId = "hmac";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" "sha256" ];
-          }
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-            optional = true;
-          }
-          {
-            name = "pbkdf2";
-            packageId = "pbkdf2 0.12.2";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "hmac" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ripemd";
-            packageId = "ripemd";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "secp256k1";
-            packageId = "secp256k1 0.27.0";
-            rename = "secp256k1-ffi";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle";
-            packageId = "subtle";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            features = [ "std" ];
-          }
-        ];
-        features = {
-          "alloc" = [ "secp256k1-ffi?/alloc" "zeroize/alloc" ];
-          "bip39" = [ "mnemonic" "pbkdf2" "std" ];
-          "default" = [ "bip39" "secp256k1" "std" ];
-          "k256" = [ "dep:k256" ];
-          "mnemonic" = [ "alloc" "once_cell" ];
-          "once_cell" = [ "dep:once_cell" ];
-          "pbkdf2" = [ "dep:pbkdf2" ];
-          "secp256k1" = [ "k256" ];
-          "secp256k1-ffi" = [ "dep:secp256k1-ffi" ];
-          "std" = [ "alloc" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "bip39" "default" "k256" "mnemonic" "once_cell" "pbkdf2" "secp256k1" "std" ];
       };
       "bit-set" = rec {
         crateName = "bit-set";
@@ -6301,30 +4816,13 @@ C library-backed secp256k1 crate
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
-      "bitflags 1.3.2" = rec {
+      "bitflags" = rec {
         crateName = "bitflags";
-        version = "1.3.2";
-        edition = "2018";
-        description = "A macro to generate structures which behave like bitflags.
-";
-        sha256 = "12ki6w8gn1ldq7yz9y680llwk5gmrhrzszaa17g1sbrw2r2qvwxy";
-        authors = [
-          "The Rust Project Developers"
-        ];
-        features = {
-          "compiler_builtins" = [ "dep:compiler_builtins" ];
-          "core" = [ "dep:core" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "bitflags 2.9.1" = rec {
-        crateName = "bitflags";
-        version = "2.9.1";
+        version = "2.9.2";
         edition = "2021";
         description = "A macro to generate structures which behave like bitflags.
 ";
-        sha256 = "0rz9rpp5wywwqb3mxfkywh4drmzci2fch780q7lifbf6bsc5d3hv";
+        sha256 = "0adahzd1i2kv86k0vzkaxdcw9zjm124x9698yp7qgmiimd2varba";
         authors = [
           "The Rust Project Developers"
         ];
@@ -6339,9 +4837,6 @@ C library-backed secp256k1 crate
         features = {
           "arbitrary" = [ "dep:arbitrary" ];
           "bytemuck" = [ "dep:bytemuck" ];
-          "compiler_builtins" = [ "dep:compiler_builtins" ];
-          "core" = [ "dep:core" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" ];
           "serde" = [ "dep:serde" ];
         };
         resolvedDefaultFeatures = [ "serde" "std" ];
@@ -6712,152 +5207,6 @@ C library-backed secp256k1 crate
           "serde-secret" = [ "serde" ];
         };
       };
-      "bnum" = rec {
-        crateName = "bnum";
-        version = "0.11.0";
-        edition = "2021";
-        description = "Arbitrary, fixed size numeric types that extend the functionality of primitive numeric types.";
-        sha256 = "1457svpk7q3wwnfldzqkzfnifqvnvpnpzkx8p342mrkf7wcflc9y";
-        authors = [
-          "isaac-holt <isaac_holt@icloud.com>"
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" ];
-          "num-integer" = [ "dep:num-integer" ];
-          "num-traits" = [ "dep:num-traits" ];
-          "numtraits" = [ "num-integer" "num-traits" ];
-          "quickcheck" = [ "dep:quickcheck" ];
-          "rand" = [ "dep:rand" ];
-          "serde" = [ "dep:serde" "serde-big-array" ];
-          "serde-big-array" = [ "dep:serde-big-array" ];
-          "valuable" = [ "dep:valuable" ];
-          "zeroize" = [ "dep:zeroize" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "borsh" = rec {
-        crateName = "borsh";
-        version = "1.5.7";
-        edition = "2018";
-        description = "Binary Object Representation Serializer for Hashing
-";
-        crateBin = [];
-        sha256 = "1kikljm5yr3l9qsw5xvdccragxj4445s4s3fqsgy6hmmipwld1md";
-        authors = [
-          "Near Inc <hello@near.org>"
-        ];
-        dependencies = [
-          {
-            name = "borsh-derive";
-            packageId = "borsh-derive";
-            optional = true;
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "cfg_aliases";
-            packageId = "cfg_aliases";
-          }
-        ];
-        features = {
-          "ascii" = [ "dep:ascii" ];
-          "borsh-derive" = [ "dep:borsh-derive" ];
-          "bson" = [ "dep:bson" ];
-          "bytes" = [ "dep:bytes" ];
-          "default" = [ "std" ];
-          "derive" = [ "borsh-derive" ];
-          "hashbrown" = [ "dep:hashbrown" ];
-          "indexmap" = [ "dep:indexmap" ];
-          "unstable__schema" = [ "derive" "borsh-derive/schema" ];
-        };
-        resolvedDefaultFeatures = [ "borsh-derive" "derive" ];
-      };
-      "borsh-derive" = rec {
-        crateName = "borsh-derive";
-        version = "1.5.7";
-        edition = "2018";
-        description = "Binary Object Representation Serializer for Hashing
-";
-        sha256 = "1hwsznww7d01bh1fzpndzmcpyp00xpl2y9bg70i3z0zmqb0d7lgx";
-        procMacro = true;
-        libName = "borsh_derive";
-        authors = [
-          "Near Inc <hello@nearprotocol.com>"
-        ];
-        dependencies = [
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-          }
-          {
-            name = "proc-macro-crate";
-            packageId = "proc-macro-crate 3.3.0";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "full" "fold" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "full" "fold" "parsing" ];
-          }
-        ];
-        features = {
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "bs58" = rec {
-        crateName = "bs58";
-        version = "0.5.1";
-        edition = "2021";
-        description = "Another Base58 codec implementation.";
-        sha256 = "1x3v51n5n2s3l0rgrsn142akdf331n2qsa75pscw71fi848vm25z";
-        dependencies = [
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tinyvec";
-            packageId = "tinyvec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "grab_spare_slice" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "tinyvec";
-            packageId = "tinyvec";
-            features = [ "rustc_1_55" ];
-          }
-        ];
-        features = {
-          "alloc" = [ "tinyvec?/alloc" ];
-          "cb58" = [ "sha2" ];
-          "check" = [ "sha2" ];
-          "default" = [ "std" ];
-          "sha2" = [ "dep:sha2" ];
-          "smallvec" = [ "dep:smallvec" ];
-          "std" = [ "alloc" "tinyvec?/std" ];
-          "tinyvec" = [ "dep:tinyvec" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "check" "default" "sha2" "std" ];
-      };
       "bstr" = rec {
         crateName = "bstr";
         version = "1.12.0";
@@ -6996,7 +5345,7 @@ C library-backed secp256k1 crate
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -7254,7 +5603,7 @@ C library-backed secp256k1 crate
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "extra-traits" "fold" "full" "parsing" "printing" ];
           }
@@ -7275,13 +5624,13 @@ C library-backed secp256k1 crate
       };
       "cc" = rec {
         crateName = "cc";
-        version = "1.2.32";
+        version = "1.2.33";
         edition = "2018";
         description = "A build-time dependency for Cargo build scripts to assist in invoking the native
 C compiler to compile native C code into a static archive to be linked into Rust
 code.
 ";
-        sha256 = "0vi9np1fac712q5dpa2gb3g8lwr7bl6ik5cwdmg4sm4wgrcyali3";
+        sha256 = "0pwv1ql0gpvacwdn44643adr0s0q8p575pbp4xz5mfi26a0giq1y";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -7416,34 +5765,6 @@ item that gets emitted.
           "windows-link" = [ "dep:windows-link" ];
         };
         resolvedDefaultFeatures = [ "alloc" "android-tzdata" "clock" "default" "iana-time-zone" "js-sys" "now" "oldtime" "serde" "std" "wasm-bindgen" "wasmbind" "winapi" "windows-link" ];
-      };
-      "cipher" = rec {
-        crateName = "cipher";
-        version = "0.4.4";
-        edition = "2021";
-        description = "Traits for describing block ciphers and stream ciphers";
-        sha256 = "1b9x9agg67xq5nq879z66ni4l08m6m3hqcshk37d4is4ysd3ngvp";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "crypto-common";
-            packageId = "crypto-common";
-          }
-          {
-            name = "inout";
-            packageId = "inout";
-          }
-        ];
-        features = {
-          "blobby" = [ "dep:blobby" ];
-          "block-padding" = [ "inout/block-padding" ];
-          "dev" = [ "blobby" ];
-          "rand_core" = [ "crypto-common/rand_core" ];
-          "std" = [ "alloc" "crypto-common/std" "inout/std" ];
-          "zeroize" = [ "dep:zeroize" ];
-        };
       };
       "clang-sys" = rec {
         crateName = "clang-sys";
@@ -7614,7 +5935,7 @@ item that gets emitted.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -7631,183 +5952,6 @@ item that gets emitted.
         edition = "2021";
         description = "Minimal, flexible command line parser";
         sha256 = "0xb6pjza43irrl99axbhs12pxq4sr8x7xd36p703j57f5i3n2kxr";
-
-      };
-      "coins-bip32" = rec {
-        crateName = "coins-bip32";
-        version = "0.12.0";
-        edition = "2021";
-        description = "Bip32 in Rust";
-        sha256 = "025zbsgqjihqy3rd6lb8jgvhfw2dn6bqninx010fsyklj62nfwr0";
-        libName = "coins_bip32";
-        authors = [
-          "Summa <team@summa.one>"
-          "James Prestwich <james@prestwi.ch>"
-        ];
-        dependencies = [
-          {
-            name = "bs58";
-            packageId = "bs58";
-          }
-          {
-            name = "coins-core";
-            packageId = "coins-core";
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-          }
-          {
-            name = "hmac";
-            packageId = "hmac";
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            features = [ "std" "arithmetic" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        features = {
-          "default" = [ "mainnet" ];
-        };
-        resolvedDefaultFeatures = [ "default" "mainnet" ];
-      };
-      "coins-bip39" = rec {
-        crateName = "coins-bip39";
-        version = "0.12.0";
-        edition = "2021";
-        description = "BIP39 implementation for coins";
-        sha256 = "1m6rss1pdprifvpjkw9rvy020d0m9zz3k99pvgligzr3csr6kcbl";
-        libName = "coins_bip39";
-        authors = [
-          "Rohit Narurkar <rohit.narurkar@protonmail.com>"
-          "James Prestwich <james@prestwi.ch>"
-          "0xYYY <0xYYY@pm.me>"
-        ];
-        dependencies = [
-          {
-            name = "bitvec";
-            packageId = "bitvec";
-          }
-          {
-            name = "coins-bip32";
-            packageId = "coins-bip32";
-          }
-          {
-            name = "hmac";
-            packageId = "hmac";
-          }
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-            optional = true;
-          }
-          {
-            name = "pbkdf2";
-            packageId = "pbkdf2 0.12.2";
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        features = {
-          "all-langs" = [ "chinese-simplified" "chinese-traditional" "czech" "english" "french" "italian" "japanese" "korean" "portuguese" "spanish" ];
-          "chinese-simplified" = [ "dep:once_cell" ];
-          "chinese-traditional" = [ "dep:once_cell" ];
-          "czech" = [ "dep:once_cell" ];
-          "default" = [ "all-langs" ];
-          "english" = [ "dep:once_cell" ];
-          "french" = [ "dep:once_cell" ];
-          "italian" = [ "dep:once_cell" ];
-          "japanese" = [ "dep:once_cell" ];
-          "korean" = [ "dep:once_cell" ];
-          "once_cell" = [ "dep:once_cell" ];
-          "portuguese" = [ "dep:once_cell" ];
-          "spanish" = [ "dep:once_cell" ];
-        };
-        resolvedDefaultFeatures = [ "english" ];
-      };
-      "coins-core" = rec {
-        crateName = "coins-core";
-        version = "0.12.0";
-        edition = "2021";
-        description = "Core library for coins-bip32 and coins-bip39";
-        sha256 = "0ns72dnwr7qfq7s67nagvm4fg6ms29w3g1sfw4l3mr25hnnn5fb2";
-        libName = "coins_core";
-        authors = [
-          "Summa <team@summa.one>"
-          "James Prestwich <james@prestwi.ch>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.21.7";
-          }
-          {
-            name = "bech32";
-            packageId = "bech32 0.9.1";
-          }
-          {
-            name = "bs58";
-            packageId = "bs58";
-            features = [ "check" ];
-          }
-          {
-            name = "const-hex";
-            packageId = "const-hex";
-            rename = "hex";
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-          }
-          {
-            name = "generic-array";
-            packageId = "generic-array 0.14.7";
-          }
-          {
-            name = "ripemd";
-            packageId = "ripemd";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "sha3";
-            packageId = "sha3";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
 
       };
       "colorchoice" = rec {
@@ -7862,10 +6006,10 @@ item that gets emitted.
       };
       "const-hex" = rec {
         crateName = "const-hex";
-        version = "1.14.1";
+        version = "1.15.0";
         edition = "2021";
         description = "Fast byte array to hex string conversion";
-        sha256 = "1zq7c8f5x8g88yynp6zkgbv7igb5scpzfx5j7n6s95hbsh72xql3";
+        sha256 = "1i5r1z9dd1f1x2b2r452jvdj44min8gc5kmp0w2qq0xiz5mp9kfw";
         libName = "const_hex";
         authors = [
           "DaniPopes <57450786+DaniPopes@users.noreply.github.com>"
@@ -7920,7 +6064,7 @@ item that gets emitted.
           "serde" = [ "hex?/serde" "dep:serde" ];
           "std" = [ "hex?/std" "serde?/std" "proptest?/std" "alloc" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "core-error" "default" "serde" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "core-error" "serde" "std" ];
       };
       "const-oid" = rec {
         crateName = "const-oid";
@@ -8018,20 +6162,6 @@ heapless no_std (i.e. embedded) support
         features = {
         };
       };
-      "convert_case" = rec {
-        crateName = "convert_case";
-        version = "0.4.0";
-        edition = "2018";
-        description = "Convert strings into any case";
-        sha256 = "03jaf1wrsyqzcaah9jf8l1iznvdw5mlsca2qghhzr9w27sddaib2";
-        authors = [
-          "David Purdum <purdum41@gmail.com>"
-        ];
-        features = {
-          "rand" = [ "dep:rand" ];
-          "random" = [ "rand" ];
-        };
-      };
       "core-foundation 0.10.1" = rec {
         crateName = "core-foundation";
         version = "0.10.1";
@@ -8109,491 +6239,6 @@ heapless no_std (i.e. embedded) support
           "default" = [ "link" ];
         };
         resolvedDefaultFeatures = [ "default" "link" ];
-      };
-      "cosmos-sdk-proto 0.20.0" = rec {
-        crateName = "cosmos-sdk-proto";
-        version = "0.20.0";
-        edition = "2021";
-        description = "Protobuf stuct defintions for interacting Cosmos SDK powered blockchains";
-        sha256 = "0dr2hmkwsnaiqf889af1hf03s89pcvvq4wihzn8mfdjcmc206mij";
-        libName = "cosmos_sdk_proto";
-        authors = [
-          "Justin Kilpatrick <justin@althea.net>"
-          "Greg Szabo <greg@informal.systems>"
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "prost";
-            packageId = "prost 0.12.6";
-          }
-          {
-            name = "prost-types";
-            packageId = "prost-types";
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.34.1";
-          }
-        ];
-        features = {
-          "default" = [ "grpc-transport" ];
-          "grpc" = [ "tonic" ];
-          "grpc-transport" = [ "grpc" "tonic/transport" ];
-          "tonic" = [ "dep:tonic" ];
-        };
-      };
-      "cosmos-sdk-proto 0.26.1" = rec {
-        crateName = "cosmos-sdk-proto";
-        version = "0.26.1";
-        edition = "2021";
-        description = "Protobuf stuct defintions for interacting Cosmos SDK powered blockchains";
-        sha256 = "09v4jm8g0xg660w4gn58l9gdcglpsz5n0bfk6n4cqnh0irm1ybj6";
-        libName = "cosmos_sdk_proto";
-        authors = [
-          "Justin Kilpatrick <justin@althea.net>"
-          "Greg Szabo <greg@informal.systems>"
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "informalsystems-pbjson";
-            packageId = "informalsystems-pbjson";
-            rename = "pbjson";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.40.4";
-          }
-          {
-            name = "tonic";
-            packageId = "tonic";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "codegen" "prost" ];
-          }
-        ];
-        features = {
-          "default" = [ "grpc-transport" ];
-          "grpc" = [ "std" "tonic" ];
-          "grpc-transport" = [ "grpc" "tonic/transport" ];
-          "pbjson" = [ "dep:pbjson" ];
-          "serde" = [ "dep:serde" "pbjson" ];
-          "std" = [ "prost/std" "tendermint-proto/std" ];
-          "tonic" = [ "dep:tonic" ];
-        };
-        resolvedDefaultFeatures = [ "cosmwasm" "default" "grpc" "grpc-transport" "pbjson" "serde" "std" "tonic" ];
-      };
-      "cosmrs" = rec {
-        crateName = "cosmrs";
-        version = "0.21.1";
-        edition = "2021";
-        description = "Transaction builder and signer for Cosmos-based blockchains";
-        sha256 = "00ixskfx6f7qlmk0ikjcnkgf1qq4v1swdcn4m25rx82x6diw550k";
-        authors = [
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "bip32";
-            packageId = "bip32";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" "secp256k1" ];
-          }
-          {
-            name = "cosmos-sdk-proto";
-            packageId = "cosmos-sdk-proto 0.26.1";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "ecdsa";
-            packageId = "ecdsa";
-          }
-          {
-            name = "eyre";
-            packageId = "eyre";
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" "sha256" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "serde_derive" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-          {
-            name = "signature";
-            packageId = "signature";
-            features = [ "std" ];
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            features = [ "bech32-preview" ];
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            features = [ "secp256k1" ];
-          }
-          {
-            name = "tendermint-rpc";
-            packageId = "tendermint-rpc";
-            optional = true;
-            features = [ "http-client" ];
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        features = {
-          "bip32" = [ "dep:bip32" ];
-          "cosmwasm" = [ "cosmos-sdk-proto/cosmwasm" ];
-          "default" = [ "bip32" "getrandom" ];
-          "dev" = [ "rpc" "tokio" ];
-          "getrandom" = [ "rand_core/getrandom" ];
-          "grpc" = [ "cosmos-sdk-proto/grpc-transport" "grpc-core" ];
-          "grpc-core" = [ "cosmos-sdk-proto/grpc" ];
-          "rpc" = [ "tendermint-rpc" ];
-          "tendermint-rpc" = [ "dep:tendermint-rpc" ];
-          "tokio" = [ "dep:tokio" ];
-        };
-        resolvedDefaultFeatures = [ "bip32" "cosmwasm" "default" "getrandom" "grpc" "grpc-core" "rpc" "tendermint-rpc" ];
-      };
-      "cosmwasm-core" = rec {
-        crateName = "cosmwasm-core";
-        version = "2.2.2";
-        edition = "2021";
-        description = "Components of cosmwasm-std that can be used in no_std environments";
-        sha256 = "03i5i5c5wrmf7qwgngacl6k0kpxvy0ryy4lglnhd12gxwwbxrdim";
-        libName = "cosmwasm_core";
-
-      };
-      "cosmwasm-crypto" = rec {
-        crateName = "cosmwasm-crypto";
-        version = "2.2.2";
-        edition = "2021";
-        description = "Crypto bindings for cosmwasm contracts";
-        sha256 = "17j6y2r16i0mjl97wlkqaw9lbs7g05iy9cr5v0rkxnqpall56bxa";
-        libName = "cosmwasm_crypto";
-        authors = [
-          "Mauro Lacy <maurolacy@users.noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "ark-bls12-381";
-            packageId = "ark-bls12-381";
-          }
-          {
-            name = "ark-ec";
-            packageId = "ark-ec 0.4.2";
-            features = [ "parallel" ];
-          }
-          {
-            name = "ark-ff";
-            packageId = "ark-ff 0.4.2";
-            features = [ "asm" "parallel" ];
-          }
-          {
-            name = "ark-serialize";
-            packageId = "ark-serialize 0.4.2";
-          }
-          {
-            name = "cosmwasm-core";
-            packageId = "cosmwasm-core";
-          }
-          {
-            name = "curve25519-dalek";
-            packageId = "curve25519-dalek";
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-          }
-          {
-            name = "ecdsa";
-            packageId = "ecdsa";
-          }
-          {
-            name = "ed25519-zebra";
-            packageId = "ed25519-zebra";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-          {
-            name = "num-traits";
-            packageId = "num-traits";
-          }
-          {
-            name = "p256";
-            packageId = "p256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-          }
-          {
-            name = "rayon";
-            packageId = "rayon";
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            features = [ "getrandom" ];
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "cosmwasm-derive" = rec {
-        crateName = "cosmwasm-derive";
-        version = "2.2.2";
-        edition = "2021";
-        description = "A package for auto-generated code used for CosmWasm contract development. This is shipped as part of cosmwasm-std. Do not use directly.";
-        sha256 = "0ir0pqvv9i25ln05rapa7a9zb0s5g179k7iymnl7rrckmqzvk0m7";
-        procMacro = true;
-        libName = "cosmwasm_derive";
-        authors = [
-          "Simon Warta <webmaster128@users.noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "full" ];
-          }
-        ];
-        features = {
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "cosmwasm-schema" = rec {
-        crateName = "cosmwasm-schema";
-        version = "2.2.2";
-        edition = "2021";
-        description = "A dev-dependency for CosmWasm contracts to generate JSON Schema files.";
-        sha256 = "15bgswh71mks4hhr9hw6cr5lsw1s2aicwwscmqbnw2bsnhhsp139";
-        libName = "cosmwasm_schema";
-        authors = [
-          "Ethan Frey <ethanfrey@users.noreply.github.com>"
-          "Simon Warta <webmaster128@users.noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "cosmwasm-schema-derive";
-            packageId = "cosmwasm-schema-derive";
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "derive" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-
-      };
-      "cosmwasm-schema-derive" = rec {
-        crateName = "cosmwasm-schema-derive";
-        version = "2.2.2";
-        edition = "2021";
-        description = "Derive macros for cosmwasm-schema";
-        sha256 = "0a8skmcpf97vsvvmirr4cyxsjzvi3xp076g2v3mzc5wh64a94770";
-        procMacro = true;
-        libName = "cosmwasm_schema_derive";
-        authors = [
-          "Tomasz Kurcz <tom@confio.gmbh>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" "full" "printing" ];
-          }
-        ];
-
-      };
-      "cosmwasm-std" = rec {
-        crateName = "cosmwasm-std";
-        version = "2.2.2";
-        edition = "2021";
-        description = "Standard library for Wasm based smart contracts on Cosmos blockchains";
-        sha256 = "0zaf0jwbswnrgjwj9zif7jhpxkcy86mbfqf4sfsfx55x2if370mz";
-        libName = "cosmwasm_std";
-        authors = [
-          "Ethan Frey <ethanfrey@users.noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.22.1";
-          }
-          {
-            name = "bech32";
-            packageId = "bech32 0.11.0";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "bnum";
-            packageId = "bnum";
-          }
-          {
-            name = "cosmwasm-core";
-            packageId = "cosmwasm-core";
-          }
-          {
-            name = "cosmwasm-crypto";
-            packageId = "cosmwasm-crypto";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "cosmwasm-derive";
-            packageId = "cosmwasm-derive";
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "debug" ];
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "getrandom" ];
-          }
-          {
-            name = "rmp-serde";
-            packageId = "rmp-serde";
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "derive" "std" ];
-          }
-          {
-            name = "serde-json-wasm";
-            packageId = "serde-json-wasm";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "static_assertions";
-            packageId = "static_assertions";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "cosmwasm-core";
-            packageId = "cosmwasm-core";
-          }
-        ];
-        features = {
-          "cosmwasm_1_2" = [ "cosmwasm_1_1" ];
-          "cosmwasm_1_3" = [ "cosmwasm_1_2" ];
-          "cosmwasm_1_4" = [ "cosmwasm_1_3" ];
-          "cosmwasm_2_0" = [ "cosmwasm_1_4" ];
-          "cosmwasm_2_1" = [ "cosmwasm_2_0" ];
-          "cosmwasm_2_2" = [ "cosmwasm_2_1" ];
-          "default" = [ "iterator" "std" ];
-        };
-        resolvedDefaultFeatures = [ "cosmwasm_1_1" "cosmwasm_1_2" "cosmwasm_1_3" "cosmwasm_1_4" "cosmwasm_2_0" "default" "iterator" "std" ];
       };
       "cpufeatures" = rec {
         crateName = "cpufeatures";
@@ -8812,35 +6457,6 @@ no_std-friendly implementations of modern formulas using const generics.
         };
         resolvedDefaultFeatures = [ "std" ];
       };
-      "ctr" = rec {
-        crateName = "ctr";
-        version = "0.9.2";
-        edition = "2021";
-        description = "CTR block modes of operation";
-        sha256 = "0d88b73waamgpfjdml78icxz45d95q7vi2aqa604b0visqdfws83";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher";
-            features = [ "dev" ];
-          }
-        ];
-        features = {
-          "alloc" = [ "cipher/alloc" ];
-          "block-padding" = [ "cipher/block-padding" ];
-          "std" = [ "cipher/std" "alloc" ];
-          "zeroize" = [ "cipher/zeroize" ];
-        };
-      };
       "ctrlc" = rec {
         crateName = "ctrlc";
         version = "3.4.7";
@@ -8875,152 +6491,6 @@ no_std-friendly implementations of modern formulas using const generics.
         ];
         features = {
         };
-      };
-      "curve25519-dalek" = rec {
-        crateName = "curve25519-dalek";
-        version = "4.1.3";
-        edition = "2021";
-        description = "A pure-Rust implementation of group operations on ristretto255 and Curve25519";
-        sha256 = "1gmjb9dsknrr8lypmhkyjd67p1arb8mbfamlwxm7vph38my8pywp";
-        libName = "curve25519_dalek";
-        authors = [
-          "Isis Lovecruft <isis@patternsinthevoid.net>"
-          "Henry de Valence <hdevalence@hdevalence.ca>"
-        ];
-        dependencies = [
-          {
-            name = "cfg-if";
-            packageId = "cfg-if";
-          }
-          {
-            name = "cpufeatures";
-            packageId = "cpufeatures";
-            target = { target, features }: ("x86_64" == target."arch" or null);
-          }
-          {
-            name = "curve25519-dalek-derive";
-            packageId = "curve25519-dalek-derive";
-            target = { target, features }: ((!("fiat" == target."curve25519_dalek_backend" or null)) && (!("serial" == target."curve25519_dalek_backend" or null)) && ("x86_64" == target."arch" or null));
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "fiat-crypto";
-            packageId = "fiat-crypto";
-            usesDefaultFeatures = false;
-            target = { target, features }: ("fiat" == target."curve25519_dalek_backend" or null);
-          }
-          {
-            name = "subtle";
-            packageId = "subtle";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "rustc_version";
-            packageId = "rustc_version 0.4.1";
-          }
-        ];
-        features = {
-          "alloc" = [ "zeroize?/alloc" ];
-          "default" = [ "alloc" "precomputed-tables" "zeroize" ];
-          "digest" = [ "dep:digest" ];
-          "ff" = [ "dep:ff" ];
-          "group" = [ "dep:group" "rand_core" ];
-          "group-bits" = [ "group" "ff/bits" ];
-          "rand_core" = [ "dep:rand_core" ];
-          "serde" = [ "dep:serde" ];
-          "zeroize" = [ "dep:zeroize" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "default" "digest" "precomputed-tables" "zeroize" ];
-      };
-      "curve25519-dalek-derive" = rec {
-        crateName = "curve25519-dalek-derive";
-        version = "0.1.1";
-        edition = "2021";
-        description = "curve25519-dalek Derives";
-        sha256 = "1cry71xxrr0mcy5my3fb502cwfxy6822k4pm19cwrilrg7hq4s7l";
-        procMacro = true;
-        libName = "curve25519_dalek_derive";
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "full" ];
-          }
-        ];
-
-      };
-      "curve25519-dalek-ng" = rec {
-        crateName = "curve25519-dalek-ng";
-        version = "4.1.1";
-        edition = "2015";
-        description = "A pure-Rust implementation of group operations on ristretto255 and Curve25519";
-        sha256 = "1j6y6dsqdfp26ifyygibsrm1a8f9f7870i4053xlczil95r9nd8w";
-        libName = "curve25519_dalek_ng";
-        authors = [
-          "Isis Lovecruft <isis@patternsinthevoid.net>"
-          "Henry de Valence <hdevalence@hdevalence.ca>"
-        ];
-        dependencies = [
-          {
-            name = "byteorder";
-            packageId = "byteorder";
-            usesDefaultFeatures = false;
-            features = [ "i128" ];
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.9.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-ng";
-            packageId = "subtle-ng";
-            rename = "subtle";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "alloc" = [ "zeroize/alloc" ];
-          "avx2_backend" = [ "simd_backend" ];
-          "default" = [ "std" "u64_backend" ];
-          "nightly" = [ "subtle/nightly" ];
-          "packed_simd" = [ "dep:packed_simd" ];
-          "serde" = [ "dep:serde" ];
-          "simd_backend" = [ "nightly" "u64_backend" "packed_simd" ];
-          "std" = [ "alloc" "subtle/std" "rand_core/std" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "u64_backend" ];
       };
       "darling 0.13.4" = rec {
         crateName = "darling";
@@ -9158,7 +6628,7 @@ implementing custom derives. Use https://crates.io/crates/darling in your code.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "extra-traits" ];
           }
         ];
@@ -9219,7 +6689,7 @@ implementing custom derives. Use https://crates.io/crates/darling in your code.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -9628,10 +7098,10 @@ full support for heapless no_std targets
       };
       "deranged" = rec {
         crateName = "deranged";
-        version = "0.3.11";
+        version = "0.4.0";
         edition = "2021";
         description = "Ranged integers";
-        sha256 = "1d1ibqqnr5qdrpw8rclwrf1myn3wf0dygl04idf4j2s49ah6yaxl";
+        sha256 = "13h6skwk411wzhf1l9l7d3yz5y6vg9d7s3dwhhb4a942r88nm7lw";
         authors = [
           "Jacob Pratt <jacob@jhpratt.dev>"
         ];
@@ -9645,10 +7115,13 @@ full support for heapless no_std targets
         ];
         features = {
           "default" = [ "std" ];
+          "macros" = [ "dep:deranged-macros" ];
           "num" = [ "dep:num-traits" ];
           "powerfmt" = [ "dep:powerfmt" ];
           "quickcheck" = [ "dep:quickcheck" "alloc" ];
-          "rand" = [ "dep:rand" ];
+          "rand" = [ "rand08" "rand09" ];
+          "rand08" = [ "dep:rand08" ];
+          "rand09" = [ "dep:rand09" ];
           "serde" = [ "dep:serde" ];
           "std" = [ "alloc" ];
         };
@@ -9682,62 +7155,6 @@ full support for heapless no_std targets
         features = {
         };
         resolvedDefaultFeatures = [ "use_core" ];
-      };
-      "derive_more 0.99.20" = rec {
-        crateName = "derive_more";
-        version = "0.99.20";
-        edition = "2018";
-        description = "Adds #[derive(x)] macros for more traits";
-        sha256 = "0zvz94kbc5d4r817wni1l7xk8f289nhf73vqk677p5rxlij4pnvf";
-        procMacro = true;
-        authors = [
-          "Jelte Fennema <github-tech@jeltef.nl>"
-        ];
-        dependencies = [
-          {
-            name = "convert_case";
-            packageId = "convert_case";
-            optional = true;
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "rustc_version";
-            packageId = "rustc_version 0.4.1";
-            optional = true;
-          }
-        ];
-        features = {
-          "convert_case" = [ "dep:convert_case" ];
-          "default" = [ "add_assign" "add" "as_mut" "as_ref" "constructor" "deref" "deref_mut" "display" "error" "from" "from_str" "index" "index_mut" "into" "into_iterator" "iterator" "mul_assign" "mul" "not" "sum" "try_into" "is_variant" "unwrap" ];
-          "display" = [ "syn/extra-traits" ];
-          "error" = [ "syn/extra-traits" ];
-          "from" = [ "syn/extra-traits" ];
-          "generate-parsing-rs" = [ "peg" ];
-          "into" = [ "syn/extra-traits" ];
-          "is_variant" = [ "convert_case" ];
-          "mul" = [ "syn/extra-traits" ];
-          "mul_assign" = [ "syn/extra-traits" ];
-          "not" = [ "syn/extra-traits" ];
-          "peg" = [ "dep:peg" ];
-          "rustc_version" = [ "dep:rustc_version" ];
-          "testing-helpers" = [ "rustc_version" ];
-          "try_into" = [ "syn/extra-traits" ];
-          "unwrap" = [ "convert_case" "rustc_version" ];
-        };
-        resolvedDefaultFeatures = [ "add" "add_assign" "as_mut" "as_ref" "constructor" "convert_case" "default" "deref" "deref_mut" "display" "error" "from" "from_str" "index" "index_mut" "into" "into_iterator" "is_variant" "iterator" "mul" "mul_assign" "not" "rustc_version" "sum" "try_into" "unwrap" ];
       };
       "derive_more 1.0.0" = rec {
         crateName = "derive_more";
@@ -9783,7 +7200,7 @@ full support for heapless no_std targets
           "try_unwrap" = [ "derive_more-impl/try_unwrap" ];
           "unwrap" = [ "derive_more-impl/unwrap" ];
         };
-        resolvedDefaultFeatures = [ "add" "add_assign" "as_ref" "debug" "deref" "deref_mut" "display" "from" "into" "into_iterator" "not" "std" "try_into" ];
+        resolvedDefaultFeatures = [ "add" "add_assign" "as_ref" "deref" "deref_mut" "display" "from" "into_iterator" "not" "std" ];
       };
       "derive_more 2.0.1" = rec {
         crateName = "derive_more";
@@ -9853,7 +7270,7 @@ full support for heapless no_std targets
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
           {
             name = "unicode-xid";
@@ -9878,7 +7295,7 @@ full support for heapless no_std targets
           "try_unwrap" = [ "dep:convert_case" ];
           "unwrap" = [ "dep:convert_case" ];
         };
-        resolvedDefaultFeatures = [ "add" "add_assign" "as_ref" "debug" "default" "deref" "deref_mut" "display" "from" "into" "into_iterator" "not" "try_into" ];
+        resolvedDefaultFeatures = [ "add" "add_assign" "as_ref" "default" "deref" "deref_mut" "display" "from" "into_iterator" "not" ];
       };
       "derive_more-impl 2.0.1" = rec {
         crateName = "derive_more-impl";
@@ -9902,7 +7319,7 @@ full support for heapless no_std targets
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
           {
             name = "unicode-xid";
@@ -10071,26 +7488,12 @@ full support for heapless no_std targets
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
         features = {
           "default" = [ "std" ];
         };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "doctest-file" = rec {
-        crateName = "doctest-file";
-        version = "1.0.0";
-        edition = "2021";
-        description = "Procedural macro that sources doctests from dedicated files into Rustdoc documentation with support for hiding lines.";
-        sha256 = "0qkmnrsx2kszm58wxyry63bs35msj9chdb6jlh54a8cdwaiizj5a";
-        procMacro = true;
-        libName = "doctest_file";
-        authors = [
-          "Kotauskas <v.toncharov@gmail.com>"
-        ];
-
       };
       "downcast-rs" = rec {
         crateName = "downcast-rs";
@@ -10135,7 +7538,7 @@ parameters, associated types, and type constraints.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             usesDefaultFeatures = false;
           }
           {
@@ -10264,147 +7667,7 @@ RFC6979 deterministic signatures as well as support for added entropy
           "std" = [ "alloc" "elliptic-curve/std" "signature/std" ];
           "verifying" = [ "arithmetic" "digest" "hazmat" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "arithmetic" "default" "der" "digest" "hazmat" "pem" "pkcs8" "rfc6979" "serde" "serdect" "signing" "spki" "std" "verifying" ];
-      };
-      "ed25519" = rec {
-        crateName = "ed25519";
-        version = "2.2.3";
-        edition = "2021";
-        description = "Edwards Digital Signature Algorithm (EdDSA) over Curve25519 (as specified in RFC 8032)
-support library providing signature type definitions and PKCS#8 private key
-decoding/encoding support
-";
-        sha256 = "0lydzdf26zbn82g7xfczcac9d7mzm3qgx934ijjrd5hjpjx32m8i";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "pkcs8";
-            packageId = "pkcs8";
-            optional = true;
-          }
-          {
-            name = "signature";
-            packageId = "signature";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "alloc" = [ "pkcs8?/alloc" ];
-          "default" = [ "std" ];
-          "pem" = [ "alloc" "pkcs8/pem" ];
-          "pkcs8" = [ "dep:pkcs8" ];
-          "serde" = [ "dep:serde" ];
-          "serde_bytes" = [ "serde" "dep:serde_bytes" ];
-          "std" = [ "pkcs8?/std" "signature/std" ];
-          "zeroize" = [ "dep:zeroize" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" ];
-      };
-      "ed25519-consensus" = rec {
-        crateName = "ed25519-consensus";
-        version = "2.1.0";
-        edition = "2018";
-        description = "Ed25519 suitable for use in consensus-critical contexts.";
-        sha256 = "12wrrwg5hafpm3ashyi6vginwrqnkc0imll1xbzkcx7fr3nnb11w";
-        libName = "ed25519_consensus";
-        authors = [
-          "Henry de Valence <hdevalence@hdevalence.ca>"
-        ];
-        dependencies = [
-          {
-            name = "curve25519-dalek-ng";
-            packageId = "curve25519-dalek-ng";
-            rename = "curve25519-dalek";
-            usesDefaultFeatures = false;
-            features = [ "u64_backend" "alloc" ];
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.9.9";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "serde" "std" ];
-          "serde" = [ "dep:serde" ];
-          "std" = [ "thiserror" ];
-          "thiserror" = [ "dep:thiserror" ];
-        };
-      };
-      "ed25519-zebra" = rec {
-        crateName = "ed25519-zebra";
-        version = "4.0.3";
-        edition = "2018";
-        description = "Zcash-flavored Ed25519 for use in Zebra.";
-        sha256 = "1ab55w7w6hh7hyyjg507ki7hrz0w9nygyifdjrc43m559n3yd73x";
-        libName = "ed25519_zebra";
-        authors = [
-          "Henry de Valence <hdevalence@hdevalence.ca>"
-          "Zcash Foundation <zebra@zfnd.org>"
-        ];
-        dependencies = [
-          {
-            name = "curve25519-dalek";
-            packageId = "curve25519-dalek";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "digest" "zeroize" "precomputed-tables" ];
-          }
-          {
-            name = "ed25519";
-            packageId = "ed25519";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "hashbrown";
-            packageId = "hashbrown 0.14.5";
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.6.4";
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            features = [ "zeroize_derive" ];
-          }
-        ];
-        features = {
-          "default" = [ "serde" "std" ];
-          "der" = [ "dep:der" ];
-          "pem" = [ "der" "ed25519/pem" ];
-          "pkcs8" = [ "dep:pkcs8" ];
-          "serde" = [ "dep:serde" "ed25519/serde" ];
-          "std" = [ "ed25519/std" ];
-        };
+        resolvedDefaultFeatures = [ "alloc" "arithmetic" "der" "digest" "hazmat" "pem" "pkcs8" "rfc6979" "serde" "serdect" "signing" "spki" "std" "verifying" ];
       };
       "educe" = rec {
         crateName = "educe";
@@ -10433,13 +7696,13 @@ decoding/encoding support
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
         devDependencies = [
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -10740,7 +8003,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "derive" "parsing" "printing" "proc-macro" ];
           }
@@ -10788,7 +8051,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
         features = {
@@ -10815,7 +8078,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -10869,85 +8132,6 @@ and public/secret keys composed thereof.
           "std" = [ "libc/std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
-      };
-      "eth-keystore" = rec {
-        crateName = "eth-keystore";
-        version = "0.5.0";
-        edition = "2018";
-        description = "A minimalist library to interact with encrypted JSON keystores";
-        sha256 = "1asqf4280mg0y85x5hdjnafgv8i53ikf05q74sjisi5y4gqkpnhz";
-        libName = "eth_keystore";
-        authors = [
-          "Rohit Narurkar <rohit.narurkar@protonmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "aes";
-            packageId = "aes";
-          }
-          {
-            name = "ctr";
-            packageId = "ctr";
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-          }
-          {
-            name = "hmac";
-            packageId = "hmac";
-          }
-          {
-            name = "pbkdf2";
-            packageId = "pbkdf2 0.11.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "scrypt";
-            packageId = "scrypt";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "sha3";
-            packageId = "sha3";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "uuid";
-            packageId = "uuid 0.8.2";
-            features = [ "serde" "v4" ];
-          }
-        ];
-        features = {
-          "ethereum-types" = [ "dep:ethereum-types" ];
-          "geth-compat" = [ "ethereum-types" "k256" "k256/ecdsa" ];
-          "k256" = [ "dep:k256" ];
-        };
       };
       "ethereum_hashing" = rec {
         crateName = "ethereum_hashing";
@@ -11081,7 +8265,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -11376,20 +8560,6 @@ and public/secret keys composed thereof.
         };
         resolvedDefaultFeatures = [ "bits" ];
       };
-      "fiat-crypto" = rec {
-        crateName = "fiat-crypto";
-        version = "0.2.9";
-        edition = "2018";
-        description = "Fiat-crypto generated Rust";
-        sha256 = "07c1vknddv3ak7w89n85ik0g34nzzpms6yb845vrjnv9m4csbpi8";
-        libName = "fiat_crypto";
-        authors = [
-          "Fiat Crypto library authors <jgross@mit.edu>"
-        ];
-        features = {
-          "default" = [ "std" ];
-        };
-      };
       "figment" = rec {
         crateName = "figment";
         version = "0.10.19";
@@ -11504,37 +8674,6 @@ and public/secret keys composed thereof.
           "std" = [ "rustc-hex/std" "rand/std" "byteorder/std" ];
         };
         resolvedDefaultFeatures = [ "byteorder" "rand" "rustc-hex" "std" ];
-      };
-      "flex-error" = rec {
-        crateName = "flex-error";
-        version = "0.4.4";
-        edition = "2018";
-        description = "Flexible error definitions using macros and traits";
-        sha256 = "0ywxqij98lb1bd04xp5vs02y352g8cbc3zywl1zm04fyr69dh1n6";
-        libName = "flex_error";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "eyre";
-            packageId = "eyre";
-            optional = true;
-          }
-          {
-            name = "paste";
-            packageId = "paste";
-          }
-        ];
-        features = {
-          "anyhow" = [ "dep:anyhow" ];
-          "anyhow_tracer" = [ "anyhow" "std" ];
-          "default" = [ "full" ];
-          "eyre" = [ "dep:eyre" ];
-          "eyre_tracer" = [ "eyre" "std" ];
-          "full" = [ "std" "eyre_tracer" "anyhow_tracer" ];
-        };
-        resolvedDefaultFeatures = [ "eyre" "eyre_tracer" "std" ];
       };
       "flume" = rec {
         crateName = "flume";
@@ -11851,7 +8990,7 @@ composability, and iterator-like interfaces.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -11905,7 +9044,7 @@ composability, and iterator-like interfaces.
           }
           {
             name = "send_wrapper";
-            packageId = "send_wrapper 0.4.0";
+            packageId = "send_wrapper";
             optional = true;
           }
         ];
@@ -12899,14 +10038,6 @@ simultaneously, and returning all of the globs that matched.
         authors = [
           "Amanieu d'Antras <amanieu@gmail.com>"
         ];
-        dependencies = [
-          {
-            name = "ahash";
-            packageId = "ahash";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
         features = {
           "ahash" = [ "dep:ahash" ];
           "alloc" = [ "dep:alloc" ];
@@ -12918,7 +10049,7 @@ simultaneously, and returning all of the globs that matched.
           "rustc-dep-of-std" = [ "nightly" "core" "compiler_builtins" "alloc" "rustc-internal-api" ];
           "serde" = [ "dep:serde" ];
         };
-        resolvedDefaultFeatures = [ "ahash" "default" "inline-more" "raw" ];
+        resolvedDefaultFeatures = [ "inline-more" "raw" ];
       };
       "hashbrown 0.14.5" = rec {
         crateName = "hashbrown";
@@ -13279,7 +10410,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "json" ];
           }
           {
@@ -13406,7 +10537,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "json" ];
           }
           {
@@ -13511,7 +10642,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "json" ];
           }
           {
@@ -13607,18 +10738,6 @@ simultaneously, and returning all of the globs that matched.
           "std" = [ "alloc" ];
         };
         resolvedDefaultFeatures = [ "alloc" "default" "serde" "std" ];
-      };
-      "hex-literal" = rec {
-        crateName = "hex-literal";
-        version = "0.4.1";
-        edition = "2021";
-        description = "Macro for converting hexadecimal string to a byte array at compile time";
-        sha256 = "0iny5inkixsdr41pm2vkqh3fl66752z5j5c0cdxw16yl9ryjdqkg";
-        libName = "hex_literal";
-        authors = [
-          "RustCrypto Developers"
-        ];
-
       };
       "hkdf" = rec {
         crateName = "hkdf";
@@ -13955,16 +11074,21 @@ simultaneously, and returning all of the globs that matched.
         };
         resolvedDefaultFeatures = [ "client" "default" "h2" "http1" "http2" "runtime" "server" "socket2" "stream" "tcp" ];
       };
-      "hyper 1.6.0" = rec {
+      "hyper 1.7.0" = rec {
         crateName = "hyper";
-        version = "1.6.0";
+        version = "1.7.0";
         edition = "2021";
         description = "A protective and efficient HTTP library for all.";
-        sha256 = "103ggny2k31z0iq2gzwk2vbx601wx6xkpjpxn40hr3p3b0b5fayc";
+        sha256 = "07n59pxzlq621z611cbpvh7p4h9h15v0r7m5wgxygpx02d5aafpb";
         authors = [
           "Sean McArthur <sean@seanmonstar.com>"
         ];
         dependencies = [
+          {
+            name = "atomic-waker";
+            packageId = "atomic-waker";
+            optional = true;
+          }
           {
             name = "bytes";
             packageId = "bytes";
@@ -13975,10 +11099,9 @@ simultaneously, and returning all of the globs that matched.
             optional = true;
           }
           {
-            name = "futures-util";
-            packageId = "futures-util";
+            name = "futures-core";
+            packageId = "futures-core";
             optional = true;
-            usesDefaultFeatures = false;
           }
           {
             name = "h2";
@@ -14014,6 +11137,11 @@ simultaneously, and returning all of the globs that matched.
             optional = true;
           }
           {
+            name = "pin-utils";
+            packageId = "pin-utils";
+            optional = true;
+          }
+          {
             name = "smallvec";
             packageId = "smallvec";
             optional = true;
@@ -14037,12 +11165,6 @@ simultaneously, and returning all of the globs that matched.
             features = [ "sink" ];
           }
           {
-            name = "futures-util";
-            packageId = "futures-util";
-            usesDefaultFeatures = false;
-            features = [ "alloc" "sink" ];
-          }
-          {
             name = "pin-project-lite";
             packageId = "pin-project-lite";
           }
@@ -14054,10 +11176,10 @@ simultaneously, and returning all of the globs that matched.
         ];
         features = {
           "client" = [ "dep:want" "dep:pin-project-lite" "dep:smallvec" ];
-          "ffi" = [ "dep:http-body-util" "futures-util?/alloc" ];
+          "ffi" = [ "dep:http-body-util" "dep:futures-util" ];
           "full" = [ "client" "http1" "http2" "server" ];
-          "http1" = [ "dep:futures-channel" "dep:futures-util" "dep:httparse" "dep:itoa" ];
-          "http2" = [ "dep:futures-channel" "dep:futures-util" "dep:h2" ];
+          "http1" = [ "dep:atomic-waker" "dep:futures-channel" "dep:futures-core" "dep:httparse" "dep:itoa" "dep:pin-utils" ];
+          "http2" = [ "dep:futures-channel" "dep:futures-core" "dep:h2" ];
           "server" = [ "dep:httpdate" "dep:pin-project-lite" "dep:smallvec" ];
           "tracing" = [ "dep:tracing" ];
         };
@@ -14159,7 +11281,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             usesDefaultFeatures = false;
           }
           {
@@ -14247,7 +11369,7 @@ simultaneously, and returning all of the globs that matched.
         dependencies = [
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
           }
           {
             name = "hyper-util";
@@ -14270,7 +11392,7 @@ simultaneously, and returning all of the globs that matched.
         devDependencies = [
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             features = [ "http1" ];
           }
           {
@@ -14307,7 +11429,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
           }
           {
             name = "hyper-util";
@@ -14393,7 +11515,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
           }
           {
             name = "ipnet";
@@ -14422,7 +11544,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "system-configuration";
-            packageId = "system-configuration 0.6.1";
+            packageId = "system-configuration";
             optional = true;
             target = { target, features }: ("macos" == target."os" or null);
           }
@@ -14464,7 +11586,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             features = [ "full" ];
           }
           {
@@ -14488,7 +11610,7 @@ simultaneously, and returning all of the globs that matched.
           "tokio" = [ "dep:tokio" "tokio/rt" "tokio/time" ];
           "tracing" = [ "dep:tracing" ];
         };
-        resolvedDefaultFeatures = [ "client" "client-legacy" "client-proxy" "client-proxy-system" "default" "full" "http1" "http2" "server" "server-auto" "server-graceful" "service" "tokio" "tracing" ];
+        resolvedDefaultFeatures = [ "client" "client-legacy" "client-proxy" "client-proxy-system" "default" "http1" "http2" "server" "server-auto" "service" "tokio" ];
       };
       "iana-time-zone" = rec {
         crateName = "iana-time-zone";
@@ -14560,2275 +11682,6 @@ simultaneously, and returning all of the globs that matched.
           }
         ];
 
-      };
-      "ibc" = rec {
-        crateName = "ibc";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, serves as a top-level library that contain a comprehensive set of
-    Inter-Blockchain Communication (IBC) implementations, re-exporting data structures and
-    implementations of various IBC core, clients and applications from the `ibc-core`,
-    `ibc-clients` and `ibc-apps` crates.
-";
-        sha256 = "1s7xlylh9yyy4gnh3nq7vifpyf7vmc4lnrfi181d5v3jny1vxbjh";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-apps";
-            packageId = "ibc-apps";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-clients";
-            packageId = "ibc-clients";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core";
-            packageId = "ibc-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-cosmos";
-            packageId = "ibc-core-host-cosmos";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-derive";
-            packageId = "ibc-derive";
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-apps/arbitrary" "ibc-core/arbitrary" "ibc-core-host-cosmos/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-apps/borsh" "ibc-clients/borsh" "ibc-core/borsh" "ibc-core-host-cosmos/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-apps/parity-scale-codec" "ibc-clients/parity-scale-codec" "ibc-core/parity-scale-codec" "ibc-core-host-cosmos/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-apps/schema" "ibc-clients/schema" "ibc-core/schema" "ibc-core-host-cosmos/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-apps/serde" "ibc-clients/serde" "ibc-core/serde" "ibc-core-host-cosmos/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-apps/std" "ibc-clients/std" "ibc-core/std" "ibc-core-host-cosmos/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "ibc-app-nft-transfer" = rec {
-        crateName = "ibc-app-nft-transfer";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of the ICS-721 Non-Fungible Token Transfer
-    application logic and re-exports essential data structures and domain types from
-    `ibc-app-nft-transfer-types` crate.
-";
-        sha256 = "0bhbq52d9ypp5z2096136s9p8d9g183yxngn79ihgq5mvahxrfwm";
-        libName = "ibc_app_nft_transfer";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-app-nft-transfer-types";
-            packageId = "ibc-app-nft-transfer-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core";
-            packageId = "ibc-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde-json-wasm";
-            packageId = "serde-json-wasm";
-            rename = "serde-json";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-app-nft-transfer-types/arbitrary" "ibc-core/arbitrary" ];
-          "borsh" = [ "ibc-app-nft-transfer-types/borsh" "ibc-core/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-app-nft-transfer-types/parity-scale-codec" "ibc-core/parity-scale-codec" ];
-          "schema" = [ "ibc-app-nft-transfer-types/schema" "ibc-core/schema" "serde" "std" ];
-          "serde" = [ "ibc-app-nft-transfer-types/serde" "ibc-core/serde" "dep:serde-json" ];
-          "std" = [ "ibc-app-nft-transfer-types/std" "ibc-core/std" "serde-json/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-app-nft-transfer-types" = rec {
-        crateName = "ibc-app-nft-transfer-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-721 Non-Fungible Token Transfer data structures and
-    domain types, as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal
-    applicability to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "031k7g1rg6iibqpg2inkq319ylgi3wrrj19b4cgxvwidvirdsm76";
-        libName = "ibc_app_nft_transfer_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.22.1";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "http";
-            packageId = "http 1.3.1";
-          }
-          {
-            name = "ibc-app-transfer-types";
-            packageId = "ibc-app-transfer-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core";
-            packageId = "ibc-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "mime";
-            packageId = "mime";
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde-json-wasm";
-            packageId = "serde-json-wasm";
-            rename = "serde-json";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core/arbitrary" "ibc-app-transfer-types/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core/borsh" "ibc-proto/borsh" "ibc-app-transfer-types/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core/parity-scale-codec" "ibc-proto/parity-scale-codec" "ibc-app-transfer-types/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core/schema" "ibc-proto/json-schema" "serde" "std" "ibc-app-transfer-types/schema" ];
-          "serde" = [ "dep:serde" "ibc-core/serde" "ibc-proto/serde" "ibc-app-transfer-types/serde" ];
-          "std" = [ "serde/std" "serde-json/std" "base64/std" "displaydoc/std" "http/std" "ibc-core/std" "ibc-proto/std" "ibc-app-transfer-types/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-app-transfer" = rec {
-        crateName = "ibc-app-transfer";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of the ICS-20 Fungible Token Transfer
-    application logic and re-exports essential data structures and domain types from
-    `ibc-app-transfer-types` crate.
-";
-        sha256 = "0l815kmqb5p801xrbphxi9d74nhbcjcn1snwp3vw2x0hbqxxkjjp";
-        libName = "ibc_app_transfer";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-app-transfer-types";
-            packageId = "ibc-app-transfer-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core";
-            packageId = "ibc-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde-json-wasm";
-            packageId = "serde-json-wasm";
-            rename = "serde-json";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-app-transfer-types/arbitrary" "ibc-core/arbitrary" ];
-          "borsh" = [ "ibc-app-transfer-types/borsh" "ibc-core/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-app-transfer-types/parity-scale-codec" "ibc-core/parity-scale-codec" ];
-          "schema" = [ "ibc-app-transfer-types/schema" "ibc-core/schema" "serde" "std" ];
-          "serde" = [ "ibc-app-transfer-types/serde" "ibc-core/serde" "dep:serde-json" ];
-          "std" = [ "ibc-app-transfer-types/std" "ibc-core/std" "serde-json/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "ibc-app-transfer-types" = rec {
-        crateName = "ibc-app-transfer-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-20 Fungible Token Transfer data structures and
-    domain types, as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal
-    applicability to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "0p2amfbwldrhimzi07ls7hm918arqjqrxkdmmyf2fahjvjwpwk1n";
-        libName = "ibc_app_transfer_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core";
-            packageId = "ibc-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "primitive-types";
-            packageId = "primitive-types 0.13.1";
-            usesDefaultFeatures = false;
-            features = [ "serde_no_std" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "uint";
-            packageId = "uint 0.10.0";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-core/serde" "ibc-proto/serde" ];
-          "std" = [ "serde/std" "serde-json/std" "displaydoc/std" "uint/std" "primitive-types/std" "ibc-core/std" "ibc-proto/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-apps" = rec {
-        crateName = "ibc-apps";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, re-exports a comprehensive set of libraries that implement various
-    IBC applications, enabling smooth integration of IBC business logic into any blockchain system.
-";
-        sha256 = "1wrig0xvbbgnx8sxymnizya9yfqg1fgi2zvxn94r7b4j8j0wqpmv";
-        libName = "ibc_apps";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-app-nft-transfer";
-            packageId = "ibc-app-nft-transfer";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "std" "serde" "schema" "borsh" "parity-scale-codec" ];
-          }
-          {
-            name = "ibc-app-transfer";
-            packageId = "ibc-app-transfer";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-app-transfer/arbitrary" "ibc-app-nft-transfer/arbitrary" ];
-          "borsh" = [ "ibc-app-transfer/borsh" ];
-          "default" = [ "std" ];
-          "ibc-app-nft-transfer" = [ "dep:ibc-app-nft-transfer" ];
-          "nft-transfer" = [ "ibc-app-nft-transfer" ];
-          "parity-scale-codec" = [ "ibc-app-transfer/parity-scale-codec" ];
-          "schema" = [ "ibc-app-transfer/schema" "serde" "std" ];
-          "serde" = [ "ibc-app-transfer/serde" ];
-          "std" = [ "ibc-app-transfer/std" "nft-transfer" ];
-        };
-        resolvedDefaultFeatures = [ "ibc-app-nft-transfer" "nft-transfer" "std" ];
-      };
-      "ibc-client-tendermint" = rec {
-        crateName = "ibc-client-tendermint";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of the ICS-07 Tendermint Client logic
-    and re-exports essential data structures and domain types from `ibc-client-tendermint-types` crate.
-";
-        sha256 = "1xrr4yxw2ykwm2i3ylspyfzaykcmdg8i1krng9wg0fsy5j25w8hi";
-        libName = "ibc_client_tendermint";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "ibc-client-tendermint-types";
-            packageId = "ibc-client-tendermint-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint-light-client-verifier";
-            packageId = "tendermint-light-client-verifier";
-            usesDefaultFeatures = false;
-            features = [ "rust-crypto" ];
-          }
-        ];
-        features = {
-          "borsh" = [ "ibc-client-tendermint-types/borsh" "ibc-core-client/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-client-tendermint-types/parity-scale-codec" "ibc-core-client/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-client-tendermint-types/schema" "ibc-core-client/schema" "ibc-core-commitment-types/schema" "ibc-core-host/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-client-tendermint-types/serde" "ibc-core-client/serde" "ibc-core-commitment-types/serde" "ibc-core-host/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "serde/std" "ibc-client-tendermint-types/std" "ibc-core-client/std" "ibc-core-commitment-types/std" "ibc-core-host/std" "ibc-core-handler-types/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "serde" "std" ];
-      };
-      "ibc-client-tendermint-types" = rec {
-        crateName = "ibc-client-tendermint-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-07 Tendermint Client data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "1ljm7hyq3zjj9i8n9d444fwg1slyqvk56mg5hga76yvdvjvyy5ma";
-        libName = "ibc_client_tendermint_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint-light-client-verifier";
-            packageId = "tendermint-light-client-verifier";
-            usesDefaultFeatures = false;
-            features = [ "rust-crypto" ];
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.40.4";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "dep:borsh" "ibc-core-client-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-client-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-core-client-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "serde-json/std" "ibc-core-client-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-primitives/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "serde" "std" ];
-      };
-      "ibc-client-wasm-types" = rec {
-        crateName = "ibc-client-wasm-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-08 Wasm Light Client data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "1j1dy8asf1bm2nmz3ly58f15m2vaax3632h6djkf95plw9lb55z8";
-        libName = "ibc_client_wasm_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.22.1";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "schema" = [ "ibc-core-client/schema" "ibc-core-host-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "schemars" "serde" "std" ];
-          "schemars" = [ "dep:schemars" ];
-          "serde" = [ "ibc-core-client/serde" "ibc-core-host-types/serde" "ibc-primitives/serde" "ibc-proto/serde" "dep:serde" ];
-          "std" = [ "ibc-core-client/std" "ibc-core-host-types/std" "ibc-primitives/std" "ibc-proto/std" "base64/std" "serde/std" ];
-        };
-        resolvedDefaultFeatures = [ "serde" "std" ];
-      };
-      "ibc-clients" = rec {
-        crateName = "ibc-clients";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, re-exports a comprehensive set of libraries that implement
-    various IBC light clients, enabling smooth integration with IBC-enabled blockchains.
-";
-        sha256 = "0217q36vhsr1g8b6104jwhqqvxq5qia3aga4k19a4bh9c583qjs6";
-        libName = "ibc_clients";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-client-tendermint";
-            packageId = "ibc-client-tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-client-wasm-types";
-            packageId = "ibc-client-wasm-types";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "ibc-client-tendermint/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-client-tendermint/parity-scale-codec" ];
-          "schema" = [ "ibc-client-tendermint/schema" "ibc-client-wasm-types/schema" "serde" "std" ];
-          "serde" = [ "ibc-client-tendermint/serde" "ibc-client-wasm-types/serde" ];
-          "std" = [ "ibc-client-tendermint/std" "ibc-client-wasm-types/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "ibc-core" = rec {
-        crateName = "ibc-core";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, re-exports a comprehensive set of libraries that implement IBC core (TAO)
-    modules, facilitating seamless integration of IBC core business logic into any blockchain system.
-";
-        sha256 = "17mj5vf4laljgy3nkbxashvpja1mid5qs9k4vw6vljg6dv2whdrg";
-        libName = "ibc_core";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-core-channel";
-            packageId = "ibc-core-channel";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection";
-            packageId = "ibc-core-connection";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler";
-            packageId = "ibc-core-handler";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-router";
-            packageId = "ibc-core-router";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-derive";
-            packageId = "ibc-derive";
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client/arbitrary" "ibc-core-connection/arbitrary" "ibc-core-channel/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host/arbitrary" "ibc-core-handler/arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "ibc-core-client/borsh" "ibc-core-connection/borsh" "ibc-core-channel/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host/borsh" "ibc-core-router/borsh" "ibc-core-handler/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client/parity-scale-codec" "ibc-core-connection/parity-scale-codec" "ibc-core-channel/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-router/parity-scale-codec" "ibc-core-handler/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client/schema" "ibc-core-connection/schema" "ibc-core-channel/schema" "ibc-core-commitment-types/schema" "ibc-core-host/schema" "ibc-core-router/schema" "ibc-core-handler/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client/serde" "ibc-core-connection/serde" "ibc-core-channel/serde" "ibc-core-commitment-types/serde" "ibc-core-host/serde" "ibc-core-router/serde" "ibc-core-handler/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-core-client/std" "ibc-core-connection/std" "ibc-core-channel/std" "ibc-core-commitment-types/std" "ibc-core-host/std" "ibc-core-router/std" "ibc-core-handler/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-channel" = rec {
-        crateName = "ibc-core-channel";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of the ICS-04 Channel & Packet Semantics and
-    re-exports essential data structures and domain types from `ibc-core-channel-types` crate.
-";
-        sha256 = "0kh395l2r1p25pzgh7azfa3d35ssc6r88r40ygf9i204fpfj658i";
-        libName = "ibc_core_channel";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-core-channel-types";
-            packageId = "ibc-core-channel-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection";
-            packageId = "ibc-core-connection";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-router";
-            packageId = "ibc-core-router";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client/arbitrary" "ibc-core-connection/arbitrary" "ibc-core-channel-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-core-client/borsh" "ibc-core-connection/borsh" "ibc-core-channel-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host/borsh" "ibc-core-handler-types/borsh" "ibc-core-router/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client/parity-scale-codec" "ibc-core-connection/parity-scale-codec" "ibc-core-channel-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-core-router/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client/schema" "ibc-core-connection/schema" "ibc-core-channel-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host/schema" "ibc-core-handler-types/schema" "ibc-core-router/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client/serde" "ibc-core-connection/serde" "ibc-core-channel-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host/serde" "ibc-core-handler-types/serde" "ibc-core-router/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-core-client/std" "ibc-core-connection/std" "ibc-core-channel-types/std" "ibc-core-commitment-types/std" "ibc-core-host/std" "ibc-core-handler-types/std" "ibc-core-router/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-channel-types" = rec {
-        crateName = "ibc-core-channel-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-4 Channel Semantics data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "043zass4nmxqrjg9188m9smrbxsv2aaq5axsdzqkws23d5m9h7b8";
-        libName = "ibc_core_channel_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection-types";
-            packageId = "ibc-core-connection-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core-client-types/arbitrary" "ibc-core-connection-types/arbitrary" "ibc-core-host-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core-client-types/borsh" "ibc-core-connection-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-client-types/parity-scale-codec" "ibc-core-connection-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core-client-types/schema" "ibc-core-connection-types/schema" "ibc-core-host-types/schema" "ibc-core-commitment-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-core-client-types/serde" "ibc-core-connection-types/serde" "ibc-core-host-types/serde" "ibc-core-commitment-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "sha2/std" "serde/std" "subtle-encoding/std" "ibc-core-client-types/std" "ibc-core-connection-types/std" "ibc-core-host-types/std" "ibc-core-commitment-types/std" "ibc-primitives/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-client" = rec {
-        crateName = "ibc-core-client";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of ICS-02 Client Semantics and
-    re-exports essential data structures and domain types from `ibc-core-client-types` crate.
-";
-        sha256 = "1s3qq15h0ynap9p7bkfvzlqppl02r6js4sp9slg3q5pslyyicmp9";
-        libName = "ibc_core_client";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-core-client-context";
-            packageId = "ibc-core-client-context";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-core-client-types/borsh" "ibc-core-client-context/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client-types/parity-scale-codec" "ibc-core-client-context/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client-types/schema" "ibc-core-client-context/schema" "ibc-core-commitment-types/schema" "ibc-core-host/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client-types/serde" "ibc-core-client-context/serde" "ibc-core-commitment-types/serde" "ibc-core-host/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-core-client-types/std" "ibc-core-client-context/std" "ibc-core-commitment-types/std" "ibc-core-host/std" "ibc-core-handler-types/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-client-context" = rec {
-        crateName = "ibc-core-client-context";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintaind by `ibc-rs`, contains essential APIs to interface with the host chain's store,
-    enabling smooth client state transitions. Additionally, provides necessary traits for
-    implementing custom IBC light clients.
-";
-        sha256 = "155c6459pzm9pasz0n60fnc273iyi8yh9phlzzk7rzn83a3cwh15";
-        libName = "ibc_core_client_context";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "ibc-core-client-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client-types/schema" "ibc-core-host-types/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "displaydoc/std" "subtle-encoding/std" "ibc-core-client-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-core-handler-types/std" "ibc-primitives/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-client-types" = rec {
-        crateName = "ibc-core-client-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-02 Client Semantics data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "16jw3yf4hlm5x0fnapyfnwsk5nz5hx328hcx16k4cj2hywi12x3g";
-        libName = "ibc_core_client_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-primitives/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host-types/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core-host-types/borsh" "ibc-core-commitment-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-host-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core-host-types/schema" "ibc-core-commitment-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "ibc-core-host-types/serde" "ibc-core-commitment-types/serde" "ibc-primitives/serde" "ibc-proto/serde" "dep:serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "subtle-encoding/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-primitives/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-commitment-types" = rec {
-        crateName = "ibc-core-commitment-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-23 Vector Commitments data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "1lg1yaqqspqybfcqh1a3c7k07289qc2dcl7mvdnzyp1rvqmmv8sb";
-        libName = "ibc_core_commitment_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" "as_ref" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ics23";
-            packageId = "ics23";
-            usesDefaultFeatures = false;
-            features = [ "host-functions" ];
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core-host-types/arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-proto/borsh" "ibc-primitives/borsh" "ibc-core-host-types/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-primitives/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-proto/json-schema" "ibc-primitives/schema" "ibc-core-host-types/schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-primitives/serde" "ibc-core-host-types/serde" "ibc-proto/serde" "ics23/serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "subtle-encoding/std" "ibc-primitives/std" "ibc-core-host-types/std" "ibc-proto/std" "ics23/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-connection" = rec {
-        crateName = "ibc-core-connection";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains the implementation of the ICS-03 Connection Semantics and
-    re-exports essential data structures and domain types from `ibc-core-connection-types` crate.
-";
-        sha256 = "1mwc12hf4r0y5ckfh32qwnvlz4kd9nbn8ccn3h0rpmd0yg6kxgny";
-        libName = "ibc_core_connection";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-client-wasm-types";
-            packageId = "ibc-client-wasm-types";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection-types";
-            packageId = "ibc-core-connection-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client/arbitrary" "ibc-core-connection-types/arbitrary" "ibc-core-host/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-core-client/borsh" "ibc-core-connection-types/borsh" "ibc-core-host/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client/parity-scale-codec" "ibc-core-connection-types/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client/schema" "ibc-core-connection-types/schema" "ibc-core-host/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client/serde" "ibc-core-connection-types/serde" "ibc-core-host/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-core-client/std" "ibc-core-connection-types/std" "ibc-core-host/std" "ibc-core-handler-types/std" "ibc-primitives/std" "wasm-client" ];
-          "wasm-client" = [ "dep:ibc-client-wasm-types" "dep:prost" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" "wasm-client" ];
-      };
-      "ibc-core-connection-types" = rec {
-        crateName = "ibc-core-connection-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-03 Connection Semantics data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "1hgzy2rfr9dz771ynv7pyk151jl3zzrcg65lnf4hz46k0gmdbvpj";
-        libName = "ibc_core_connection_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core-client-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host-types/arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core-client-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-client-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core-client-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-core-client-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "subtle-encoding/std" "serde/std" "ibc-core-client-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-primitives/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-handler" = rec {
-        crateName = "ibc-core-handler";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, exposes IBC handler entry points for an integrated IBC core modules.
-    These entry points are responsible for processing incoming IBC messages, performing validation,
-    and execution logic by invoking the appropriate module handler.
-";
-        sha256 = "0qv11vlm55gslfyfv73vn9gav909xglmpr086clvx450p9rrh896";
-        libName = "ibc_core_handler";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "ibc-core-channel";
-            packageId = "ibc-core-channel";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client";
-            packageId = "ibc-core-client";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection";
-            packageId = "ibc-core-connection";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host";
-            packageId = "ibc-core-host";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-router";
-            packageId = "ibc-core-router";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client/arbitrary" "ibc-core-connection/arbitrary" "ibc-core-channel/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-core-client/borsh" "ibc-core-connection/borsh" "ibc-core-channel/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host/borsh" "ibc-core-router/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client/parity-scale-codec" "ibc-core-connection/parity-scale-codec" "ibc-core-channel/parity-scale-codec" "ibc-core-host/parity-scale-codec" "ibc-core-router/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client/schema" "ibc-core-connection/schema" "ibc-core-channel/schema" "ibc-core-commitment-types/schema" "ibc-core-host/schema" "ibc-core-router/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client/serde" "ibc-core-connection/serde" "ibc-core-channel/serde" "ibc-core-commitment-types/serde" "ibc-core-host/serde" "ibc-core-router/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "ibc-core-client/std" "ibc-core-connection/std" "ibc-core-channel/std" "ibc-core-commitment-types/std" "ibc-core-host/std" "ibc-core-router/std" "ibc-core-handler-types/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-handler-types" = rec {
-        crateName = "ibc-core-handler-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-25 Handler Interface data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "11c3qqsfwdjni77kn55a30bmx8z8sj7n7dzbn5jqzkw3sscdnv22";
-        libName = "ibc_core_handler_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-channel-types";
-            packageId = "ibc-core-channel-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection-types";
-            packageId = "ibc-core-connection-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-router-types";
-            packageId = "ibc-core-router-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-core-client-types/arbitrary" "ibc-core-connection-types/arbitrary" "ibc-core-channel-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host-types/arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-core-client-types/borsh" "ibc-core-connection-types/borsh" "ibc-core-channel-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-core-router-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-client-types/parity-scale-codec" "ibc-core-connection-types/parity-scale-codec" "ibc-core-channel-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-core-router-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core-client-types/schema" "ibc-core-connection-types/schema" "ibc-core-channel-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host-types/schema" "ibc-core-router-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-core-client-types/serde" "ibc-core-connection-types/serde" "ibc-core-channel-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-core-router-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "subtle-encoding/std" "ibc-core-client-types/std" "ibc-core-connection-types/std" "ibc-core-channel-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-core-router-types/std" "ibc-primitives/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-host" = rec {
-        crateName = "ibc-core-host";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains essential top-level traits designed for the seamless integration
-    of host chains, facilitating access to the host's storage, the efficient retrieval of states and
-    metadata crucial for the execution of any IBC datagrams.
-";
-        sha256 = "1wk66c063y022b76vqiffrrfkpa7r75jp1bi5r3042s33y1hzw9g";
-        libName = "ibc_core_host";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-channel-types";
-            packageId = "ibc-core-channel-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-context";
-            packageId = "ibc-core-client-context";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection-types";
-            packageId = "ibc-core-connection-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client-types/arbitrary" "ibc-core-connection-types/arbitrary" "ibc-core-channel-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host-types/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "ibc-core-client-types/borsh" "ibc-core-client-context/borsh" "ibc-core-connection-types/borsh" "ibc-core-channel-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-core-handler-types/borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-client-types/parity-scale-codec" "ibc-core-connection-types/parity-scale-codec" "ibc-core-channel-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-client-types/schema" "ibc-core-client-context/schema" "ibc-core-connection-types/schema" "ibc-core-channel-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host-types/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-core-client-types/serde" "ibc-core-client-context/serde" "ibc-core-connection-types/serde" "ibc-core-channel-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" ];
-          "std" = [ "displaydoc/std" "subtle-encoding/std" "ibc-core-client-types/std" "ibc-core-client-context/std" "ibc-core-connection-types/std" "ibc-core-channel-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-core-handler-types/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-host-cosmos" = rec {
-        crateName = "ibc-core-host-cosmos";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains Cosmos-specific helper traits and implementations
-    to facilitate IBC integration, ensuring proper interaction with modules/components
-    beyond the IBC modules on host chains.
-";
-        sha256 = "0vxn272y33nvsrpy9r595fkpiaphigh0mqb3c2ddk6is8k69frnh";
-        libName = "ibc_core_host_cosmos";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-app-transfer-types";
-            packageId = "ibc-app-transfer-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-client-tendermint";
-            packageId = "ibc-client-tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-context";
-            packageId = "ibc-core-client-context";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-client-types";
-            packageId = "ibc-core-client-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-commitment-types";
-            packageId = "ibc-core-commitment-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-connection-types";
-            packageId = "ibc-core-connection-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-handler-types";
-            packageId = "ibc-core-handler-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "ibc-core-client-types/arbitrary" "ibc-core-connection-types/arbitrary" "ibc-core-commitment-types/arbitrary" "ibc-core-host-types/arbitrary" "ibc-core-handler-types/arbitrary" "ibc-primitives/arbitrary" ];
-          "borsh" = [ "dep:borsh" "ibc-client-tendermint/borsh" "ibc-core-client-types/borsh" "ibc-core-client-context/borsh" "ibc-core-connection-types/borsh" "ibc-core-commitment-types/borsh" "ibc-core-host-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-client-tendermint/parity-scale-codec" "ibc-core-client-types/parity-scale-codec" "ibc-core-connection-types/parity-scale-codec" "ibc-core-commitment-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-core-handler-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "ibc-client-tendermint/schema" "ibc-core-client-types/schema" "ibc-core-client-context/schema" "ibc-core-connection-types/schema" "ibc-core-commitment-types/schema" "ibc-core-host-types/schema" "ibc-core-handler-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-client-tendermint/serde" "ibc-core-client-types/serde" "ibc-core-client-context/serde" "ibc-core-connection-types/serde" "ibc-core-commitment-types/serde" "ibc-core-host-types/serde" "ibc-core-handler-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "sha2/std" "subtle-encoding/std" "ibc-core-client-types/std" "ibc-core-client-context/std" "ibc-core-connection-types/std" "ibc-core-commitment-types/std" "ibc-core-host-types/std" "ibc-core-handler-types/std" "ibc-primitives/std" "ibc-proto/std" ];
-        };
-        resolvedDefaultFeatures = [ "serde" "std" ];
-      };
-      "ibc-core-host-types" = rec {
-        crateName = "ibc-core-host-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-24 Host Requirements data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "1p7cy4z6gn1pz2x4yqmz76m8x80qi8zsjrbrkf8l57vqn11znyaq";
-        libName = "ibc_core_host_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.22.1";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "ibc-primitives/arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-primitives/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-primitives/serde" ];
-          "std" = [ "displaydoc/std" "ibc-primitives/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-router" = rec {
-        crateName = "ibc-core-router";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, contains necessary traits to implement the routing and callback functionality
-    (IBC router module) used for connecting the application layer to the transport layer of an IBC enabled chain.
-";
-        sha256 = "0kxyla6fbph8vjag5mxp7qajgj7ypd315l1rh2kwq2lhfc268l3d";
-        libName = "ibc_core_router";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-channel-types";
-            packageId = "ibc-core-channel-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-router-types";
-            packageId = "ibc-core-router-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "ibc-primitives/borsh" "ibc-core-channel-types/borsh" "ibc-core-host-types/borsh" "ibc-core-router-types/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "ibc-core-channel-types/parity-scale-codec" "ibc-core-host-types/parity-scale-codec" "ibc-core-router-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" ];
-          "schema" = [ "ibc-core-channel-types/schema" "ibc-core-host-types/schema" "ibc-core-router-types/schema" "ibc-primitives/schema" "serde" "std" ];
-          "serde" = [ "ibc-primitives/serde" "ibc-core-channel-types/serde" "ibc-core-host-types/serde" "ibc-core-router-types/serde" ];
-          "std" = [ "displaydoc/std" "subtle-encoding/std" "ibc-primitives/std" "ibc-core-channel-types/std" "ibc-core-host-types/std" "ibc-core-router-types/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-core-router-types" = rec {
-        crateName = "ibc-core-router-types";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, encapsulates essential ICS-26 Routing Module data structures and domain types,
-    as specified in the Inter-Blockchain Communication (IBC) protocol. Designed for universal applicability
-    to facilitate development and integration across diverse IBC-enabled projects.
-";
-        sha256 = "0glm3wlaiv1vmghpn9cvabrwv0bfshb6qm8zji8ar1krixgzpkb1";
-        libName = "ibc_core_router_types";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-core-host-types";
-            packageId = "ibc-core-host-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-primitives";
-            packageId = "ibc-primitives";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "dep:borsh" "ibc-core-host-types/borsh" "ibc-primitives/borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-core-host-types/parity-scale-codec" "ibc-primitives/parity-scale-codec" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-core-host-types/schema" "ibc-primitives/schema" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-primitives/serde" "ibc-core-host-types/serde" "ibc-primitives/serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "serde/std" "subtle-encoding/std" "ibc-primitives/std" "ibc-core-host-types/std" "ibc-proto/std" "tendermint/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-derive" = rec {
-        crateName = "ibc-derive";
-        version = "0.10.1";
-        edition = "2021";
-        description = "Maintained by `ibc-rs`, macros implementations of #[derive(ClientState)] and #[derive(ConsensusState)]";
-        sha256 = "1f6cl9zrxf39zy1cfhfmm72avm76a8qjqpwsllkn192drrv3xs97";
-        procMacro = true;
-        libName = "ibc_derive";
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-          }
-        ];
-
-      };
-      "ibc-primitives" = rec {
-        crateName = "ibc-primitives";
-        version = "0.57.0";
-        edition = "2021";
-        description = "    Maintained by `ibc-rs`, furnishes essential types and traits universally
-    utilized in the implementation of diverse IBC modules, encompassing
-    core functionalities, clients, and applications.
-";
-        sha256 = "0nv5d7ig91hxgzvfkcvhvbr500wvs95q2xkjzacspsam12qdmwsg";
-        libName = "ibc_primitives";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "derive_more";
-            packageId = "derive_more 1.0.0";
-            usesDefaultFeatures = false;
-            features = [ "from" "into" "display" "try_into" ];
-          }
-          {
-            name = "displaydoc";
-            packageId = "displaydoc";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ibc-proto";
-            packageId = "ibc-proto";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" "std" ];
-          "borsh" = [ "dep:borsh" "ibc-proto/borsh" ];
-          "default" = [ "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" "ibc-proto/parity-scale-codec" ];
-          "schema" = [ "dep:schemars" "ibc-proto/json-schema" "serde" "std" ];
-          "serde" = [ "dep:serde" "ibc-proto/serde" ];
-          "std" = [ "displaydoc/std" "prost/std" "serde/std" "ibc-proto/std" "time/std" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "parity-scale-codec" "schema" "serde" "std" ];
-      };
-      "ibc-proto" = rec {
-        crateName = "ibc-proto";
-        version = "0.51.1";
-        edition = "2021";
-        description = "    ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
-";
-        sha256 = "1jikbm2l8nc5vi9f8gggd4n5zr6iyi5vkf3mb39y4x1f2qbzaw4v";
-        libName = "ibc_proto";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.22.1";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "cosmos-sdk-proto";
-            packageId = "cosmos-sdk-proto 0.26.1";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ics23";
-            packageId = "ics23";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "informalsystems-pbjson";
-            packageId = "informalsystems-pbjson";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-            features = [ "prost-derive" ];
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.40.4";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "borsh" = [ "tendermint-proto/borsh" ];
-          "client" = [ "std" "dep:tonic" "tonic/codegen" "tonic/prost" ];
-          "default" = [ "std" "client" "transport" ];
-          "json-schema" = [ "std" "serde" "tendermint-proto/json-schema" "dep:schemars" ];
-          "parity-scale-codec" = [ "tendermint-proto/parity-scale-codec" ];
-          "serde" = [ "dep:serde" "dep:informalsystems-pbjson" "ics23/serde" "cosmos-sdk-proto/serde" ];
-          "server" = [ "std" "dep:tonic" "tonic/codegen" "tonic/prost" ];
-          "std" = [ "cosmos-sdk-proto/std" "prost/std" "bytes/std" "subtle-encoding/std" "base64/std" "flex-error/std" "ics23/std" "informalsystems-pbjson/std" ];
-          "transport" = [ "tonic/transport" "cosmos-sdk-proto/grpc-transport" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "json-schema" "parity-scale-codec" "serde" "std" ];
-      };
-      "ics23" = rec {
-        crateName = "ics23";
-        version = "0.12.0";
-        edition = "2021";
-        description = "Merkle proof verification library - implements Cosmos ICS23 Spec";
-        sha256 = "04ig27nb25lrdy3blhrjrd8pdzajbzx5qi111b9jmlfpbcd7zcbk";
-        authors = [
-          "Ethan Frey <ethanfrey@users.noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "anyhow";
-            packageId = "anyhow";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "blake2";
-            packageId = "blake2";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "blake3";
-            packageId = "blake3";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "informalsystems-pbjson";
-            packageId = "informalsystems-pbjson";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-            features = [ "prost-derive" ];
-          }
-          {
-            name = "ripemd";
-            packageId = "ripemd";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha3";
-            packageId = "sha3";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "blake2";
-            packageId = "blake2";
-          }
-          {
-            name = "blake3";
-            packageId = "blake3";
-          }
-          {
-            name = "ripemd";
-            packageId = "ripemd";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-          }
-          {
-            name = "sha3";
-            packageId = "sha3";
-          }
-        ];
-        features = {
-          "blake2" = [ "dep:blake2" ];
-          "blake3" = [ "dep:blake3" ];
-          "default" = [ "std" "host-functions" ];
-          "host-functions" = [ "sha2" "sha3" "ripemd" "blake2" "blake3" ];
-          "informalsystems-pbjson" = [ "dep:informalsystems-pbjson" ];
-          "ripemd" = [ "dep:ripemd" ];
-          "serde" = [ "dep:serde" "informalsystems-pbjson" ];
-          "sha2" = [ "dep:sha2" ];
-          "sha3" = [ "dep:sha3" ];
-          "std" = [ "prost/std" "bytes/std" "hex/std" "anyhow/std" "informalsystems-pbjson/std" "serde/std" ];
-        };
-        resolvedDefaultFeatures = [ "blake2" "blake3" "host-functions" "informalsystems-pbjson" "ripemd" "serde" "sha2" "sha3" "std" ];
       };
       "icu_collections" = rec {
         crateName = "icu_collections";
@@ -17212,7 +12065,7 @@ simultaneously, and returning all of the globs that matched.
         };
         resolvedDefaultFeatures = [ "compiled_data" ];
       };
-      "impl-codec 0.6.0" = rec {
+      "impl-codec" = rec {
         crateName = "impl-codec";
         version = "0.6.0";
         edition = "2021";
@@ -17235,53 +12088,6 @@ simultaneously, and returning all of the globs that matched.
           "std" = [ "parity-scale-codec/std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
-      };
-      "impl-codec 0.7.1" = rec {
-        crateName = "impl-codec";
-        version = "0.7.1";
-        edition = "2021";
-        description = "Parity Codec serialization support for uint and fixed hash.";
-        sha256 = "051siq2za0qilaw7wvbfg20qgiid5g1az3h2amz409vpw7avjh1d";
-        libName = "impl_codec";
-        authors = [
-          "Parity Technologies <admin@parity.io>"
-        ];
-        dependencies = [
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            usesDefaultFeatures = false;
-            features = [ "max-encoded-len" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "parity-scale-codec/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "impl-serde" = rec {
-        crateName = "impl-serde";
-        version = "0.5.0";
-        edition = "2021";
-        description = "Serde serialization support for uint and fixed hash.";
-        sha256 = "02yxnw13w4vpgg82dh7qckypnnbddai3g404lpplmv51lsnkw52a";
-        libName = "impl_serde";
-        authors = [
-          "Parity Technologies <admin@parity.io>"
-        ];
-        dependencies = [
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "serde/std" ];
-        };
       };
       "impl-trait-for-tuples" = rec {
         crateName = "impl-trait-for-tuples";
@@ -17306,7 +12112,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "visit" "fold" "extra-traits" ];
           }
         ];
@@ -17434,36 +12240,6 @@ simultaneously, and returning all of the globs that matched.
         };
         resolvedDefaultFeatures = [ "default" "unicode-width" ];
       };
-      "informalsystems-pbjson" = rec {
-        crateName = "informalsystems-pbjson";
-        version = "0.7.0";
-        edition = "2021";
-        description = "Utilities for pbjson conversion";
-        sha256 = "0g9s1qab7zlsx3zrc3yaqvhjxpvq9qsm826p018jjyc31jca194s";
-        libName = "pbjson";
-        authors = [
-          "Raphael Taylor-Davies <r.taylordavies@googlemail.com>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.21.7";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" "alloc" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "serde/std" "base64/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
       "inlinable_string" = rec {
         crateName = "inlinable_string";
         version = "0.1.15";
@@ -17475,26 +12251,6 @@ simultaneously, and returning all of the globs that matched.
         ];
         features = {
           "serde" = [ "dep:serde" ];
-        };
-      };
-      "inout" = rec {
-        crateName = "inout";
-        version = "0.1.4";
-        edition = "2021";
-        description = "Custom reference types for code generic over in-place and buffer-to-buffer modes of operation.";
-        sha256 = "008xfl1jn9rxsq19phnhbimccf4p64880jmnpg59wqi07kk117w7";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "generic-array";
-            packageId = "generic-array 0.14.7";
-          }
-        ];
-        features = {
-          "block-padding" = [ "dep:block-padding" ];
-          "std" = [ "block-padding/std" ];
         };
       };
       "instant" = rec {
@@ -17520,75 +12276,6 @@ simultaneously, and returning all of the globs that matched.
           "web-sys" = [ "dep:web-sys" ];
         };
       };
-      "interprocess" = rec {
-        crateName = "interprocess";
-        version = "2.2.3";
-        edition = "2021";
-        description = "Interprocess communication toolkit";
-        sha256 = "0bgcvxjgqqm9m1iwfppc4id98d4imkk8x6l5hww9j8i3pl2v8hfr";
-        authors = [
-          "Goat <v.toncharov@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "doctest-file";
-            packageId = "doctest-file";
-          }
-          {
-            name = "futures-core";
-            packageId = "futures-core";
-            optional = true;
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            target = { target, features }: (target."unix" or false);
-            features = [ "extra_traits" ];
-          }
-          {
-            name = "recvmsg";
-            packageId = "recvmsg";
-            target = { target, features }: (target."windows" or false);
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            optional = true;
-            features = [ "sync" "rt" "net" "time" "io-util" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            optional = true;
-            target = { target, features }: (target."windows" or false);
-            features = [ "sync" "rt-multi-thread" "fs" "net" "time" "io-util" ];
-          }
-          {
-            name = "widestring";
-            packageId = "widestring";
-            target = { target, features }: (target."windows" or false);
-          }
-          {
-            name = "windows-sys";
-            packageId = "windows-sys 0.52.0";
-            target = { target, features }: (target."windows" or false);
-            features = [ "Win32_Foundation" "Win32_Security" "Win32_Security_Authorization" "Win32_Storage_FileSystem" "Win32_System_IO" "Win32_System_Pipes" "Win32_System_Threading" "Win32_System_Memory" "Win32_System_SystemServices" "Win32_System_LibraryLoader" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "tokio";
-            packageId = "tokio";
-            features = [ "sync" "rt-multi-thread" "io-util" "macros" ];
-          }
-        ];
-        features = {
-          "async" = [ "futures-core" ];
-          "futures-core" = [ "dep:futures-core" ];
-          "tokio" = [ "dep:tokio" "async" ];
-        };
-        resolvedDefaultFeatures = [ "async" "default" "futures-core" "tokio" ];
-      };
       "io-uring" = rec {
         crateName = "io-uring";
         version = "0.7.9";
@@ -17602,7 +12289,7 @@ simultaneously, and returning all of the globs that matched.
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "cfg-if";
@@ -18755,7 +13442,7 @@ and keccak-p variants
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "libc";
@@ -18941,7 +13628,7 @@ and keccak-p variants
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "parsing" "printing" ];
           }
@@ -18949,7 +13636,7 @@ and keccak-p variants
         devDependencies = [
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "printing" "proc-macro" ];
           }
@@ -19166,7 +13853,7 @@ and keccak-p variants
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -19267,129 +13954,6 @@ and keccak-p variants
           "vendored" = [ "openssl/vendored" ];
         };
       };
-      "neutron-std" = rec {
-        crateName = "neutron-std";
-        version = "5.1.4";
-        edition = "2021";
-        description = "Standard library for Neutron with CosmWasm support included. This package is a modified copy of the osmosis package - https://github.com/osmosis-labs/osmosis-rust/tree/main/packages/osmosis-std";
-        sha256 = "1myqkcxs7x62pizjn8apsnas2lgz1n550vlyg0cv5bjyqfphin4g";
-        libName = "neutron_std";
-        dependencies = [
-          {
-            name = "bech32";
-            packageId = "bech32 0.9.1";
-          }
-          {
-            name = "chrono";
-            packageId = "chrono";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "cosmos-sdk-proto";
-            packageId = "cosmos-sdk-proto 0.20.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "cosmwasm-schema";
-            packageId = "cosmwasm-schema";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "cosmwasm-std";
-            packageId = "cosmwasm-std";
-            features = [ "cosmwasm_2_0" ];
-          }
-          {
-            name = "neutron-std-derive";
-            packageId = "neutron-std-derive";
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.12.6";
-          }
-          {
-            name = "prost-types";
-            packageId = "prost-types";
-          }
-          {
-            name = "protobuf";
-            packageId = "protobuf";
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "serde-cw-value";
-            packageId = "serde-cw-value";
-          }
-          {
-            name = "serde-json-wasm";
-            packageId = "serde-json-wasm";
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-          {
-            name = "speedate";
-            packageId = "speedate";
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.34.1";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "prost-types";
-            packageId = "prost-types";
-          }
-        ];
-
-      };
-      "neutron-std-derive" = rec {
-        crateName = "neutron-std-derive";
-        version = "0.20.1";
-        edition = "2021";
-        description = "Procedural macro for `neutron-std`. This package is a modified copy of the osmosis package - https://github.com/osmosis-labs/osmosis-rust/tree/main/packages/osmosis-std-derive";
-        sha256 = "04gcj81rd8icf44b0kq2nyqj5i5xvh01s524nr70rfyw0n099x12";
-        procMacro = true;
-        libName = "neutron_std_derive";
-        dependencies = [
-          {
-            name = "itertools";
-            packageId = "itertools 0.10.5";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "prost-types";
-            packageId = "prost-types";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 1.0.109";
-          }
-        ];
-
-      };
       "nix" = rec {
         crateName = "nix";
         version = "0.30.1";
@@ -19402,7 +13966,7 @@ and keccak-p variants
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "cfg-if";
@@ -19710,35 +14274,6 @@ turbofish syntax.
         ];
 
       };
-      "num-derive" = rec {
-        crateName = "num-derive";
-        version = "0.3.3";
-        edition = "2018";
-        description = "Numeric syntax extensions";
-        sha256 = "0gbl94ckzqjdzy4j8b1p55mz01g6n1l9bckllqvaj0wfz7zm6sl7";
-        procMacro = true;
-        libName = "num_derive";
-        authors = [
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 1.0.109";
-          }
-        ];
-        features = {
-          "full-syntax" = [ "syn/full" ];
-        };
-      };
       "num-integer" = rec {
         crateName = "num-integer";
         version = "0.1.46";
@@ -20041,14 +14576,14 @@ Supports various backends including num-bigint, etc..
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "parsing" ];
           }
         ];
         devDependencies = [
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" "parsing" ];
           }
         ];
@@ -20215,7 +14750,7 @@ Supports various backends including num-bigint, etc..
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "cfg-if";
@@ -20270,7 +14805,7 @@ Supports various backends including num-bigint, etc..
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -21231,7 +15766,7 @@ signing/verification, and general purpose curve arithmetic
           "serde" = [ "dep:serde" ];
           "std" = [ "serde/std" "bitvec?/std" "byte-slice-cast/std" "chain-error" ];
         };
-        resolvedDefaultFeatures = [ "chain-error" "derive" "full" "max-encoded-len" "parity-scale-codec-derive" "serde" "std" ];
+        resolvedDefaultFeatures = [ "chain-error" "derive" "max-encoded-len" "parity-scale-codec-derive" "serde" "std" ];
       };
       "parity-scale-codec-derive" = rec {
         crateName = "parity-scale-codec-derive";
@@ -21259,7 +15794,7 @@ signing/verification, and general purpose curve arithmetic
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "visit" ];
           }
         ];
@@ -21487,75 +16022,6 @@ signing/verification, and general purpose curve arithmetic
           "camino" = [ "dep:camino" ];
         };
       };
-      "pbkdf2 0.11.0" = rec {
-        crateName = "pbkdf2";
-        version = "0.11.0";
-        edition = "2021";
-        description = "Generic implementation of PBKDF2";
-        sha256 = "05q9wqjvfrs4dvw03yn3bvcs4zghz0a7ycfa53pz2k2fqhp6k843";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-            features = [ "mac" ];
-          }
-        ];
-        features = {
-          "default" = [ "simple" ];
-          "hmac" = [ "dep:hmac" ];
-          "parallel" = [ "rayon" "std" ];
-          "password-hash" = [ "dep:password-hash" ];
-          "rayon" = [ "dep:rayon" ];
-          "sha1" = [ "dep:sha1" ];
-          "sha2" = [ "dep:sha2" ];
-          "simple" = [ "hmac" "password-hash" "sha2" ];
-          "std" = [ "password-hash/std" ];
-        };
-      };
-      "pbkdf2 0.12.2" = rec {
-        crateName = "pbkdf2";
-        version = "0.12.2";
-        edition = "2021";
-        description = "Generic implementation of PBKDF2";
-        sha256 = "1wms79jh4flpy1zi8xdp4h8ccxv4d85adc6zjagknvppc5vnmvgq";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-            features = [ "mac" ];
-          }
-          {
-            name = "hmac";
-            packageId = "hmac";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "hmac";
-            packageId = "hmac";
-          }
-        ];
-        features = {
-          "default" = [ "hmac" ];
-          "hmac" = [ "dep:hmac" ];
-          "parallel" = [ "rayon" "std" ];
-          "password-hash" = [ "dep:password-hash" ];
-          "rayon" = [ "dep:rayon" ];
-          "sha1" = [ "dep:sha1" ];
-          "sha2" = [ "dep:sha2" ];
-          "simple" = [ "hmac" "password-hash" "sha2" ];
-          "std" = [ "password-hash/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "hmac" ];
-      };
       "pear" = rec {
         crateName = "pear";
         version = "0.2.9";
@@ -21612,81 +16078,11 @@ signing/verification, and general purpose curve arithmetic
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "extra-traits" "visit-mut" ];
           }
         ];
 
-      };
-      "peg" = rec {
-        crateName = "peg";
-        version = "0.8.5";
-        edition = "2021";
-        description = "A simple Parsing Expression Grammar (PEG) parser generator.";
-        sha256 = "0xr42lbgihlwbyfcmjggqv1s3a38agp4j077cd8yqdhv235cya4r";
-        authors = [
-          "Kevin Mehall <km@kevinmehall.net>"
-        ];
-        dependencies = [
-          {
-            name = "peg-macros";
-            packageId = "peg-macros";
-          }
-          {
-            name = "peg-runtime";
-            packageId = "peg-runtime";
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "peg-runtime/std" ];
-          "trace" = [ "peg-macros/trace" ];
-          "unstable" = [ "peg-runtime/unstable" ];
-        };
-      };
-      "peg-macros" = rec {
-        crateName = "peg-macros";
-        version = "0.8.5";
-        edition = "2021";
-        description = "Procedural macros for rust-peg. To use rust-peg, see the `peg` crate.";
-        crateBin = [];
-        sha256 = "0w8g53c75hz6iy3khc1ja2qm0idpnygjc0xsa9fmpyh2q82ap632";
-        procMacro = true;
-        libName = "peg_macros";
-        libPath = "lib.rs";
-        authors = [
-          "Kevin Mehall <km@kevinmehall.net>"
-        ];
-        dependencies = [
-          {
-            name = "peg-runtime";
-            packageId = "peg-runtime";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-        ];
-        features = {
-        };
-      };
-      "peg-runtime" = rec {
-        crateName = "peg-runtime";
-        version = "0.8.5";
-        edition = "2021";
-        description = "Runtime support for rust-peg grammars. To use rust-peg, see the `peg` crate.";
-        sha256 = "1jkgfy5jkjqwqy7h11nn3bmm1qfyn9kq2wnxnlspp4ldhsdwlb8k";
-        libName = "peg_runtime";
-        libPath = "lib.rs";
-        authors = [
-          "Kevin Mehall <km@kevinmehall.net>"
-        ];
-        features = {
-        };
       };
       "pem-rfc7468" = rec {
         crateName = "pem-rfc7468";
@@ -21748,7 +16144,7 @@ cryptographic private keys.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             optional = true;
           }
           {
@@ -21765,37 +16161,6 @@ cryptographic private keys.
           "std" = [ "ucd-trie/std" "dep:thiserror" ];
         };
         resolvedDefaultFeatures = [ "default" "memchr" "std" ];
-      };
-      "pharos" = rec {
-        crateName = "pharos";
-        version = "0.5.3";
-        edition = "2021";
-        description = "Observer pattern which generates a futures 0.3 stream of events";
-        sha256 = "055lg1dzrxnryfy34a9cyrg21b7cl6l2frfx2p7fdvkz864p6mp9";
-        authors = [
-          "Naja Melan <najamelan@autistici.org>"
-        ];
-        dependencies = [
-          {
-            name = "futures";
-            packageId = "futures";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "rustc_version";
-            packageId = "rustc_version 0.4.1";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "futures";
-            packageId = "futures";
-          }
-        ];
-
       };
       "pin-project" = rec {
         crateName = "pin-project";
@@ -21833,7 +16198,7 @@ cryptographic private keys.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "parsing" "printing" "clone-impls" "proc-macro" "full" "visit-mut" ];
           }
@@ -22014,7 +16379,7 @@ Cargo build scripts.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "full" ];
           }
@@ -22027,7 +16392,7 @@ Cargo build scripts.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "extra-traits" "parsing" "printing" "visit-mut" ];
           }
@@ -22064,7 +16429,7 @@ equation coefficients
           "std" = [ "alloc" "elliptic-curve/std" ];
         };
       };
-      "primitive-types 0.12.2" = rec {
+      "primitive-types" = rec {
         crateName = "primitive-types";
         version = "0.12.2";
         edition = "2021";
@@ -22082,13 +16447,13 @@ equation coefficients
           }
           {
             name = "impl-codec";
-            packageId = "impl-codec 0.6.0";
+            packageId = "impl-codec";
             optional = true;
             usesDefaultFeatures = false;
           }
           {
             name = "uint";
-            packageId = "uint 0.9.5";
+            packageId = "uint";
             usesDefaultFeatures = false;
           }
         ];
@@ -22113,63 +16478,6 @@ equation coefficients
           "std" = [ "uint/std" "fixed-hash/std" "impl-codec?/std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
-      };
-      "primitive-types 0.13.1" = rec {
-        crateName = "primitive-types";
-        version = "0.13.1";
-        edition = "2021";
-        description = "Primitive types shared by Ethereum and Substrate";
-        sha256 = "1xc7khlv6zgzya79ym28cd9c4a7y27iy0gwb4xyhnisnv2kh0mni";
-        libName = "primitive_types";
-        authors = [
-          "Parity Technologies <admin@parity.io>"
-        ];
-        dependencies = [
-          {
-            name = "fixed-hash";
-            packageId = "fixed-hash";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "impl-codec";
-            packageId = "impl-codec 0.7.1";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "impl-serde";
-            packageId = "impl-serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "uint";
-            packageId = "uint 0.10.0";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "arbitrary" = [ "fixed-hash/arbitrary" "uint/arbitrary" ];
-          "byteorder" = [ "fixed-hash/byteorder" ];
-          "codec" = [ "impl-codec" ];
-          "default" = [ "std" "rand" ];
-          "fp-conversion" = [ "std" ];
-          "impl-codec" = [ "dep:impl-codec" ];
-          "impl-num-traits" = [ "dep:impl-num-traits" ];
-          "impl-rlp" = [ "dep:impl-rlp" ];
-          "impl-serde" = [ "dep:impl-serde" ];
-          "json-schema" = [ "dep:schemars" ];
-          "num-traits" = [ "impl-num-traits" ];
-          "rand" = [ "fixed-hash/rand" ];
-          "rlp" = [ "impl-rlp" ];
-          "rustc-hex" = [ "fixed-hash/rustc-hex" ];
-          "scale-info" = [ "codec" "scale-info-crate" ];
-          "scale-info-crate" = [ "dep:scale-info-crate" ];
-          "serde" = [ "std" "impl-serde" "impl-serde/std" ];
-          "serde_no_std" = [ "impl-serde" ];
-          "std" = [ "uint/std" "fixed-hash/std" "impl-codec?/std" ];
-        };
-        resolvedDefaultFeatures = [ "impl-serde" "serde_no_std" "std" ];
       };
       "proc-macro-crate 1.3.1" = rec {
         crateName = "proc-macro-crate";
@@ -22211,78 +16519,6 @@ equation coefficients
             packageId = "toml_edit 0.22.27";
             usesDefaultFeatures = false;
             features = [ "parse" ];
-          }
-        ];
-
-      };
-      "proc-macro-error" = rec {
-        crateName = "proc-macro-error";
-        version = "1.0.4";
-        edition = "2018";
-        description = "Almost drop-in replacement to panics in proc-macros";
-        sha256 = "1373bhxaf0pagd8zkyd03kkx6bchzf6g0dkwrwzsnal9z47lj9fs";
-        libName = "proc_macro_error";
-        authors = [
-          "CreepySkeleton <creepy-skeleton@yandex.ru>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro-error-attr";
-            packageId = "proc-macro-error-attr";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 1.0.109";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "version_check";
-            packageId = "version_check";
-          }
-        ];
-        features = {
-          "default" = [ "syn-error" ];
-          "syn" = [ "dep:syn" ];
-          "syn-error" = [ "syn" ];
-        };
-        resolvedDefaultFeatures = [ "default" "syn" "syn-error" ];
-      };
-      "proc-macro-error-attr" = rec {
-        crateName = "proc-macro-error-attr";
-        version = "1.0.4";
-        edition = "2018";
-        description = "Attribute macro for proc-macro-error crate";
-        sha256 = "0sgq6m5jfmasmwwy8x4mjygx5l7kp8s4j60bv25ckv2j1qc41gm1";
-        procMacro = true;
-        libName = "proc_macro_error_attr";
-        authors = [
-          "CreepySkeleton <creepy-skeleton@yandex.ru>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "version_check";
-            packageId = "version_check";
           }
         ];
 
@@ -22337,7 +16573,7 @@ equation coefficients
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -22345,7 +16581,7 @@ equation coefficients
         devDependencies = [
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -22357,10 +16593,10 @@ equation coefficients
       };
       "proc-macro2" = rec {
         crateName = "proc-macro2";
-        version = "1.0.97";
+        version = "1.0.101";
         edition = "2021";
         description = "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.";
-        sha256 = "1wgnf8a4xw9grvn7q1s77208mlnvvwpizs2zx9sfpvwxf7bqj5yn";
+        sha256 = "1pijhychkpl7rcyf1h7mfk6gjfii1ywf5n0snmnqs5g4hvyl7bl9";
         libName = "proc_macro2";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -22398,7 +16634,7 @@ equation coefficients
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
           {
             name = "yansi";
@@ -22442,7 +16678,7 @@ equation coefficients
           }
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "lazy_static";
@@ -22510,38 +16746,7 @@ equation coefficients
         };
         resolvedDefaultFeatures = [ "alloc" "bit-set" "default" "fork" "lazy_static" "no_std" "regex-syntax" "rusty-fork" "std" "tempfile" "timeout" ];
       };
-      "prost 0.12.6" = rec {
-        crateName = "prost";
-        version = "0.12.6";
-        edition = "2021";
-        description = "A Protocol Buffers implementation for the Rust Language.";
-        sha256 = "0a8z87ir8yqjgl1kxbdj30a7pzsjs9ka85szll6i6xlb31f47cfy";
-        authors = [
-          "Dan Burkert <dan@danburkert.com>"
-          "Lucio Franco <luciofranco14@gmail.com>"
-          "Casper Meijn <casper@meijn.net>"
-          "Tokio Contributors <team@tokio.rs>"
-        ];
-        dependencies = [
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost-derive";
-            packageId = "prost-derive 0.12.6";
-            optional = true;
-          }
-        ];
-        features = {
-          "default" = [ "derive" "std" ];
-          "derive" = [ "dep:prost-derive" ];
-          "prost-derive" = [ "derive" ];
-        };
-        resolvedDefaultFeatures = [ "default" "derive" "prost-derive" "std" ];
-      };
-      "prost 0.13.5" = rec {
+      "prost" = rec {
         crateName = "prost";
         version = "0.13.5";
         edition = "2021";
@@ -22561,7 +16766,7 @@ equation coefficients
           }
           {
             name = "prost-derive";
-            packageId = "prost-derive 0.13.5";
+            packageId = "prost-derive";
             optional = true;
           }
         ];
@@ -22570,50 +16775,9 @@ equation coefficients
           "derive" = [ "dep:prost-derive" ];
           "prost-derive" = [ "derive" ];
         };
-        resolvedDefaultFeatures = [ "default" "derive" "prost-derive" "std" ];
+        resolvedDefaultFeatures = [ "default" "derive" "std" ];
       };
-      "prost-derive 0.12.6" = rec {
-        crateName = "prost-derive";
-        version = "0.12.6";
-        edition = "2021";
-        description = "Generate encoding and decoding implementations for Prost annotated types.";
-        sha256 = "1waaq9d2f114bvvpw957s7vsx268licnfawr20b51ydb43dxrgc1";
-        procMacro = true;
-        libName = "prost_derive";
-        authors = [
-          "Dan Burkert <dan@danburkert.com>"
-          "Lucio Franco <luciofranco14@gmail.com>"
-          "Casper Meijn <casper@meijn.net>"
-          "Tokio Contributors <team@tokio.rs>"
-        ];
-        dependencies = [
-          {
-            name = "anyhow";
-            packageId = "anyhow";
-          }
-          {
-            name = "itertools";
-            packageId = "itertools 0.12.1";
-            usesDefaultFeatures = false;
-            features = [ "use_alloc" ];
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" ];
-          }
-        ];
-
-      };
-      "prost-derive 0.13.5" = rec {
+      "prost-derive" = rec {
         crateName = "prost-derive";
         version = "0.13.5";
         edition = "2021";
@@ -22646,84 +16810,8 @@ equation coefficients
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" ];
-          }
-        ];
-
-      };
-      "prost-types" = rec {
-        crateName = "prost-types";
-        version = "0.12.6";
-        edition = "2021";
-        description = "Prost definitions of Protocol Buffers well known types.";
-        sha256 = "1c6mvfhz91q8a8fwada9smaxgg9w4y8l1ypj9yc8wq1j185wk4ch";
-        libName = "prost_types";
-        authors = [
-          "Dan Burkert <dan@danburkert.com>"
-          "Lucio Franco <luciofranco14@gmail.com>"
-          "Casper Meijn <casper@meijn.net>"
-          "Tokio Contributors <team@tokio.rs>"
-        ];
-        dependencies = [
-          {
-            name = "prost";
-            packageId = "prost 0.12.6";
-            usesDefaultFeatures = false;
-            features = [ "prost-derive" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "prost/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "protobuf" = rec {
-        crateName = "protobuf";
-        version = "3.3.0";
-        edition = "2021";
-        description = "Rust implementation of Google protocol buffers
-";
-        sha256 = "1461vasdqvjkbll40lys6826kydbw1rw22fwwlsaf8w7q674lpxn";
-        authors = [
-          "Stepan Koltsov <stepan.koltsov@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-          }
-          {
-            name = "protobuf-support";
-            packageId = "protobuf-support";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-        ];
-        features = {
-          "bytes" = [ "dep:bytes" ];
-          "with-bytes" = [ "bytes" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "protobuf-support" = rec {
-        crateName = "protobuf-support";
-        version = "3.3.0";
-        edition = "2021";
-        description = "Code supporting protobuf implementation. None of code in this crate is public API.
-";
-        sha256 = "1776rzbj4ypkaxwn4bc9zhgv0xxvpgskhn1bk8ih70xrykag8wk8";
-        libName = "protobuf_support";
-        authors = [
-          "Stepan Koltsov <stepan.koltsov@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
           }
         ];
 
@@ -22788,7 +16876,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
           }
           {
             name = "tokio";
@@ -22904,7 +16992,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
           }
           {
             name = "tinyvec";
@@ -23386,20 +17474,6 @@ equation coefficients
         };
         resolvedDefaultFeatures = [ "default" ];
       };
-      "recvmsg" = rec {
-        crateName = "recvmsg";
-        version = "1.0.0";
-        edition = "2021";
-        description = "Traits for receiving datagrams reliably, without truncation.";
-        sha256 = "0xa173gbg1cx8q7wyzi6c4kmcsz5rka68r4jb6kg14icskax9vfk";
-        features = {
-          "libc" = [ "dep:libc" ];
-          "std_net" = [ "std" "libc" "windows-sys" ];
-          "tokio" = [ "dep:tokio" "std_net" ];
-          "windows-sys" = [ "dep:windows-sys" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
       "redox_syscall" = rec {
         crateName = "redox_syscall";
         version = "0.5.17";
@@ -23413,7 +17487,7 @@ equation coefficients
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
         ];
         features = {
@@ -23672,275 +17746,7 @@ finite automata and guarantees linear time matching on all inputs.
         };
         resolvedDefaultFeatures = [ "alloc" ];
       };
-      "reqwest 0.11.27" = rec {
-        crateName = "reqwest";
-        version = "0.11.27";
-        edition = "2021";
-        description = "higher level HTTP client library";
-        sha256 = "0qjary4hpplpgdi62d2m0xvbn6lnzckwffm0rgkm2x51023m6ryx";
-        authors = [
-          "Sean McArthur <sean@seanmonstar.com>"
-        ];
-        dependencies = [
-          {
-            name = "base64";
-            packageId = "base64 0.21.7";
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-          }
-          {
-            name = "encoding_rs";
-            packageId = "encoding_rs";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "futures-core";
-            packageId = "futures-core";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "futures-util";
-            packageId = "futures-util";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "h2";
-            packageId = "h2 0.3.27";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "http";
-            packageId = "http 0.2.12";
-          }
-          {
-            name = "http-body";
-            packageId = "http-body 0.4.6";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "hyper";
-            packageId = "hyper 0.14.32";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "tcp" "http1" "http2" "client" "runtime" ];
-          }
-          {
-            name = "hyper-rustls";
-            packageId = "hyper-rustls 0.24.2";
-            optional = true;
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "ipnet";
-            packageId = "ipnet";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "js-sys";
-            packageId = "js-sys";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-          }
-          {
-            name = "log";
-            packageId = "log";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "mime";
-            packageId = "mime";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "percent-encoding";
-            packageId = "percent-encoding";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "pin-project-lite";
-            packageId = "pin-project-lite";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "rustls";
-            packageId = "rustls 0.21.12";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "dangerous_configuration" ];
-          }
-          {
-            name = "rustls-native-certs";
-            packageId = "rustls-native-certs 0.6.3";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "rustls-pemfile";
-            packageId = "rustls-pemfile 1.0.4";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            optional = true;
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-          }
-          {
-            name = "serde_urlencoded";
-            packageId = "serde_urlencoded";
-          }
-          {
-            name = "sync_wrapper";
-            packageId = "sync_wrapper 0.1.2";
-          }
-          {
-            name = "system-configuration";
-            packageId = "system-configuration 0.5.1";
-            target = { target, features }: ("macos" == target."os" or null);
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "net" "time" ];
-          }
-          {
-            name = "tokio-rustls";
-            packageId = "tokio-rustls 0.24.1";
-            optional = true;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-          }
-          {
-            name = "tower-service";
-            packageId = "tower-service";
-          }
-          {
-            name = "url";
-            packageId = "url";
-          }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-          }
-          {
-            name = "wasm-bindgen-futures";
-            packageId = "wasm-bindgen-futures";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-          }
-          {
-            name = "web-sys";
-            packageId = "web-sys";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-            features = [ "AbortController" "AbortSignal" "Headers" "Request" "RequestInit" "RequestMode" "Response" "Window" "FormData" "Blob" "BlobPropertyBag" "ServiceWorkerGlobalScope" "RequestCredentials" "File" "ReadableStream" ];
-          }
-          {
-            name = "winreg";
-            packageId = "winreg";
-            target = { target, features }: (target."windows" or false);
-          }
-        ];
-        devDependencies = [
-          {
-            name = "futures-util";
-            packageId = "futures-util";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "std" "alloc" ];
-          }
-          {
-            name = "hyper";
-            packageId = "hyper 0.14.32";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "tcp" "stream" "http1" "http2" "client" "server" "runtime" ];
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "derive" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            target = { target, features }: (!("wasm32" == target."arch" or null));
-            features = [ "macros" "rt-multi-thread" ];
-          }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-            target = { target, features }: ("wasm32" == target."arch" or null);
-            features = [ "serde-serialize" ];
-          }
-        ];
-        features = {
-          "__rustls" = [ "hyper-rustls" "tokio-rustls" "rustls" "__tls" ];
-          "__tls" = [ "dep:rustls-pemfile" ];
-          "async-compression" = [ "dep:async-compression" ];
-          "blocking" = [ "futures-util/io" "tokio/sync" ];
-          "brotli" = [ "async-compression" "async-compression/brotli" "tokio-util" ];
-          "cookie_crate" = [ "dep:cookie_crate" ];
-          "cookie_store" = [ "dep:cookie_store" ];
-          "cookies" = [ "cookie_crate" "cookie_store" ];
-          "default" = [ "default-tls" ];
-          "default-tls" = [ "hyper-tls" "native-tls-crate" "__tls" "tokio-native-tls" ];
-          "deflate" = [ "async-compression" "async-compression/zlib" "tokio-util" ];
-          "futures-channel" = [ "dep:futures-channel" ];
-          "gzip" = [ "async-compression" "async-compression/gzip" "tokio-util" ];
-          "h3" = [ "dep:h3" ];
-          "h3-quinn" = [ "dep:h3-quinn" ];
-          "hickory-dns" = [ "hickory-resolver" ];
-          "hickory-resolver" = [ "dep:hickory-resolver" ];
-          "http3" = [ "rustls-tls-manual-roots" "h3" "h3-quinn" "quinn" "futures-channel" ];
-          "hyper-rustls" = [ "dep:hyper-rustls" ];
-          "hyper-tls" = [ "dep:hyper-tls" ];
-          "json" = [ "serde_json" ];
-          "mime_guess" = [ "dep:mime_guess" ];
-          "multipart" = [ "mime_guess" ];
-          "native-tls" = [ "default-tls" ];
-          "native-tls-alpn" = [ "native-tls" "native-tls-crate/alpn" ];
-          "native-tls-crate" = [ "dep:native-tls-crate" ];
-          "native-tls-vendored" = [ "native-tls" "native-tls-crate/vendored" ];
-          "quinn" = [ "dep:quinn" ];
-          "rustls" = [ "dep:rustls" ];
-          "rustls-native-certs" = [ "dep:rustls-native-certs" ];
-          "rustls-tls" = [ "rustls-tls-webpki-roots" ];
-          "rustls-tls-manual-roots" = [ "__rustls" ];
-          "rustls-tls-native-roots" = [ "rustls-native-certs" "__rustls" ];
-          "rustls-tls-webpki-roots" = [ "webpki-roots" "__rustls" ];
-          "serde_json" = [ "dep:serde_json" ];
-          "socks" = [ "tokio-socks" ];
-          "stream" = [ "tokio/fs" "tokio-util" "wasm-streams" ];
-          "tokio-native-tls" = [ "dep:tokio-native-tls" ];
-          "tokio-rustls" = [ "dep:tokio-rustls" ];
-          "tokio-socks" = [ "dep:tokio-socks" ];
-          "tokio-util" = [ "dep:tokio-util" ];
-          "trust-dns" = [ "hickory-dns" ];
-          "wasm-streams" = [ "dep:wasm-streams" ];
-          "webpki-roots" = [ "dep:webpki-roots" ];
-        };
-        resolvedDefaultFeatures = [ "__rustls" "__tls" "hyper-rustls" "rustls" "rustls-native-certs" "rustls-tls-native-roots" "tokio-rustls" ];
-      };
-      "reqwest 0.12.23" = rec {
+      "reqwest" = rec {
         crateName = "reqwest";
         version = "0.12.23";
         edition = "2021";
@@ -24003,7 +17809,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             target = { target, features }: (!("wasm32" == target."arch" or null));
             features = [ "http1" "client" ];
           }
@@ -24103,7 +17909,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "sync_wrapper";
-            packageId = "sync_wrapper 1.0.2";
+            packageId = "sync_wrapper";
             features = [ "futures" ];
           }
           {
@@ -24196,7 +18002,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             usesDefaultFeatures = false;
             target = { target, features }: (!("wasm32" == target."arch" or null));
             features = [ "http1" "http2" "client" "server" ];
@@ -24294,7 +18100,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             usesDefaultFeatures = false;
           }
           {
@@ -24313,7 +18119,7 @@ finite automata and guarantees linear time matching on all inputs.
         devDependencies = [
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "rustls-tls" ];
           }
         ];
@@ -24519,7 +18325,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "secp256k1";
-            packageId = "secp256k1 0.29.1";
+            packageId = "secp256k1";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "alloc" "recovery" "rand" "global-context" ];
@@ -24587,7 +18393,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
             usesDefaultFeatures = false;
           }
           {
@@ -24761,7 +18567,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "oid" = [ "digest/oid" ];
           "std" = [ "digest/std" ];
         };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [ "std" ];
       };
       "rlp 0.5.2" = rec {
         crateName = "rlp";
@@ -24819,70 +18625,6 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "rlp-derive" = [ "dep:rlp-derive" ];
           "std" = [ "bytes/std" "rustc-hex/std" ];
         };
-      };
-      "rmp" = rec {
-        crateName = "rmp";
-        version = "0.8.14";
-        edition = "2021";
-        description = "Pure Rust MessagePack serialization implementation";
-        sha256 = "1i1l6dhv7vws5vp0ikakj44fk597xi59g3j6ng1q55x3dz0xg3i2";
-        authors = [
-          "Evgeny Safronov <division494@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "byteorder";
-            packageId = "byteorder";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "num-traits";
-            packageId = "num-traits";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "paste";
-            packageId = "paste";
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "byteorder/std" "num-traits/std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "rmp-serde" = rec {
-        crateName = "rmp-serde";
-        version = "1.3.0";
-        edition = "2021";
-        description = "Serde bindings for RMP";
-        sha256 = "1nylmh7w2vpa1bwrnx1jfp2l4yz6i5qrmpic5zll166gfyj9kraj";
-        libName = "rmp_serde";
-        authors = [
-          "Evgeny Safronov <division494@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "byteorder";
-            packageId = "byteorder";
-          }
-          {
-            name = "rmp";
-            packageId = "rmp";
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-        ];
-
       };
       "rrs-succinct" = rec {
         crateName = "rrs-succinct";
@@ -24988,7 +18730,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "primitive-types";
-            packageId = "primitive-types 0.12.2";
+            packageId = "primitive-types";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -25214,7 +18956,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
             usesDefaultFeatures = false;
           }
           {
@@ -25349,7 +19091,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           "read_buf" = [ "rustversion" ];
           "rustversion" = [ "dep:rustversion" ];
         };
-        resolvedDefaultFeatures = [ "dangerous_configuration" "default" "log" "logging" "tls12" ];
+        resolvedDefaultFeatures = [ "log" "logging" "tls12" ];
       };
       "rustls 0.23.31" = rec {
         crateName = "rustls";
@@ -25687,53 +19429,6 @@ fork-like interface.
           "no-panic" = [ "dep:no-panic" ];
         };
       };
-      "salsa20" = rec {
-        crateName = "salsa20";
-        version = "0.10.2";
-        edition = "2021";
-        description = "Salsa20 Stream Cipher";
-        sha256 = "04w211x17xzny53f83p8f7cj7k2hi8zck282q5aajwqzydd2z8lp";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher";
-            features = [ "dev" ];
-          }
-        ];
-        features = {
-          "std" = [ "cipher/std" ];
-          "zeroize" = [ "cipher/zeroize" ];
-        };
-      };
-      "same-file" = rec {
-        crateName = "same-file";
-        version = "1.0.6";
-        edition = "2018";
-        description = "A simple crate for determining whether two file paths point to the same file.
-";
-        sha256 = "00h5j1w87dmhnvbv9l8bic3y7xxsnjmssvifw2ayvgx9mb1ivz4k";
-        libName = "same_file";
-        authors = [
-          "Andrew Gallant <jamslam@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "winapi-util";
-            packageId = "winapi-util";
-            target = { target, features }: (target."windows" or false);
-          }
-        ];
-
-      };
       "scale-info" = rec {
         crateName = "scale-info";
         version = "2.11.6";
@@ -25818,7 +19513,7 @@ fork-like interface.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "derive" "visit" "visit-mut" "extra-traits" ];
           }
         ];
@@ -25873,98 +19568,6 @@ fork-like interface.
         ];
 
       };
-      "schemars" = rec {
-        crateName = "schemars";
-        version = "0.8.22";
-        edition = "2021";
-        description = "Generate JSON Schemas from Rust code";
-        sha256 = "05an9nbi18ynyxv1rjmwbg6j08j0496hd64mjggh53mwp3hjmgrz";
-        authors = [
-          "Graham Esau <gesau@hotmail.co.uk>"
-        ];
-        dependencies = [
-          {
-            name = "dyn-clone";
-            packageId = "dyn-clone";
-          }
-          {
-            name = "schemars_derive";
-            packageId = "schemars_derive";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-        ];
-        features = {
-          "arrayvec" = [ "arrayvec05" ];
-          "arrayvec05" = [ "dep:arrayvec05" ];
-          "arrayvec07" = [ "dep:arrayvec07" ];
-          "bigdecimal" = [ "bigdecimal03" ];
-          "bigdecimal03" = [ "dep:bigdecimal03" ];
-          "bigdecimal04" = [ "dep:bigdecimal04" ];
-          "bytes" = [ "dep:bytes" ];
-          "chrono" = [ "dep:chrono" ];
-          "default" = [ "derive" ];
-          "derive" = [ "schemars_derive" ];
-          "derive_json_schema" = [ "impl_json_schema" ];
-          "either" = [ "dep:either" ];
-          "enumset" = [ "dep:enumset" ];
-          "impl_json_schema" = [ "derive" ];
-          "indexmap" = [ "dep:indexmap" ];
-          "indexmap1" = [ "indexmap" ];
-          "indexmap2" = [ "dep:indexmap2" ];
-          "preserve_order" = [ "indexmap" ];
-          "raw_value" = [ "serde_json/raw_value" ];
-          "rust_decimal" = [ "dep:rust_decimal" ];
-          "schemars_derive" = [ "dep:schemars_derive" ];
-          "semver" = [ "dep:semver" ];
-          "smallvec" = [ "dep:smallvec" ];
-          "smol_str" = [ "dep:smol_str" ];
-          "url" = [ "dep:url" ];
-          "uuid" = [ "uuid08" ];
-          "uuid08" = [ "dep:uuid08" ];
-          "uuid1" = [ "dep:uuid1" ];
-        };
-        resolvedDefaultFeatures = [ "default" "derive" "schemars_derive" ];
-      };
-      "schemars_derive" = rec {
-        crateName = "schemars_derive";
-        version = "0.8.22";
-        edition = "2021";
-        description = "Macros for #[derive(JsonSchema)], for use with schemars";
-        sha256 = "0kakyzrp5801s4i043l4ilv96lzimnlh01pap958h66n99w6bqij";
-        procMacro = true;
-        authors = [
-          "Graham Esau <gesau@hotmail.co.uk>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "serde_derive_internals";
-            packageId = "serde_derive_internals";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" ];
-          }
-        ];
-
-      };
       "schnellru" = rec {
         crateName = "schnellru";
         version = "0.2.4";
@@ -26013,43 +19616,6 @@ shorthands for guards with one of the implemented strategies.
         ];
         features = {
           "default" = [ "use_std" ];
-        };
-      };
-      "scrypt" = rec {
-        crateName = "scrypt";
-        version = "0.10.0";
-        edition = "2021";
-        description = "Scrypt password-based key derivation function";
-        sha256 = "0pglmppcl8mdzfxdv2x9dsjrwxhc1bm9zvxjibnlv59jnv9297lz";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "hmac";
-            packageId = "hmac";
-          }
-          {
-            name = "pbkdf2";
-            packageId = "pbkdf2 0.11.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "salsa20";
-            packageId = "salsa20";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "simple" "std" ];
-          "password-hash" = [ "dep:password-hash" ];
-          "simple" = [ "password-hash" ];
-          "std" = [ "password-hash/std" ];
         };
       };
       "sct" = rec {
@@ -26157,41 +19723,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
         };
         resolvedDefaultFeatures = [ "alloc" "default" "der" "pem" "pkcs8" "point" "serde" "std" "subtle" "zeroize" ];
       };
-      "secp256k1 0.27.0" = rec {
-        crateName = "secp256k1";
-        version = "0.27.0";
-        edition = "2018";
-        description = "Rust wrapper library for Pieter Wuille's `libsecp256k1`. Implements ECDSA and BIP 340 signatures for the SECG elliptic curve group secp256k1 and related utilities.";
-        sha256 = "13wwv91qnx8lsyn891q16a6x6h46zz7m5w086pnmfyia5616p695";
-        authors = [
-          "Dawid Ciężarkiewicz <dpc@ucore.info>"
-          "Andrew Poelstra <apoelstra@wpsoftware.net>"
-        ];
-        dependencies = [
-          {
-            name = "secp256k1-sys";
-            packageId = "secp256k1-sys 0.8.2";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "alloc" = [ "secp256k1-sys/alloc" ];
-          "bitcoin-hashes" = [ "bitcoin_hashes" ];
-          "bitcoin-hashes-std" = [ "std" "bitcoin_hashes" "bitcoin_hashes/std" ];
-          "bitcoin_hashes" = [ "dep:bitcoin_hashes" ];
-          "default" = [ "std" ];
-          "global-context" = [ "std" ];
-          "global-context-less-secure" = [ "global-context" ];
-          "lowmemory" = [ "secp256k1-sys/lowmemory" ];
-          "rand" = [ "dep:rand" ];
-          "rand-std" = [ "std" "rand" "rand/std" "rand/std_rng" ];
-          "recovery" = [ "secp256k1-sys/recovery" ];
-          "serde" = [ "dep:serde" ];
-          "std" = [ "alloc" "secp256k1-sys/std" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" ];
-      };
-      "secp256k1 0.29.1" = rec {
+      "secp256k1" = rec {
         crateName = "secp256k1";
         version = "0.29.1";
         edition = "2021";
@@ -26210,7 +19742,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
           }
           {
             name = "secp256k1-sys";
-            packageId = "secp256k1-sys 0.10.1";
+            packageId = "secp256k1-sys";
             usesDefaultFeatures = false;
           }
         ];
@@ -26230,7 +19762,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
         };
         resolvedDefaultFeatures = [ "alloc" "global-context" "rand" "recovery" "std" ];
       };
-      "secp256k1-sys 0.10.1" = rec {
+      "secp256k1-sys" = rec {
         crateName = "secp256k1-sys";
         version = "0.10.1";
         edition = "2021";
@@ -26255,31 +19787,6 @@ Elliptic-Curve-Point-to-Octet-String encoding
         };
         resolvedDefaultFeatures = [ "alloc" "recovery" "std" ];
       };
-      "secp256k1-sys 0.8.2" = rec {
-        crateName = "secp256k1-sys";
-        version = "0.8.2";
-        edition = "2018";
-        description = "FFI for Pieter Wuille's `libsecp256k1` library.";
-        links = "rustsecp256k1_v0_8_1";
-        sha256 = "16gxc3zccx0942yjgngj5ip19wvd33qrw5v86vpb8xzcfwsh2ws4";
-        libName = "secp256k1_sys";
-        authors = [
-          "Dawid Ciężarkiewicz <dpc@ucore.info>"
-          "Andrew Poelstra <apoelstra@wpsoftware.net>"
-          "Steven Roose <steven@stevenroose.org>"
-        ];
-        buildDependencies = [
-          {
-            name = "cc";
-            packageId = "cc";
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "alloc" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" ];
-      };
       "security-framework 2.11.1" = rec {
         crateName = "security-framework";
         version = "2.11.1";
@@ -26294,7 +19801,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "core-foundation";
@@ -26342,7 +19849,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "core-foundation";
@@ -26472,7 +19979,7 @@ Elliptic-Curve-Point-to-Octet-String encoding
         ];
 
       };
-      "send_wrapper 0.4.0" = rec {
+      "send_wrapper" = rec {
         crateName = "send_wrapper";
         version = "0.4.0";
         edition = "2015";
@@ -26485,23 +19992,6 @@ a panic occurs.";
           "Thomas Keh"
         ];
 
-      };
-      "send_wrapper 0.6.0" = rec {
-        crateName = "send_wrapper";
-        version = "0.6.0";
-        edition = "2018";
-        description = "This Rust library implements a wrapper type called SendWrapper which allows you to move around non-Send types
-between threads, as long as you access the contained value only from within the original thread. You also have to
-make sure that the wrapper is dropped from within the original thread. If any of these constraints is violated,
-a panic occurs.";
-        sha256 = "0wrxzsh9fzgkkkms621ydnz8mj30ilyq299a8cf65jn1y72hw2yd";
-        authors = [
-          "Thomas Keh"
-        ];
-        features = {
-          "futures" = [ "futures-core" ];
-          "futures-core" = [ "dep:futures-core" ];
-        };
       };
       "serde" = rec {
         crateName = "serde";
@@ -26537,76 +20027,6 @@ a panic occurs.";
           "serde_derive" = [ "dep:serde_derive" ];
         };
         resolvedDefaultFeatures = [ "alloc" "default" "derive" "rc" "serde_derive" "std" ];
-      };
-      "serde-cw-value" = rec {
-        crateName = "serde-cw-value";
-        version = "0.7.0";
-        edition = "2018";
-        description = "Serialization value trees for CosmWasm";
-        sha256 = "1m4riskk8gp6jq921jzk9ldgaz8xiz0c7djhv2vmimwfdgd34pd7";
-        libName = "serde_cw_value";
-        authors = [
-          "Bartłomiej Kuras"
-        ];
-        dependencies = [
-          {
-            name = "serde";
-            packageId = "serde";
-          }
-        ];
-
-      };
-      "serde-json-wasm" = rec {
-        crateName = "serde-json-wasm";
-        version = "1.0.1";
-        edition = "2021";
-        description = "serde_json for Wasm programs (small, deterministic, no floats)";
-        sha256 = "19f9z0m31xvz8f9ynj76bqh5nhnfx709s2fmzyyraifxag8s0pgh";
-        libName = "serde_json_wasm";
-        authors = [
-          "Jorge Aparicio <jorge@japaric.io>"
-          "Ethan Frey <ethanfrey@noreply.github.com>"
-          "Simon Warta <webmaster128@noreply.github.com>"
-          "Mauro Lacy <maurolacy@noreply.github.com>"
-          "Bartłomiej Kuras <hashedone@noreply.github.com>"
-        ];
-        dependencies = [
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "std" = [ "serde/std" ];
-          "unstable" = [ "serde/unstable" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
-      };
-      "serde_bytes" = rec {
-        crateName = "serde_bytes";
-        version = "0.11.17";
-        edition = "2018";
-        description = "Optimized handling of `&[u8]` and `Vec<u8>` for Serde";
-        sha256 = "15kds0mw19lvm8ydd1qbharh5rz96zir06yn2silqbfy3cigsdw4";
-        authors = [
-          "David Tolnay <dtolnay@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "alloc" = [ "serde/alloc" ];
-          "default" = [ "std" ];
-          "std" = [ "serde/std" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" ];
       };
       "serde_cbor" = rec {
         crateName = "serde_cbor";
@@ -26662,7 +20082,7 @@ a panic occurs.";
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "clone-impls" "derive" "parsing" "printing" "proc-macro" ];
           }
@@ -26670,37 +20090,6 @@ a panic occurs.";
         features = {
         };
         resolvedDefaultFeatures = [ "default" ];
-      };
-      "serde_derive_internals" = rec {
-        crateName = "serde_derive_internals";
-        version = "0.29.1";
-        edition = "2015";
-        description = "AST representation used by Serde derive macros. Unstable.";
-        sha256 = "04g7macx819vbnxhi52cx0nhxi56xlhrybgwybyy7fb9m4h6mlhq";
-        libPath = "lib.rs";
-        authors = [
-          "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
-          "David Tolnay <dtolnay@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            usesDefaultFeatures = false;
-            features = [ "clone-impls" "derive" "parsing" "printing" ];
-          }
-        ];
-
       };
       "serde_json" = rec {
         crateName = "serde_json";
@@ -26800,32 +20189,6 @@ a panic occurs.";
           {
             name = "serde";
             packageId = "serde";
-          }
-        ];
-
-      };
-      "serde_repr" = rec {
-        crateName = "serde_repr";
-        version = "0.1.20";
-        edition = "2021";
-        description = "Derive Serialize and Deserialize that delegates to the underlying repr of a C-like enum.";
-        sha256 = "1755gss3f6lwvv23pk7fhnjdkjw7609rcgjlr8vjg6791blf6php";
-        procMacro = true;
-        authors = [
-          "David Tolnay <dtolnay@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
           }
         ];
 
@@ -27003,7 +20366,7 @@ a panic occurs.";
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" "full" "parsing" ];
           }
         ];
@@ -27158,7 +20521,7 @@ contains secrets (e.g. cryptographic keys)
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "full" "printing" "parsing" "clone-impls" ];
           }
@@ -28226,7 +21589,7 @@ possible intended.
           }
           {
             name = "prost";
-            packageId = "prost 0.13.5";
+            packageId = "prost";
           }
           {
             name = "serde";
@@ -29147,7 +22510,7 @@ possible intended.
         dependencies = [
           {
             name = "alloy-primitives";
-            packageId = "alloy-primitives 1.3.0";
+            packageId = "alloy-primitives 1.3.1";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "k256" "serde" ];
@@ -29221,12 +22584,12 @@ possible intended.
           }
           {
             name = "prost";
-            packageId = "prost 0.13.5";
+            packageId = "prost";
             optional = true;
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "rustls-tls" "trust-dns" "stream" "json" ];
@@ -29485,7 +22848,7 @@ possible intended.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
             usesDefaultFeatures = false;
           }
         ];
@@ -29576,28 +22939,6 @@ possible intended.
           "verify" = [ "dep:p3-baby-bear" "dep:p3-field" "sp1-lib/verify" ];
         };
         resolvedDefaultFeatures = [ "default" "lib" "libm" "verify" ];
-      };
-      "speedate" = rec {
-        crateName = "speedate";
-        version = "0.13.0";
-        edition = "2021";
-        description = "Fast and simple datetime, date, time and duration parsing";
-        sha256 = "16xi4d98ab3ag7rkba2fv37kk3d0fgg0l287hq4vz36i1z2pcbr4";
-        authors = [
-          "Samuel Colvin <s@muelcolvin.com>"
-        ];
-        dependencies = [
-          {
-            name = "strum";
-            packageId = "strum 0.25.0";
-            features = [ "derive" ];
-          }
-          {
-            name = "strum_macros";
-            packageId = "strum_macros 0.25.3";
-          }
-        ];
-
       };
       "spin" = rec {
         crateName = "spin";
@@ -29767,36 +23108,6 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         ];
 
       };
-      "strum 0.25.0" = rec {
-        crateName = "strum";
-        version = "0.25.0";
-        edition = "2018";
-        description = "Helpful macros for working with enums and strings";
-        sha256 = "09g1q55ms8vax1z0mxlbva3vm8n2r1179kfvbccnkjcidzm58399";
-        authors = [
-          "Peter Glotfelty <peter.glotfelty@microsoft.com>"
-        ];
-        dependencies = [
-          {
-            name = "strum_macros";
-            packageId = "strum_macros 0.25.3";
-            optional = true;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "strum_macros";
-            packageId = "strum_macros 0.25.3";
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "derive" = [ "strum_macros" ];
-          "phf" = [ "dep:phf" ];
-          "strum_macros" = [ "dep:strum_macros" ];
-        };
-        resolvedDefaultFeatures = [ "default" "derive" "std" "strum_macros" ];
-      };
       "strum 0.26.3" = rec {
         crateName = "strum";
         version = "0.26.3";
@@ -29851,41 +23162,6 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         };
         resolvedDefaultFeatures = [ "derive" "strum_macros" ];
       };
-      "strum_macros 0.25.3" = rec {
-        crateName = "strum_macros";
-        version = "0.25.3";
-        edition = "2018";
-        description = "Helpful macros for working with enums and strings";
-        sha256 = "184y62g474zqb2f7n16x3ghvlyjbh50viw32p9w9l5lwmjlizp13";
-        procMacro = true;
-        authors = [
-          "Peter Glotfelty <peter.glotfelty@microsoft.com>"
-        ];
-        dependencies = [
-          {
-            name = "heck";
-            packageId = "heck 0.4.1";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "rustversion";
-            packageId = "rustversion";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "parsing" "extra-traits" ];
-          }
-        ];
-
-      };
       "strum_macros 0.26.4" = rec {
         crateName = "strum_macros";
         version = "0.26.4";
@@ -29915,7 +23191,7 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "parsing" "extra-traits" ];
           }
         ];
@@ -29946,7 +23222,7 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "parsing" ];
           }
         ];
@@ -30119,52 +23395,6 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         };
         resolvedDefaultFeatures = [ "default" "i128" "std" ];
       };
-      "subtle-encoding" = rec {
-        crateName = "subtle-encoding";
-        version = "0.5.1";
-        edition = "2018";
-        description = "Encoders and decoders for common data encodings (base64, bech32, hex)
-which avoid data-dependent branching/table lookups and therefore
-provide \"best effort\" constant time. Useful for encoding/decoding
-secret values such as cryptographic keys.
-";
-        sha256 = "0icrwnjs67xf4k02x3yq5rgcf4ksvm8jc1a1aknmw31kp3bixjvx";
-        libName = "subtle_encoding";
-        authors = [
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "base64" = [ "zeroize" ];
-          "bech32-preview" = [ "alloc" "zeroize" ];
-          "default" = [ "base64" "hex" "std" ];
-          "std" = [ "alloc" "zeroize" ];
-          "zeroize" = [ "dep:zeroize" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "base64" "bech32-preview" "default" "hex" "std" "zeroize" ];
-      };
-      "subtle-ng" = rec {
-        crateName = "subtle-ng";
-        version = "2.5.0";
-        edition = "2015";
-        description = "Pure-Rust traits and utilities for constant-time cryptographic implementations.";
-        sha256 = "0hj1wp8xl64bjhbvlfffmllqy7wdw2b505f32gn3qqic4vmpcikk";
-        libName = "subtle_ng";
-        authors = [
-          "Isis Lovecruft <isis@patternsinthevoid.net>"
-          "Henry de Valence <hdevalence@hdevalence.ca>"
-        ];
-        features = {
-          "default" = [ "std" "i128" ];
-        };
-      };
       "superstruct" = rec {
         crateName = "superstruct";
         version = "0.7.0";
@@ -30235,12 +23465,12 @@ secret values such as cryptographic keys.
         };
         resolvedDefaultFeatures = [ "clone-impls" "default" "derive" "extra-traits" "full" "parsing" "printing" "proc-macro" "quote" "visit" ];
       };
-      "syn 2.0.105" = rec {
+      "syn 2.0.106" = rec {
         crateName = "syn";
-        version = "2.0.105";
+        version = "2.0.106";
         edition = "2021";
         description = "Parser for Rust source code";
-        sha256 = "06f63ymdffzgm6a95mr0cml8ky61hm1gfp3i2bkmhd75a2rgrhvv";
+        sha256 = "19mddxp1ia00hfdzimygqmr1jqdvyl86k48427bkci4d08wc9rzd";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -30269,40 +23499,7 @@ secret values such as cryptographic keys.
         };
         resolvedDefaultFeatures = [ "clone-impls" "default" "derive" "extra-traits" "fold" "full" "parsing" "printing" "proc-macro" "visit" "visit-mut" ];
       };
-      "syn-solidity 0.7.7" = rec {
-        crateName = "syn-solidity";
-        version = "0.7.7";
-        edition = "2021";
-        description = "syn-powered Solidity parser";
-        sha256 = "1sppxnpzp61qzd4pp1jq5jqxlh1ig20znjj4dgj78w6baa4dqdy8";
-        libName = "syn_solidity";
-        authors = [
-          "Alloy Contributors"
-        ];
-        dependencies = [
-          {
-            name = "paste";
-            packageId = "paste";
-          }
-          {
-            name = "proc-macro2";
-            packageId = "proc-macro2";
-          }
-          {
-            name = "quote";
-            packageId = "quote";
-          }
-          {
-            name = "syn";
-            packageId = "syn 2.0.105";
-            features = [ "extra-traits" ];
-          }
-        ];
-        features = {
-        };
-        resolvedDefaultFeatures = [ "visit" "visit-mut" ];
-      };
-      "syn-solidity 0.8.25" = rec {
+      "syn-solidity" = rec {
         crateName = "syn-solidity";
         version = "0.8.25";
         edition = "2021";
@@ -30327,7 +23524,7 @@ secret values such as cryptographic keys.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" ];
           }
         ];
@@ -30335,21 +23532,7 @@ secret values such as cryptographic keys.
         };
         resolvedDefaultFeatures = [ "visit" "visit-mut" ];
       };
-      "sync_wrapper 0.1.2" = rec {
-        crateName = "sync_wrapper";
-        version = "0.1.2";
-        edition = "2018";
-        description = "A tool for enlisting the compiler’s help in proving the absence of concurrency";
-        sha256 = "0q01lyj0gr9a93n10nxsn8lwbzq97jqd6b768x17c8f7v7gccir0";
-        authors = [
-          "Actyx AG <developer@actyx.io>"
-        ];
-        features = {
-          "futures" = [ "futures-core" ];
-          "futures-core" = [ "dep:futures-core" ];
-        };
-      };
-      "sync_wrapper 1.0.2" = rec {
+      "sync_wrapper" = rec {
         crateName = "sync_wrapper";
         version = "1.0.2";
         edition = "2021";
@@ -30394,7 +23577,7 @@ secret values such as cryptographic keys.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "derive" "parsing" "printing" "clone-impls" "visit" "extra-traits" ];
           }
@@ -30461,33 +23644,7 @@ secret values such as cryptographic keys.
         };
         resolvedDefaultFeatures = [ "default" "multithread" "rayon" ];
       };
-      "system-configuration 0.5.1" = rec {
-        crateName = "system-configuration";
-        version = "0.5.1";
-        edition = "2021";
-        description = "Bindings to SystemConfiguration framework for macOS";
-        sha256 = "1rz0r30xn7fiyqay2dvzfy56cvaa3km74hnbz2d72p97bkf3lfms";
-        libName = "system_configuration";
-        authors = [
-          "Mullvad VPN"
-        ];
-        dependencies = [
-          {
-            name = "bitflags";
-            packageId = "bitflags 1.3.2";
-          }
-          {
-            name = "core-foundation";
-            packageId = "core-foundation 0.9.4";
-          }
-          {
-            name = "system-configuration-sys";
-            packageId = "system-configuration-sys 0.5.0";
-          }
-        ];
-
-      };
-      "system-configuration 0.6.1" = rec {
+      "system-configuration" = rec {
         crateName = "system-configuration";
         version = "0.6.1";
         edition = "2021";
@@ -30500,7 +23657,7 @@ secret values such as cryptographic keys.
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "core-foundation";
@@ -30508,34 +23665,12 @@ secret values such as cryptographic keys.
           }
           {
             name = "system-configuration-sys";
-            packageId = "system-configuration-sys 0.6.0";
+            packageId = "system-configuration-sys";
           }
         ];
 
       };
-      "system-configuration-sys 0.5.0" = rec {
-        crateName = "system-configuration-sys";
-        version = "0.5.0";
-        edition = "2021";
-        description = "Low level bindings to SystemConfiguration framework for macOS";
-        sha256 = "1jckxvdr37bay3i9v52izgy52dg690x5xfg3hd394sv2xf4b2px7";
-        libName = "system_configuration_sys";
-        authors = [
-          "Mullvad VPN"
-        ];
-        dependencies = [
-          {
-            name = "core-foundation-sys";
-            packageId = "core-foundation-sys";
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-          }
-        ];
-
-      };
-      "system-configuration-sys 0.6.0" = rec {
+      "system-configuration-sys" = rec {
         crateName = "system-configuration-sys";
         version = "0.6.0";
         edition = "2021";
@@ -30618,604 +23753,6 @@ secret values such as cryptographic keys.
         };
         resolvedDefaultFeatures = [ "default" "getrandom" ];
       };
-      "tendermint" = rec {
-        crateName = "tendermint";
-        version = "0.40.4";
-        edition = "2021";
-        description = "    Tendermint is a high-performance blockchain consensus engine that powers
-    Byzantine fault tolerant applications written in any programming language.
-    This crate provides core types for representing information about Tendermint
-    blockchain networks, including chain information types, secret connections,
-    and remote procedure calls (JSON-RPC).
-    ";
-        sha256 = "1c9qp3s3x21d5isi0hh37djj9vibkf6xcw41raxn8j7xxi1pg6gw";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-          "Ismail Khoffi <Ismail.Khoffi@gmail.com>"
-          "ValarDragon <dojha12@gmail.com>"
-          "Tony Arcieri <tony@iqlusion.io>"
-        ];
-        dependencies = [
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "digest";
-            packageId = "digest 0.10.7";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ed25519";
-            packageId = "ed25519";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "ed25519-consensus";
-            packageId = "ed25519-consensus";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "k256";
-            packageId = "k256";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "alloc" "ecdsa" ];
-          }
-          {
-            name = "num-traits";
-            packageId = "num-traits";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "once_cell";
-            packageId = "once_cell";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "ripemd";
-            packageId = "ripemd";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_bytes";
-            packageId = "serde_bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "serde_repr";
-            packageId = "serde_repr";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.10.8";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "signature";
-            packageId = "signature";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "subtle";
-            packageId = "subtle";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-            features = [ "bech32-preview" ];
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.40.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-            features = [ "macros" "parsing" ];
-          }
-          {
-            name = "zeroize";
-            packageId = "zeroize";
-            usesDefaultFeatures = false;
-            features = [ "zeroize_derive" "alloc" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "k256";
-            packageId = "k256";
-            usesDefaultFeatures = false;
-            features = [ "ecdsa" ];
-          }
-        ];
-        features = {
-          "clock" = [ "time/std" ];
-          "default" = [ "std" "rust-crypto" ];
-          "rust-crypto" = [ "dep:ed25519-consensus" ];
-          "secp256k1" = [ "rust-crypto" "dep:k256" "dep:ripemd" ];
-          "std" = [ "flex-error/std" "clock" ];
-        };
-        resolvedDefaultFeatures = [ "clock" "default" "rust-crypto" "secp256k1" "std" ];
-      };
-      "tendermint-config" = rec {
-        crateName = "tendermint-config";
-        version = "0.40.4";
-        edition = "2021";
-        description = "    tendermint-config provides functions for loading and validating Tendermint
-    configuration files. It is moved out of the tendermint crate for no_std support
-    in the tendermint crate.
-    ";
-        sha256 = "1nizlk9hs27w5yl0z9k9c5n91sdj0chbfvnjpim5jamhz68ig786";
-        libName = "tendermint_config";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-            features = [ "rust-crypto" ];
-          }
-          {
-            name = "toml";
-            packageId = "toml";
-          }
-          {
-            name = "url";
-            packageId = "url";
-          }
-        ];
-        features = {
-          "secp256k1" = [ "tendermint/secp256k1" ];
-        };
-      };
-      "tendermint-light-client-verifier" = rec {
-        crateName = "tendermint-light-client-verifier";
-        version = "0.40.4";
-        edition = "2021";
-        description = "    Implementation of the Tendermint Light Client Verification Algorithm.
-";
-        sha256 = "04c5vxg4c5xbvxd6gj94kxbdr87ddjd4awadcf0ab8v4fa82312l";
-        libName = "tendermint_light_client_verifier";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "derive_more";
-            packageId = "derive_more 0.99.20";
-            usesDefaultFeatures = false;
-            features = [ "display" ];
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "rust-crypto" "flex-error/std" ];
-          "rust-crypto" = [ "tendermint/rust-crypto" ];
-        };
-        resolvedDefaultFeatures = [ "rust-crypto" ];
-      };
-      "tendermint-proto 0.34.1" = rec {
-        crateName = "tendermint-proto";
-        version = "0.34.1";
-        edition = "2021";
-        description = "    tendermint-proto is a the Rust implementation of the Tendermint proto structs.
-    ";
-        sha256 = "07lslvars9y1icl3l62ap85xij4x4ggpnph65wfykbpa5cyxv5xp";
-        libName = "tendermint_proto";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "num-derive";
-            packageId = "num-derive";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "num-traits";
-            packageId = "num-traits";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.12.6";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "prost-types";
-            packageId = "prost-types";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_bytes";
-            packageId = "serde_bytes";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-            features = [ "hex" "base64" "alloc" ];
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-            features = [ "macros" "parsing" ];
-          }
-        ];
-        features = {
-          "grpc" = [ "grpc-server" ];
-          "grpc-server" = [ "tonic" ];
-          "tonic" = [ "dep:tonic" ];
-        };
-        resolvedDefaultFeatures = [ "default" ];
-      };
-      "tendermint-proto 0.40.4" = rec {
-        crateName = "tendermint-proto";
-        version = "0.40.4";
-        edition = "2021";
-        description = "    tendermint-proto is a the Rust implementation of the Tendermint proto structs.
-    ";
-        sha256 = "155042bg500hif7njcwq658975wmfpg25vd7v21918cwsc9hxi6j";
-        libName = "tendermint_proto";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-        ];
-        dependencies = [
-          {
-            name = "borsh";
-            packageId = "borsh";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-            features = [ "serde" ];
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "parity-scale-codec";
-            packageId = "parity-scale-codec";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "full" ];
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "scale-info";
-            packageId = "scale-info";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "schemars";
-            packageId = "schemars";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_bytes";
-            packageId = "serde_bytes";
-            usesDefaultFeatures = false;
-            features = [ "alloc" ];
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-            features = [ "hex" "base64" "alloc" ];
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-            features = [ "macros" "parsing" ];
-          }
-        ];
-        features = {
-          "borsh" = [ "dep:borsh" ];
-          "grpc" = [ "grpc-server" ];
-          "grpc-server" = [ "dep:tonic" "std" ];
-          "json-schema" = [ "dep:schemars" "std" ];
-          "parity-scale-codec" = [ "dep:parity-scale-codec" "dep:scale-info" ];
-        };
-        resolvedDefaultFeatures = [ "borsh" "default" "json-schema" "parity-scale-codec" "std" ];
-      };
-      "tendermint-rpc" = rec {
-        crateName = "tendermint-rpc";
-        version = "0.40.4";
-        edition = "2021";
-        description = "    tendermint-rpc contains the core types returned by a Tendermint node's RPC endpoint.
-    All networking related features are feature guarded to keep the dependencies small in
-    cases where only the core types are needed.
-    ";
-        crateBin = [];
-        sha256 = "1hhgpily3l0wdwbhnyglkpvrz8sq52z6b9pm1pq2zi2c9fd5dq1m";
-        libName = "tendermint_rpc";
-        authors = [
-          "Informal Systems <hello@informal.systems>"
-          "Ismail Khoffi <Ismail.Khoffi@gmail.com>"
-          "Alexander Simmerl <a.simmerl@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "async-trait";
-            packageId = "async-trait";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "flex-error";
-            packageId = "flex-error";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "getrandom";
-            packageId = "getrandom 0.2.16";
-            usesDefaultFeatures = false;
-            features = [ "js" ];
-          }
-          {
-            name = "peg";
-            packageId = "peg";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "pin-project";
-            packageId = "pin-project";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "reqwest";
-            packageId = "reqwest 0.11.27";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "rustls-tls-native-roots" ];
-          }
-          {
-            name = "semver";
-            packageId = "semver 1.0.26";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            usesDefaultFeatures = false;
-            features = [ "derive" ];
-          }
-          {
-            name = "serde_bytes";
-            packageId = "serde_bytes";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "serde_json";
-            packageId = "serde_json";
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "subtle";
-            packageId = "subtle";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "subtle-encoding";
-            packageId = "subtle-encoding";
-            usesDefaultFeatures = false;
-            features = [ "bech32-preview" ];
-          }
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint-config";
-            packageId = "tendermint-config";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tendermint-proto";
-            packageId = "tendermint-proto 0.40.4";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "time";
-            packageId = "time";
-            usesDefaultFeatures = false;
-            features = [ "macros" "parsing" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "rt-multi-thread" ];
-          }
-          {
-            name = "tracing";
-            packageId = "tracing";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "url";
-            packageId = "url";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "uuid";
-            packageId = "uuid 1.18.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "walkdir";
-            packageId = "walkdir";
-            usesDefaultFeatures = false;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "tendermint";
-            packageId = "tendermint";
-            usesDefaultFeatures = false;
-            features = [ "secp256k1" ];
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            features = [ "rt-multi-thread" "fs" ];
-          }
-        ];
-        features = {
-          "async-tungstenite" = [ "dep:async-tungstenite" ];
-          "cli" = [ "http-client" "structopt" "tracing-subscriber" "websocket-client" ];
-          "default" = [ "flex-error/std" "flex-error/eyre_tracer" ];
-          "futures" = [ "dep:futures" ];
-          "http-client" = [ "futures" "reqwest" "tokio/macros" "tracing" ];
-          "mock-client" = [ "futures" "tracing" "tokio/macros" ];
-          "reqwest" = [ "dep:reqwest" ];
-          "secp256k1" = [ "tendermint/secp256k1" ];
-          "structopt" = [ "dep:structopt" ];
-          "tokio" = [ "dep:tokio" ];
-          "tracing" = [ "dep:tracing" ];
-          "tracing-subscriber" = [ "dep:tracing-subscriber" ];
-          "websocket-client" = [ "async-tungstenite" "futures" "tokio/rt-multi-thread" "tokio/macros" "tokio/sync" "tokio/time" "tracing" ];
-        };
-        resolvedDefaultFeatures = [ "default" "futures" "http-client" "reqwest" "tokio" "tracing" ];
-      };
       "thiserror 1.0.69" = rec {
         crateName = "thiserror";
         version = "1.0.69";
@@ -31233,19 +23770,19 @@ secret values such as cryptographic keys.
         ];
 
       };
-      "thiserror 2.0.14" = rec {
+      "thiserror 2.0.15" = rec {
         crateName = "thiserror";
-        version = "2.0.14";
+        version = "2.0.15";
         edition = "2021";
         description = "derive(Error)";
-        sha256 = "07pl090jsmj7nyfzg1bhxdnm2450lppdd1hn7zgcnhn8lv1lj28b";
+        sha256 = "0l18636gw537pp3h94jv3nngvy8bbbsbgdmlxj4i762b0qznvmw0";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
         dependencies = [
           {
             name = "thiserror-impl";
-            packageId = "thiserror-impl 2.0.14";
+            packageId = "thiserror-impl 2.0.15";
           }
         ];
         features = {
@@ -31275,17 +23812,17 @@ secret values such as cryptographic keys.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
       };
-      "thiserror-impl 2.0.14" = rec {
+      "thiserror-impl 2.0.15" = rec {
         crateName = "thiserror-impl";
-        version = "2.0.14";
+        version = "2.0.15";
         edition = "2021";
         description = "Implementation detail of the `thiserror` crate";
-        sha256 = "09zjv8jplnyc2jqn4n4zfk019ql8hg7bxrhj0l7dsbwwmfs48nyc";
+        sha256 = "1q1xc98s70ipx2jymcvi4gwq6sc5k9aw7nbbj3mbd1p96gmrzlj4";
         procMacro = true;
         libName = "thiserror_impl";
         authors = [
@@ -31302,7 +23839,7 @@ secret values such as cryptographic keys.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -31347,10 +23884,10 @@ secret values such as cryptographic keys.
       };
       "time" = rec {
         crateName = "time";
-        version = "0.3.37";
+        version = "0.3.41";
         edition = "2021";
         description = "Date and time library. Fully interoperable with the standard library. Mostly compatible with #![no_std].";
-        sha256 = "08bvydyc14plkwhchzia5bcdbmm0mk5fzilsdpjx06w6hf48drrm";
+        sha256 = "0h0cpiyya8cjlrh00d2r72bmgg4lsdcncs76qpwy0rn2kghijxla";
         authors = [
           "Jacob Pratt <open-source@jhpratt.dev>"
           "Time contributors"
@@ -31424,14 +23961,14 @@ secret values such as cryptographic keys.
           "std" = [ "alloc" "deranged/std" ];
           "wasm-bindgen" = [ "dep:js-sys" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "formatting" "macros" "parsing" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "formatting" "parsing" "std" ];
       };
       "time-core" = rec {
         crateName = "time-core";
-        version = "0.1.2";
+        version = "0.1.4";
         edition = "2021";
         description = "This crate is an implementation detail and should not be relied upon directly.";
-        sha256 = "1wx3qizcihw6z151hywfzzyd1y5dl804ydyxci6qm07vbakpr4pg";
+        sha256 = "0z5h9fknvdvbs2k2s1chpi3ab3jvgkfhdnqwrvixjngm263s7sf9";
         libName = "time_core";
         authors = [
           "Jacob Pratt <open-source@jhpratt.dev>"
@@ -31441,12 +23978,12 @@ secret values such as cryptographic keys.
       };
       "time-macros" = rec {
         crateName = "time-macros";
-        version = "0.2.19";
+        version = "0.2.22";
         edition = "2021";
         description = "    Procedural macros for the time crate.
     This crate is an implementation detail and should not be relied upon directly.
 ";
-        sha256 = "1pl558z26pp342l5y91n6dxb60xwhar975wk6jc4npiygq0ycd18";
+        sha256 = "0jcaxpw220han2bzbrdlpqhy1s5k9i8ri3lw6n5zv4zcja9p69im";
         procMacro = true;
         libName = "time_macros";
         authors = [
@@ -31563,7 +24100,7 @@ secret values such as cryptographic keys.
           "std" = [ "alloc" ];
           "tinyvec_macros" = [ "dep:tinyvec_macros" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "grab_spare_slice" "std" "tinyvec_macros" ];
+        resolvedDefaultFeatures = [ "alloc" "default" "tinyvec_macros" ];
       };
       "tinyvec_macros" = rec {
         crateName = "tinyvec_macros";
@@ -31729,7 +24266,7 @@ backed applications.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -31889,90 +24426,6 @@ for nonblocking I/O streams.
           "tokio-util" = [ "dep:tokio-util" ];
         };
         resolvedDefaultFeatures = [ "default" "net" "sync" "time" "tokio-util" ];
-      };
-      "tokio-tungstenite" = rec {
-        crateName = "tokio-tungstenite";
-        version = "0.24.0";
-        edition = "2018";
-        description = "Tokio binding for Tungstenite, the Lightweight stream-based WebSocket implementation";
-        sha256 = "1nfw1i6yy120a14h1xagd4f31k3g1mz4rdxpvgh77jcd4i7ggigd";
-        libName = "tokio_tungstenite";
-        authors = [
-          "Daniel Abramov <dabramov@snapview.de>"
-          "Alexey Galakhov <agalakhov@snapview.de>"
-        ];
-        dependencies = [
-          {
-            name = "futures-util";
-            packageId = "futures-util";
-            usesDefaultFeatures = false;
-            features = [ "sink" "std" ];
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
-            name = "rustls";
-            packageId = "rustls 0.23.31";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "rustls-pki-types";
-            packageId = "rustls-pki-types";
-            optional = true;
-          }
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            features = [ "io-util" ];
-          }
-          {
-            name = "tokio-rustls";
-            packageId = "tokio-rustls 0.26.2";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "tungstenite";
-            packageId = "tungstenite 0.24.0";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "webpki-roots";
-            packageId = "webpki-roots 0.26.11";
-            optional = true;
-          }
-        ];
-        devDependencies = [
-          {
-            name = "tokio";
-            packageId = "tokio";
-            usesDefaultFeatures = false;
-            features = [ "io-std" "macros" "net" "rt-multi-thread" "time" ];
-          }
-        ];
-        features = {
-          "__rustls-tls" = [ "rustls" "rustls-pki-types" "tokio-rustls" "stream" "tungstenite/__rustls-tls" "handshake" ];
-          "connect" = [ "stream" "tokio/net" "handshake" ];
-          "default" = [ "connect" "handshake" ];
-          "handshake" = [ "tungstenite/handshake" ];
-          "native-tls" = [ "native-tls-crate" "tokio-native-tls" "stream" "tungstenite/native-tls" "handshake" ];
-          "native-tls-crate" = [ "dep:native-tls-crate" ];
-          "native-tls-vendored" = [ "native-tls" "native-tls-crate/vendored" "tungstenite/native-tls-vendored" ];
-          "rustls" = [ "dep:rustls" ];
-          "rustls-native-certs" = [ "dep:rustls-native-certs" ];
-          "rustls-pki-types" = [ "dep:rustls-pki-types" ];
-          "rustls-tls-native-roots" = [ "__rustls-tls" "rustls-native-certs" ];
-          "rustls-tls-webpki-roots" = [ "__rustls-tls" "webpki-roots" ];
-          "tokio-native-tls" = [ "dep:tokio-native-tls" ];
-          "tokio-rustls" = [ "dep:tokio-rustls" ];
-          "url" = [ "tungstenite/url" ];
-          "webpki-roots" = [ "dep:webpki-roots" ];
-        };
-        resolvedDefaultFeatures = [ "__rustls-tls" "connect" "default" "handshake" "rustls" "rustls-pki-types" "rustls-tls-webpki-roots" "stream" "tokio-rustls" "webpki-roots" ];
       };
       "tokio-util" = rec {
         crateName = "tokio-util";
@@ -32257,7 +24710,7 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             optional = true;
             features = [ "http1" "http2" ];
           }
@@ -32282,7 +24735,7 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "prost";
-            packageId = "prost 0.13.5";
+            packageId = "prost";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -32524,7 +24977,7 @@ clients and servers.
           }
           {
             name = "sync_wrapper";
-            packageId = "sync_wrapper 1.0.2";
+            packageId = "sync_wrapper";
             optional = true;
           }
           {
@@ -32612,7 +25065,7 @@ clients and servers.
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
           }
           {
             name = "bytes";
@@ -32853,7 +25306,7 @@ clients and servers.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "full" "parsing" "printing" "visit-mut" "clone-impls" "extra-traits" "proc-macro" ];
           }
@@ -33147,7 +25600,7 @@ clients and servers.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
           }
         ];
 
@@ -33164,102 +25617,7 @@ clients and servers.
         ];
 
       };
-      "tungstenite 0.24.0" = rec {
-        crateName = "tungstenite";
-        version = "0.24.0";
-        edition = "2018";
-        description = "Lightweight stream-based WebSocket implementation";
-        sha256 = "12nsxnxazk4nisgsqpywi6za0hsbc2rd15r1scb5pag7dqvbir8q";
-        authors = [
-          "Alexey Galakhov"
-          "Daniel Abramov"
-        ];
-        dependencies = [
-          {
-            name = "byteorder";
-            packageId = "byteorder";
-          }
-          {
-            name = "bytes";
-            packageId = "bytes";
-          }
-          {
-            name = "data-encoding";
-            packageId = "data-encoding";
-            optional = true;
-          }
-          {
-            name = "http";
-            packageId = "http 1.3.1";
-            optional = true;
-          }
-          {
-            name = "httparse";
-            packageId = "httparse";
-            optional = true;
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-          {
-            name = "rustls";
-            packageId = "rustls 0.23.31";
-            optional = true;
-            usesDefaultFeatures = false;
-            features = [ "std" ];
-          }
-          {
-            name = "rustls-pki-types";
-            packageId = "rustls-pki-types";
-            optional = true;
-          }
-          {
-            name = "sha1";
-            packageId = "sha1";
-            optional = true;
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-          {
-            name = "utf-8";
-            packageId = "utf-8";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "rand";
-            packageId = "rand 0.8.5";
-          }
-        ];
-        features = {
-          "__rustls-tls" = [ "rustls" "rustls-pki-types" ];
-          "data-encoding" = [ "dep:data-encoding" ];
-          "default" = [ "handshake" ];
-          "handshake" = [ "data-encoding" "http" "httparse" "sha1" ];
-          "http" = [ "dep:http" ];
-          "httparse" = [ "dep:httparse" ];
-          "native-tls" = [ "native-tls-crate" ];
-          "native-tls-crate" = [ "dep:native-tls-crate" ];
-          "native-tls-vendored" = [ "native-tls" "native-tls-crate/vendored" ];
-          "rustls" = [ "dep:rustls" ];
-          "rustls-native-certs" = [ "dep:rustls-native-certs" ];
-          "rustls-pki-types" = [ "dep:rustls-pki-types" ];
-          "rustls-tls-native-roots" = [ "__rustls-tls" "rustls-native-certs" ];
-          "rustls-tls-webpki-roots" = [ "__rustls-tls" "webpki-roots" ];
-          "sha1" = [ "dep:sha1" ];
-          "url" = [ "dep:url" ];
-          "webpki-roots" = [ "dep:webpki-roots" ];
-        };
-        resolvedDefaultFeatures = [ "__rustls-tls" "data-encoding" "handshake" "http" "httparse" "rustls" "rustls-pki-types" "sha1" ];
-      };
-      "tungstenite 0.26.2" = rec {
+      "tungstenite" = rec {
         crateName = "tungstenite";
         version = "0.26.2";
         edition = "2021";
@@ -33321,7 +25679,7 @@ clients and servers.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.14";
+            packageId = "thiserror 2.0.15";
           }
           {
             name = "utf-8";
@@ -33388,16 +25746,16 @@ clients and servers.
           }
           {
             name = "hyper";
-            packageId = "hyper 1.6.0";
+            packageId = "hyper 1.7.0";
             usesDefaultFeatures = false;
           }
           {
             name = "prost";
-            packageId = "prost 0.13.5";
+            packageId = "prost";
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             usesDefaultFeatures = false;
           }
           {
@@ -33466,45 +25824,7 @@ clients and servers.
         };
         resolvedDefaultFeatures = [ "std" ];
       };
-      "uint 0.10.0" = rec {
-        crateName = "uint";
-        version = "0.10.0";
-        edition = "2021";
-        description = "Large fixed-size integer arithmetic";
-        sha256 = "0gmmdybnbrgq6s47ls62772h1avwzin106hngdr3ixxjk388i6ch";
-        authors = [
-          "Parity Technologies <admin@parity.io>"
-        ];
-        dependencies = [
-          {
-            name = "byteorder";
-            packageId = "byteorder";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "crunchy";
-            packageId = "crunchy";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "static_assertions";
-            packageId = "static_assertions";
-          }
-        ];
-        features = {
-          "arbitrary" = [ "dep:arbitrary" ];
-          "default" = [ "std" ];
-          "quickcheck" = [ "dep:quickcheck" ];
-          "std" = [ "byteorder/std" "crunchy/std" "hex/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "uint 0.9.5" = rec {
+      "uint" = rec {
         crateName = "uint";
         version = "0.9.5";
         edition = "2021";
@@ -33746,49 +26066,7 @@ Unicode Standard Annex #31.
         };
         resolvedDefaultFeatures = [ "default" ];
       };
-      "uuid 0.8.2" = rec {
-        crateName = "uuid";
-        version = "0.8.2";
-        edition = "2018";
-        description = "A library to generate and parse UUIDs.";
-        sha256 = "1dy4ldcp7rnzjy56dxh7d2sgrcvn4q77y0a8r0a48946h66zjp5w";
-        authors = [
-          "Ashley Mannix<ashleymannix@live.com.au>"
-          "Christopher Armstrong"
-          "Dylan DPC<dylan.dpc@gmail.com>"
-          "Hunar Roop Kahlon<hunar.roop@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "getrandom";
-            packageId = "getrandom 0.2.16";
-            optional = true;
-          }
-          {
-            name = "serde";
-            packageId = "serde";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-          "getrandom" = [ "dep:getrandom" ];
-          "guid" = [ "winapi" ];
-          "md5" = [ "dep:md5" ];
-          "serde" = [ "dep:serde" ];
-          "sha1" = [ "dep:sha1" ];
-          "slog" = [ "dep:slog" ];
-          "stdweb" = [ "getrandom" "getrandom/js" ];
-          "v3" = [ "md5" ];
-          "v4" = [ "getrandom" ];
-          "v5" = [ "sha1" ];
-          "wasm-bindgen" = [ "getrandom" "getrandom/js" ];
-          "winapi" = [ "dep:winapi" ];
-        };
-        resolvedDefaultFeatures = [ "default" "getrandom" "serde" "std" "v4" ];
-      };
-      "uuid 1.18.0" = rec {
+      "uuid" = rec {
         crateName = "uuid";
         version = "1.18.0";
         edition = "2018";
@@ -33859,14 +26137,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -33890,6 +26168,12 @@ Unicode Standard Annex #31.
             packageId = "buf-fs";
           }
           {
+            name = "const-hex";
+            packageId = "const-hex";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "core-error" ];
+          }
+          {
             name = "hashbrown";
             packageId = "hashbrown 0.15.5";
           }
@@ -33901,7 +26185,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             features = [ "blocking" "json" ];
           }
@@ -33924,7 +26208,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "uuid";
-            packageId = "uuid 1.18.0";
+            packageId = "uuid";
             optional = true;
             features = [ "v7" ];
           }
@@ -33952,7 +26236,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.4";
+        version = "1.1.5";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -34047,7 +26331,7 @@ Unicode Standard Annex #31.
         devDependencies = [
           {
             name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.8.25";
+            packageId = "alloy-sol-types";
             usesDefaultFeatures = false;
             features = [ "eip712-serde" ];
           }
@@ -34082,7 +26366,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.4";
+        version = "1.1.5";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -34135,7 +26419,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.4";
+        version = "1.1.5";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -34178,7 +26462,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             optional = true;
             features = [ "json" ];
           }
@@ -34267,7 +26551,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.4";
+        version = "1.1.5";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -34314,6 +26598,8 @@ Unicode Standard Annex #31.
           {
             name = "valence-domain-clients";
             packageId = "valence-domain-clients";
+            usesDefaultFeatures = false;
+            features = [ "coprocessor" ];
           }
         ];
         buildDependencies = [
@@ -34345,7 +26631,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.4";
+        version = "1.1.5";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -34378,7 +26664,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "json" ];
           }
           {
@@ -34425,6 +26711,8 @@ Unicode Standard Annex #31.
           {
             name = "valence-domain-clients";
             packageId = "valence-domain-clients";
+            usesDefaultFeatures = false;
+            features = [ "coprocessor" ];
           }
         ];
 
@@ -34507,14 +26795,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor_merkle";
@@ -34559,15 +26847,15 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -34651,7 +26939,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "tungstenite";
-            packageId = "tungstenite 0.26.2";
+            packageId = "tungstenite";
             features = [ "rustls-tls-native-roots" ];
           }
           {
@@ -34669,14 +26957,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -34696,7 +26984,7 @@ Unicode Standard Annex #31.
           }
           {
             name = "ark-ec";
-            packageId = "ark-ec 0.5.0";
+            packageId = "ark-ec";
           }
           {
             name = "ark-ff";
@@ -34769,14 +27057,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor_types";
@@ -34832,14 +27120,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.4.6";
+        version = "0.4.7";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "b4d9c2cf85fd5c91c4e4052810f9867daab3a429";
-          ref = "refs/tags/v0.4.6";
+          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
+          ref = "refs/tags/v0.4.7";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
@@ -34965,7 +27253,7 @@ Unicode Standard Annex #31.
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-domain-clients.git";
-          rev = "bc2d2148f96fdbc2134a90d8b3e0b253d10fc13b";
+          rev = "55face7f68d7c481282078f39ef1cc4cc906eae9";
           submodules = true;
         };
         libName = "valence_domain_clients";
@@ -34973,31 +27261,6 @@ Unicode Standard Annex #31.
           "Timewave Labs"
         ];
         dependencies = [
-          {
-            name = "alloy";
-            packageId = "alloy";
-            optional = true;
-            features = [ "eips" "full" "hyper" "json-rpc" "node-bindings" "rpc-client" "rpc-types-debug" "rpc-types-trace" "signer-keystore" "signer-mnemonic" "signers" ];
-          }
-          {
-            name = "alloy-primitives";
-            packageId = "alloy-primitives 0.7.7";
-            rename = "alloy_primitives_encoder";
-            optional = true;
-          }
-          {
-            name = "alloy-signer-local";
-            packageId = "alloy-signer-local";
-            rename = "alloy_signer_local";
-            optional = true;
-            features = [ "mnemonic" "keystore" ];
-          }
-          {
-            name = "alloy-sol-types";
-            packageId = "alloy-sol-types 0.7.7";
-            rename = "alloy_sol_types_encoder";
-            optional = true;
-          }
           {
             name = "anyhow";
             packageId = "anyhow";
@@ -35009,70 +27272,28 @@ Unicode Standard Annex #31.
           {
             name = "base64";
             packageId = "base64 0.22.1";
-          }
-          {
-            name = "bip32";
-            packageId = "bip32";
-            features = [ "bip39" ];
-          }
-          {
-            name = "bs58";
-            packageId = "bs58";
+            optional = true;
           }
           {
             name = "const-hex";
             packageId = "const-hex";
+            optional = true;
             usesDefaultFeatures = false;
             features = [ "alloc" "core-error" ];
           }
           {
-            name = "cosmos-sdk-proto";
-            packageId = "cosmos-sdk-proto 0.26.1";
-            optional = true;
-            features = [ "grpc-transport" "grpc" ];
-          }
-          {
-            name = "cosmrs";
-            packageId = "cosmrs";
-            optional = true;
-            features = [ "cosmwasm" "rpc" "grpc" ];
-          }
-          {
-            name = "hex";
-            packageId = "hex";
-          }
-          {
-            name = "ibc";
-            packageId = "ibc";
-            optional = true;
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
             name = "msgpacker";
             packageId = "msgpacker";
-          }
-          {
-            name = "neutron-std";
-            packageId = "neutron-std";
             optional = true;
-          }
-          {
-            name = "prost";
-            packageId = "prost 0.13.5";
-            usesDefaultFeatures = false;
           }
           {
             name = "reqwest";
-            packageId = "reqwest 0.12.23";
+            packageId = "reqwest";
             features = [ "json" ];
           }
           {
             name = "serde";
             packageId = "serde";
-            usesDefaultFeatures = false;
             features = [ "derive" ];
           }
           {
@@ -35080,43 +27301,45 @@ Unicode Standard Annex #31.
             packageId = "serde_json";
           }
           {
-            name = "thiserror";
-            packageId = "thiserror 1.0.69";
-          }
-          {
             name = "tokio";
             packageId = "tokio";
-          }
-          {
-            name = "tonic";
-            packageId = "tonic";
-            optional = true;
-            features = [ "transport" "tls" "tls-native-roots" ];
+            features = [ "full" ];
           }
           {
             name = "uuid";
-            packageId = "uuid 1.18.0";
+            packageId = "uuid";
+            optional = true;
             features = [ "v4" ];
           }
           {
             name = "valence-crypto-utils";
             packageId = "valence-crypto-utils";
+            optional = true;
           }
         ];
         features = {
           "alloy" = [ "dep:alloy" ];
-          "alloy_primitives_encoder" = [ "dep:alloy_primitives_encoder" ];
           "alloy_signer_local" = [ "dep:alloy_signer_local" ];
-          "alloy_sol_types_encoder" = [ "dep:alloy_sol_types_encoder" ];
-          "cosmos" = [ "cosmrs" "cosmos-sdk-proto" "tonic" "neutron-std" "ibc" ];
+          "base64" = [ "dep:base64" ];
+          "bip32" = [ "dep:bip32" ];
+          "bs58" = [ "dep:bs58" ];
+          "const-hex" = [ "dep:const-hex" ];
+          "coprocessor" = [ "base64" "const-hex" "msgpacker" "uuid" "valence-crypto-utils" ];
+          "cosmos" = [ "alloy" "bip32" "cosmos-sdk-proto" "cosmrs" "ed25519-zebra" "hex" "ibc" "log" "neutron-std" "prost" "tonic" ];
           "cosmos-sdk-proto" = [ "dep:cosmos-sdk-proto" ];
           "cosmrs" = [ "dep:cosmrs" ];
-          "default" = [ "cosmos" "evm" ];
+          "default" = [ "coprocessor" "cosmos" "evm" "indexer" ];
           "ed25519-dalek" = [ "dep:ed25519-dalek" ];
-          "evm" = [ "alloy" "alloy_signer_local" "alloy_primitives_encoder" "alloy_sol_types_encoder" ];
+          "ed25519-zebra" = [ "dep:ed25519-zebra" ];
+          "evm" = [ "alloy" "alloy_signer_local" "log" "tonic" ];
+          "hex" = [ "dep:hex" ];
           "ibc" = [ "dep:ibc" ];
+          "indexer" = [ "alloy" "tonic" ];
+          "log" = [ "dep:log" ];
+          "msgpacker" = [ "dep:msgpacker" ];
           "neutron-std" = [ "dep:neutron-std" ];
-          "solana" = [ "solana-client" "solana-sdk" "solana-rpc-client" "solana-rpc-client-api" "solana-account-decoder" "solana-transaction-status" "ed25519-dalek" ];
+          "prost" = [ "dep:prost" ];
+          "solana" = [ "bip32" "bs58" "ed25519-dalek" "log" "solana-client" "solana-account-decoder" "solana-rpc-client" "solana-rpc-client-api" "solana-sdk" "solana-transaction-status" ];
           "solana-account-decoder" = [ "dep:solana-account-decoder" ];
           "solana-client" = [ "dep:solana-client" ];
           "solana-rpc-client" = [ "dep:solana-rpc-client" ];
@@ -35124,8 +27347,10 @@ Unicode Standard Annex #31.
           "solana-sdk" = [ "dep:solana-sdk" ];
           "solana-transaction-status" = [ "dep:solana-transaction-status" ];
           "tonic" = [ "dep:tonic" ];
+          "uuid" = [ "dep:uuid" ];
+          "valence-crypto-utils" = [ "dep:valence-crypto-utils" ];
         };
-        resolvedDefaultFeatures = [ "alloy" "alloy_primitives_encoder" "alloy_signer_local" "alloy_sol_types_encoder" "cosmos" "cosmos-sdk-proto" "cosmrs" "default" "evm" "ibc" "neutron-std" "tonic" ];
+        resolvedDefaultFeatures = [ "base64" "const-hex" "coprocessor" "msgpacker" "uuid" "valence-crypto-utils" ];
       };
       "valuable" = rec {
         crateName = "valuable";
@@ -35232,28 +27457,6 @@ Windows platforms.
             name = "libc";
             packageId = "libc";
             target = { target, features }: (target."unix" or false);
-          }
-        ];
-
-      };
-      "walkdir" = rec {
-        crateName = "walkdir";
-        version = "2.5.0";
-        edition = "2018";
-        description = "Recursively walk a directory.";
-        sha256 = "0jsy7a710qv8gld5957ybrnc07gavppp963gs32xk4ag8130jy99";
-        authors = [
-          "Andrew Gallant <jamslam@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "same-file";
-            packageId = "same-file";
-          }
-          {
-            name = "winapi-util";
-            packageId = "winapi-util";
-            target = { target, features }: (target."windows" or false);
           }
         ];
 
@@ -35396,7 +27599,7 @@ Windows platforms.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
           {
@@ -35502,7 +27705,7 @@ Windows platforms.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "visit" "visit-mut" "full" ];
           }
           {
@@ -36173,7 +28376,7 @@ dependency.
           "default" = [ "std" ];
           "std" = [ "wasm-bindgen/std" "js-sys/std" ];
         };
-        resolvedDefaultFeatures = [ "AbortController" "AbortSignal" "AddEventListenerOptions" "BinaryType" "Blob" "BlobPropertyBag" "CloseEvent" "CloseEventInit" "Document" "DomException" "Element" "ErrorEvent" "Event" "EventTarget" "File" "FileReader" "FormData" "Headers" "History" "HtmlElement" "HtmlHeadElement" "Location" "MessageEvent" "Node" "Performance" "ProgressEvent" "QueuingStrategy" "ReadableByteStreamController" "ReadableStream" "ReadableStreamByobReader" "ReadableStreamByobRequest" "ReadableStreamDefaultController" "ReadableStreamDefaultReader" "ReadableStreamGetReaderOptions" "ReadableStreamReadResult" "ReadableStreamReaderMode" "ReadableStreamType" "ReadableWritablePair" "Request" "RequestCache" "RequestCredentials" "RequestInit" "RequestMode" "Response" "ServiceWorkerGlobalScope" "StreamPipeOptions" "TransformStream" "TransformStreamDefaultController" "Transformer" "UnderlyingSink" "UnderlyingSource" "WebSocket" "Window" "Worker" "WorkerGlobalScope" "WritableStream" "WritableStreamDefaultController" "WritableStreamDefaultWriter" "console" "default" "std" ];
+        resolvedDefaultFeatures = [ "AbortController" "AbortSignal" "AddEventListenerOptions" "BinaryType" "Blob" "BlobPropertyBag" "CloseEvent" "CloseEventInit" "Document" "Element" "ErrorEvent" "Event" "EventTarget" "File" "FileReader" "FormData" "Headers" "History" "HtmlElement" "HtmlHeadElement" "Location" "MessageEvent" "Node" "Performance" "ProgressEvent" "QueuingStrategy" "ReadableByteStreamController" "ReadableStream" "ReadableStreamByobReader" "ReadableStreamByobRequest" "ReadableStreamDefaultController" "ReadableStreamDefaultReader" "ReadableStreamGetReaderOptions" "ReadableStreamReadResult" "ReadableStreamReaderMode" "ReadableStreamType" "ReadableWritablePair" "Request" "RequestCache" "RequestCredentials" "RequestInit" "RequestMode" "Response" "ServiceWorkerGlobalScope" "StreamPipeOptions" "TransformStream" "TransformStreamDefaultController" "Transformer" "UnderlyingSink" "UnderlyingSource" "WebSocket" "Window" "Worker" "WorkerGlobalScope" "WritableStream" "WritableStreamDefaultController" "WritableStreamDefaultWriter" "default" "std" ];
       };
       "web-time" = rec {
         crateName = "web-time";
@@ -36216,22 +28419,6 @@ dependency.
         ];
 
       };
-      "webpki-roots 0.26.11" = rec {
-        crateName = "webpki-roots";
-        version = "0.26.11";
-        edition = "2021";
-        description = "Mozilla's CA root certificates for use with webpki";
-        sha256 = "1agpayg5zzf7m1a01q30jahlgmn5nwggbabdhq0in008pf5c66sj";
-        libName = "webpki_roots";
-        dependencies = [
-          {
-            name = "webpki-roots";
-            packageId = "webpki-roots 1.0.2";
-            rename = "parent";
-          }
-        ];
-
-      };
       "webpki-roots 1.0.2" = rec {
         crateName = "webpki-roots";
         version = "1.0.2";
@@ -36248,19 +28435,6 @@ dependency.
           }
         ];
 
-      };
-      "widestring" = rec {
-        crateName = "widestring";
-        version = "1.2.0";
-        edition = "2021";
-        description = "A wide string Rust library for converting to and from wide strings, such as those often used in Windows API or other FFI libaries. Both `u16` and `u32` string types are provided, including support for UTF-16 and UTF-32, malformed encoding, C-style strings, etc.";
-        sha256 = "0zg04qvpk2xysbbwhdgyilgn4p9igvyj9fhzl7pckam1khvz6z6x";
-        features = {
-          "debugger_visualizer" = [ "alloc" ];
-          "default" = [ "std" ];
-          "std" = [ "alloc" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "default" "std" ];
       };
       "winapi" = rec {
         crateName = "winapi";
@@ -36297,26 +28471,6 @@ dependency.
         libName = "winapi_i686_pc_windows_gnu";
         authors = [
           "Peter Atashian <retep998@gmail.com>"
-        ];
-
-      };
-      "winapi-util" = rec {
-        crateName = "winapi-util";
-        version = "0.1.9";
-        edition = "2021";
-        description = "A dumping ground for high level safe wrappers over windows-sys.";
-        sha256 = "1fqhkcl9scd230cnfj8apfficpf5c9vhwnk4yy9xfc1sw69iq8ng";
-        libName = "winapi_util";
-        authors = [
-          "Andrew Gallant <jamslam@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "windows-sys";
-            packageId = "windows-sys 0.59.0";
-            target = { target, features }: (target."windows" or false);
-            features = [ "Win32_Foundation" "Win32_Storage_FileSystem" "Win32_System_Console" "Win32_System_SystemInformation" ];
-          }
         ];
 
       };
@@ -37101,7 +29255,7 @@ dependency.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "parsing" "proc-macro" "printing" "full" "clone-impls" ];
           }
@@ -37132,7 +29286,7 @@ dependency.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             usesDefaultFeatures = false;
             features = [ "parsing" "proc-macro" "printing" "full" "clone-impls" ];
           }
@@ -37521,7 +29675,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Globalization" "Win32_Security" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_Com" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "Win32_System_Registry" "Win32_System_Time" "Win32_UI" "Win32_UI_Shell" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Globalization" "Win32_System" "Win32_System_Com" "Win32_UI" "Win32_UI_Shell" "default" ];
       };
       "windows-sys 0.52.0" = rec {
         crateName = "windows-sys";
@@ -37770,7 +29924,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Security" "Win32_Security_Authorization" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_IO" "Win32_System_LibraryLoader" "Win32_System_Memory" "Win32_System_Pipes" "Win32_System_SystemServices" "Win32_System_Threading" "Win32_System_WindowsProgramming" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_IO" "Win32_System_Threading" "Win32_System_WindowsProgramming" "default" ];
       };
       "windows-sys 0.59.0" = rec {
         crateName = "windows-sys";
@@ -38760,32 +30914,6 @@ dependency.
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" ];
       };
-      "winreg" = rec {
-        crateName = "winreg";
-        version = "0.50.0";
-        edition = "2018";
-        description = "Rust bindings to MS Windows Registry API";
-        sha256 = "1cddmp929k882mdh6i9f2as848f13qqna6czwsqzkh1pqnr5fkjj";
-        authors = [
-          "Igor Shaula <gentoo90@gmail.com>"
-        ];
-        dependencies = [
-          {
-            name = "cfg-if";
-            packageId = "cfg-if";
-          }
-          {
-            name = "windows-sys";
-            packageId = "windows-sys 0.48.0";
-            features = [ "Win32_Foundation" "Win32_System_Time" "Win32_System_Registry" "Win32_Security" "Win32_Storage_FileSystem" "Win32_System_Diagnostics_Debug" ];
-          }
-        ];
-        features = {
-          "chrono" = [ "dep:chrono" ];
-          "serde" = [ "dep:serde" ];
-          "serialization-serde" = [ "transactions" "serde" ];
-        };
-      };
       "wit-bindgen-rt" = rec {
         crateName = "wit-bindgen-rt";
         version = "0.39.0";
@@ -38797,7 +30925,7 @@ dependency.
         dependencies = [
           {
             name = "bitflags";
-            packageId = "bitflags 2.9.1";
+            packageId = "bitflags";
             optional = true;
           }
         ];
@@ -38819,79 +30947,6 @@ dependency.
         features = {
           "either" = [ "dep:either" ];
         };
-      };
-      "ws_stream_wasm" = rec {
-        crateName = "ws_stream_wasm";
-        version = "0.7.5";
-        edition = "2024";
-        description = "A convenience library for using websockets in WASM";
-        sha256 = "1g3a1kkkz06kv72kbrslwxpq8f2v25hf6gj02qzyh8mdmha305vc";type = [ "cdylib" "rlib" ];
-        authors = [
-          "Naja Melan <najamelan@autistici.org>"
-        ];
-        dependencies = [
-          {
-            name = "async_io_stream";
-            packageId = "async_io_stream";
-            features = [ "map_pharos" ];
-          }
-          {
-            name = "futures";
-            packageId = "futures";
-            usesDefaultFeatures = false;
-          }
-          {
-            name = "js-sys";
-            packageId = "js-sys";
-          }
-          {
-            name = "log";
-            packageId = "log";
-          }
-          {
-            name = "pharos";
-            packageId = "pharos";
-          }
-          {
-            name = "send_wrapper";
-            packageId = "send_wrapper 0.6.0";
-          }
-          {
-            name = "thiserror";
-            packageId = "thiserror 2.0.14";
-          }
-          {
-            name = "wasm-bindgen";
-            packageId = "wasm-bindgen";
-          }
-          {
-            name = "wasm-bindgen-futures";
-            packageId = "wasm-bindgen-futures";
-          }
-          {
-            name = "web-sys";
-            packageId = "web-sys";
-            features = [ "BinaryType" "Blob" "console" "MessageEvent" "WebSocket" "CloseEvent" "DomException" ];
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "rustc_version";
-            packageId = "rustc_version 0.4.1";
-          }
-        ];
-        devDependencies = [
-          {
-            name = "async_io_stream";
-            packageId = "async_io_stream";
-            features = [ "tokio_io" ];
-          }
-        ];
-        features = {
-          "default" = [ "not_ci" ];
-          "tokio_io" = [ "async_io_stream/tokio_io" ];
-        };
-        resolvedDefaultFeatures = [ "default" "not_ci" ];
       };
       "wyz" = rec {
         crateName = "wyz";
@@ -39007,7 +31062,7 @@ dependency.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "fold" ];
           }
           {
@@ -39125,7 +31180,7 @@ dependency.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" ];
           }
         ];
@@ -39176,7 +31231,7 @@ dependency.
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "fold" ];
           }
           {
@@ -39237,7 +31292,7 @@ even WASM!
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "full" "extra-traits" "visit" ];
           }
         ];
@@ -39349,7 +31404,7 @@ even WASM!
           }
           {
             name = "syn";
-            packageId = "syn 2.0.105";
+            packageId = "syn 2.0.106";
             features = [ "extra-traits" ];
           }
         ];

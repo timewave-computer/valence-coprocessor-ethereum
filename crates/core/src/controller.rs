@@ -53,7 +53,7 @@ impl Ethereum {
                     JsonStorageKey::Hash(b) => b.to_vec(),
                     JsonStorageKey::Number(n) => n.to_be_bytes::<32>().to_vec(),
                 };
-                let value = arg.value;
+                let value = arg.value.filter(|v| !v.is_empty());
                 let proof = p.proof.iter().map(|b| b.to_vec()).collect();
 
                 EthereumStorageProof { key, value, proof }

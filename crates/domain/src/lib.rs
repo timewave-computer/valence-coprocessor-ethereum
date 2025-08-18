@@ -12,8 +12,6 @@ pub fn validate_block_impl(args: Value) -> anyhow::Result<ValidatedBlock> {
         .ok_or_else(|| anyhow::anyhow!("No service state provided"))
         .and_then(ServiceState::decode)?;
 
-    let block_number = service.to_state()?.to_output()?.block_number;
-
     let proof = args
         .get("proof")
         .and_then(Value::as_str)
@@ -24,22 +22,6 @@ pub fn validate_block_impl(args: Value) -> anyhow::Result<ValidatedBlock> {
     let mut block = service.apply(proof)?;
 
     block.payload = payload;
-
-    let replace = abi::get_storage_file(ServiceState::PATH)
-        .map(Option::unwrap_or_default)
-        .and_then(ServiceState::try_from_slice)
-        .and_then(|s| s.to_state())
-        .and_then(|s| s.to_output())
-        .map(|o| o.block_number)
-        .ok()
-        .filter(|n| *n >= block_number)
-        .is_none();
-
-    if replace {
-        if let Err(e) = abi::set_storage_file(ServiceState::PATH, &service.to_vec()) {
-            abi::log!("failed to override storage: {e}").ok();
-        }
-    }
 
     Ok(block)
 }
