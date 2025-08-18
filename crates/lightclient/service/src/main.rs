@@ -70,7 +70,7 @@ async fn main() -> anyhow::Result<()> {
     tracing::info!("Clients loaded...");
 
     loop {
-        let service = match coprocessor.get_storage_file(&id, ServiceState::PATH).await {
+        let service = match coprocessor.get_storage_raw(&id).await {
             Ok(Some(s)) => {
                 tracing::debug!("Loading service state...");
 
@@ -109,6 +109,13 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Loaded inner state...");
 
+        let latest = state
+            .to_output()
+            .map(|s| s.block_number)
+            .unwrap_or_default();
+
+        tracing::debug!("Loaded latest block `{latest}`...");
+
         let input = match state.fetch_input().await {
             Some(i) => i,
             None => {
@@ -131,12 +138,15 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Proof computed...");
 
-        match proof.to_validated_block() {
-            Ok(a) => tracing::info!(
-                "Submitting block number {}, root {}",
-                a.number,
-                hex::encode(a.root)
-            ),
+        let current = match proof.to_validated_block() {
+            Ok(a) => {
+                tracing::info!(
+                    "Submitting block number {}, root {}",
+                    a.number,
+                    hex::encode(a.root)
+                );
+                a.number
+            }
             Err(e) => {
                 tracing::error!("invalid wrapper proof: {e}");
                 tokio::time::sleep(interval).await;
@@ -146,6 +156,7 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Proof parsed...");
 
+        let file = service.to_vec();
         let service = service.encode();
         let proof = proof.encode();
         let args = serde_json::json!({
@@ -163,10 +174,24 @@ async fn main() -> anyhow::Result<()> {
                 let number = b.get("number").and_then(Value::as_u64).unwrap_or_default();
 
                 tracing::info!("Block `{}` confirmed.", number,);
+
+                if let Some(l) = b.get("log").and_then(Value::as_array) {
+                    for le in l {
+                        if let Some(le) = le.as_str() {
+                            tracing::debug!("{le}");
+                        }
+                    }
+                }
             }
 
             Err(e) => {
                 tracing::error!("Error publishing block: {e}");
+            }
+        }
+
+        if current > latest {
+            if let Err(e) = coprocessor.set_storage_raw(&id, &file).await {
+                tracing::error!("error updating co-processor state: {e}");
             }
         }
 

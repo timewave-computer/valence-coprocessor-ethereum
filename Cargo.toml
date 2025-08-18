@@ -20,7 +20,7 @@ default-members = [
 authors = ["Timewave Labs"]
 edition = "2021"
 license = "Apache-2.0"
-version = "1.1.4"
+version = "1.1.5"
 
 [workspace.dependencies]
 alloy-primitives = { version = "0.8.15", default-features = false }
@@ -80,10 +80,12 @@ tree_hash = "0.9.0"
 zerocopy = "0.8.26"
 
 # always use latest
-valence-domain-clients.git = "https://github.com/timewave-computer/valence-domain-clients.git"
-valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.6", default-features = false }
-valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.6", default-features = false }
-valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.6", default-features = false }
+valence-domain-clients = { git = "https://github.com/timewave-computer/valence-domain-clients.git", default-features = false, features = [
+  "coprocessor",
+] }
+valence-coprocessor = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.7", default-features = false }
+valence-coprocessor-prover = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.7", default-features = false }
+valence-coprocessor-wasm = { git = "https://github.com/timewave-computer/valence-coprocessor.git", tag = "v0.4.7", default-features = false }
 
 [patch.crates-io]
 sha2-v0-9-9 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", tag = "patch-sha2-0.9.9-sp1-4.0.0" }

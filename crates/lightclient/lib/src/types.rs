@@ -21,8 +21,6 @@ pub struct ServiceState {
 }
 
 impl ServiceState {
-    pub const PATH: &str = "/var/share/state.bin";
-
     pub fn to_vec(&self) -> Vec<u8> {
         self.pack_to_vec()
     }
