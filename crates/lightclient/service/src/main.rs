@@ -156,7 +156,12 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Proof parsed...");
 
-        let file = service.to_vec();
+        let mut state = service.clone();
+        if let Err(e) = state.apply(proof.clone()) {
+            tracing::error!("The generated proof yielded an inconsistent state: {e}");
+        }
+        let file = state.to_vec();
+
         let service = service.encode();
         let proof = proof.encode();
         let args = serde_json::json!({

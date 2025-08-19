@@ -147,5 +147,5 @@ VALENCE_REBUILD=1 \
 ## Deploying
 
 ```shell
-cargo run -p valence-coprocessor-ethereum-lightclient-builder deploy       
+cargo run -p valence-coprocessor-ethereum-lightclient-builder deploy
 ```
