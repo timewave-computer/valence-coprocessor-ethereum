@@ -5613,7 +5613,7 @@ constant-time operation and embedded-friendly no_std support
           }
           {
             name = "toml";
-            packageId = "toml";
+            packageId = "toml 0.8.23";
           }
         ];
         features = {
@@ -8586,7 +8586,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "toml";
-            packageId = "toml";
+            packageId = "toml 0.8.23";
             optional = true;
           }
           {
@@ -16363,11 +16363,11 @@ Cargo build scripts.
       };
       "prettyplease" = rec {
         crateName = "prettyplease";
-        version = "0.2.36";
+        version = "0.2.37";
         edition = "2021";
         description = "A minimal `syn` syntax tree pretty-printer";
         links = "prettyplease02";
-        sha256 = "1lj4rrjqbywjm82i3g7ilbskzdqvgqid8k7zdy0vjlj4lk6xy97z";
+        sha256 = "0azn11i1kh0byabhsgab6kqs74zyrg69xkirzgqyhz6xmjnsi727";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -19523,10 +19523,10 @@ fork-like interface.
       };
       "scc" = rec {
         crateName = "scc";
-        version = "2.3.4";
+        version = "2.4.0";
         edition = "2021";
         description = "High-performance containers and utilities for concurrent and asynchronous programming";
-        sha256 = "1x1739jz8bx9x46d26aagwin9psykka1siw9fn0lbwi8zdsxgci2";
+        sha256 = "1k2nwz3bysf1s3r5g437vq9xfm9i4sadfzn5c0k8xx7ynx3g1rj6";
         authors = [
           "wvwwvwwv <wvwwvwwv@me.com>"
         ];
@@ -20093,10 +20093,10 @@ a panic occurs.";
       };
       "serde_json" = rec {
         crateName = "serde_json";
-        version = "1.0.142";
+        version = "1.0.143";
         edition = "2021";
         description = "A JSON serialization file format";
-        sha256 = "19y5mz1npafnd6vlaiv41ns3pb0pv3q9nirdy3bcn3b0havys3q3";
+        sha256 = "0njabwzldvj13ykrf1aaf4gh5cgl25kf9hzbpafbv3qh3ppsn0fl";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -20193,7 +20193,7 @@ a panic occurs.";
         ];
 
       };
-      "serde_spanned" = rec {
+      "serde_spanned 0.6.9" = rec {
         crateName = "serde_spanned";
         version = "0.6.9";
         edition = "2021";
@@ -20216,6 +20216,34 @@ a panic occurs.";
           "serde" = [ "dep:serde" ];
         };
         resolvedDefaultFeatures = [ "serde" ];
+      };
+      "serde_spanned 1.0.0" = rec {
+        crateName = "serde_spanned";
+        version = "1.0.0";
+        edition = "2021";
+        description = "Serde-compatible spanned Value";
+        sha256 = "10rv91337k8x8zmfir4h8aiwmwgkq07gdv7h0jxhcwwgk10lqws0";
+        dependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        devDependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+          }
+        ];
+        features = {
+          "alloc" = [ "serde?/alloc" ];
+          "default" = [ "std" "serde" ];
+          "serde" = [ "dep:serde" ];
+          "std" = [ "alloc" "serde?/std" ];
+        };
+        resolvedDefaultFeatures = [ "alloc" "serde" "std" ];
       };
       "serde_urlencoded" = rec {
         crateName = "serde_urlencoded";
@@ -24072,10 +24100,10 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
       };
       "tinyvec" = rec {
         crateName = "tinyvec";
-        version = "1.9.0";
+        version = "1.10.0";
         edition = "2018";
         description = "`tinyvec` provides 100% safe vec-like data structures.";
-        sha256 = "0w9w8qcifns9lzvlbfwa01y0skhr542anwa3rpn28rg82wgndcq9";
+        sha256 = "1yhk0qdqyiaa4v2j9h8pzax5gxgwpz4da0lcphfil6g6pk1zv9dz";
         authors = [
           "Lokathor <zefria@gmail.com>"
         ];
@@ -24093,8 +24121,6 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
           "generic-array" = [ "dep:generic-array" ];
           "latest_stable_rust" = [ "rustc_1_61" ];
           "real_blackbox" = [ "criterion/real_blackbox" ];
-          "rustc_1_55" = [ "rustc_1_40" ];
-          "rustc_1_57" = [ "rustc_1_55" ];
           "rustc_1_61" = [ "rustc_1_57" ];
           "serde" = [ "dep:serde" ];
           "std" = [ "alloc" ];
@@ -24490,7 +24516,7 @@ for nonblocking I/O streams.
         };
         resolvedDefaultFeatures = [ "codec" "compat" "default" "futures-io" "io" ];
       };
-      "toml" = rec {
+      "toml 0.8.23" = rec {
         crateName = "toml";
         version = "0.8.23";
         edition = "2021";
@@ -24506,12 +24532,12 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "serde_spanned";
-            packageId = "serde_spanned";
+            packageId = "serde_spanned 0.6.9";
             features = [ "serde" ];
           }
           {
             name = "toml_datetime";
-            packageId = "toml_datetime";
+            packageId = "toml_datetime 0.6.11";
             features = [ "serde" ];
           }
           {
@@ -24539,7 +24565,82 @@ facilitate deserializing and serializing Rust structures.
         };
         resolvedDefaultFeatures = [ "default" "display" "parse" ];
       };
-      "toml_datetime" = rec {
+      "toml 0.9.5" = rec {
+        crateName = "toml";
+        version = "0.9.5";
+        edition = "2021";
+        description = "A native Rust encoder and decoder of TOML-formatted files and streams. Provides
+implementations of the standard Serialize/Deserialize traits for TOML data to
+facilitate deserializing and serializing Rust structures.
+";
+        sha256 = "1s7n4l40hvpf46jmgidfknnzpyblz4hip7gfkymgn2q0qlfrw4km";
+        dependencies = [
+          {
+            name = "indexmap";
+            packageId = "indexmap 2.10.0";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "serde_spanned";
+            packageId = "serde_spanned 1.0.0";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "toml_datetime";
+            packageId = "toml_datetime 0.7.0";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "toml_parser";
+            packageId = "toml_parser";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "toml_writer";
+            packageId = "toml_writer";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "winnow";
+            packageId = "winnow 0.7.12";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        devDependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+            features = [ "derive" ];
+          }
+        ];
+        features = {
+          "debug" = [ "std" "toml_parser?/debug" "dep:anstream" "dep:anstyle" ];
+          "default" = [ "std" "serde" "parse" "display" ];
+          "display" = [ "dep:toml_writer" ];
+          "fast_hash" = [ "preserve_order" "dep:foldhash" ];
+          "parse" = [ "dep:toml_parser" "dep:winnow" ];
+          "preserve_order" = [ "dep:indexmap" "std" ];
+          "serde" = [ "dep:serde" "toml_datetime/serde" "serde_spanned/serde" ];
+          "std" = [ "indexmap?/std" "serde?/std" "toml_parser?/std" "toml_writer?/std" "toml_datetime/std" "serde_spanned/std" ];
+        };
+        resolvedDefaultFeatures = [ "default" "display" "parse" "serde" "std" ];
+      };
+      "toml_datetime 0.6.11" = rec {
         crateName = "toml_datetime";
         version = "0.6.11";
         edition = "2021";
@@ -24556,6 +24657,28 @@ facilitate deserializing and serializing Rust structures.
           "serde" = [ "dep:serde" ];
         };
         resolvedDefaultFeatures = [ "serde" ];
+      };
+      "toml_datetime 0.7.0" = rec {
+        crateName = "toml_datetime";
+        version = "0.7.0";
+        edition = "2021";
+        description = "A TOML-compatible datetime type";
+        sha256 = "1qwivxqkjxxwcqsvfhxnphpwphci0grdfk197wyxfn1gj0z1rpms";
+        dependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "alloc" = [ "serde?/alloc" ];
+          "default" = [ "std" ];
+          "serde" = [ "dep:serde" ];
+          "std" = [ "alloc" "serde?/std" ];
+        };
+        resolvedDefaultFeatures = [ "alloc" "serde" "std" ];
       };
       "toml_edit 0.19.15" = rec {
         crateName = "toml_edit";
@@ -24575,7 +24698,7 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "toml_datetime";
-            packageId = "toml_datetime";
+            packageId = "toml_datetime 0.6.11";
           }
           {
             name = "winnow";
@@ -24607,13 +24730,13 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "serde_spanned";
-            packageId = "serde_spanned";
+            packageId = "serde_spanned 0.6.9";
             optional = true;
             features = [ "serde" ];
           }
           {
             name = "toml_datetime";
-            packageId = "toml_datetime";
+            packageId = "toml_datetime 0.6.11";
           }
           {
             name = "toml_write";
@@ -24643,6 +24766,27 @@ facilitate deserializing and serializing Rust structures.
         };
         resolvedDefaultFeatures = [ "display" "parse" "serde" ];
       };
+      "toml_parser" = rec {
+        crateName = "toml_parser";
+        version = "1.0.2";
+        edition = "2021";
+        description = "Yet another format-preserving TOML parser.";
+        sha256 = "042wp5ni22yqcbrfqq9c63g2vbbp4m59zamxw97hvacs8ipqhldm";
+        dependencies = [
+          {
+            name = "winnow";
+            packageId = "winnow 0.7.12";
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "debug" = [ "std" "dep:anstream" "dep:anstyle" ];
+          "default" = [ "std" ];
+          "simd" = [ "winnow/simd" ];
+          "std" = [ "alloc" ];
+        };
+        resolvedDefaultFeatures = [ "alloc" "std" ];
+      };
       "toml_write" = rec {
         crateName = "toml_write";
         version = "0.1.2";
@@ -24655,6 +24799,19 @@ facilitate deserializing and serializing Rust structures.
           "std" = [ "alloc" ];
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" ];
+      };
+      "toml_writer" = rec {
+        crateName = "toml_writer";
+        version = "1.0.2";
+        edition = "2021";
+        description = "A low-level interface for writing out TOML
+";
+        sha256 = "0r7x3m050c66s9lssaq965vmrsxvxj131db4fq0m5vrd3w4l5j7w";
+        features = {
+          "default" = [ "std" ];
+          "std" = [ "alloc" ];
+        };
+        resolvedDefaultFeatures = [ "alloc" "std" ];
       };
       "tonic" = rec {
         crateName = "tonic";
@@ -26236,7 +26393,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.5";
+        version = "1.1.6";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26366,7 +26523,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.5";
+        version = "1.1.6";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26419,7 +26576,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.5";
+        version = "1.1.6";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26551,7 +26708,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.5";
+        version = "1.1.6";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26631,7 +26788,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.5";
+        version = "1.1.6";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -27187,10 +27344,10 @@ Unicode Standard Annex #31.
       };
       "valence-crypto-utils" = rec {
         crateName = "valence-crypto-utils";
-        version = "0.1.0";
+        version = "0.1.1";
         edition = "2024";
         description = "A collection of crypto utilities for the Valence ecosystem.";
-        sha256 = "0hjz0khbphx0wnf6f93cfn07p5qqpyrbb1daw7dp1848dxkwa338";
+        sha256 = "0crpnnqwdfklfs2wj13555w2jjx38rmfwd3lglnbpg5azahqyjh3";
         libName = "valence_crypto_utils";
         authors = [
           "Timewave Labs"
@@ -27250,10 +27407,11 @@ Unicode Standard Annex #31.
         version = "1.1.0";
         edition = "2021";
         description = "Client implementations for interacting with Valence Protocol domains";
+        crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-domain-clients.git";
-          rev = "55face7f68d7c481282078f39ef1cc4cc906eae9";
+          rev = "a7dc8098685271e05e9c9ee81b492c28add17de7";
           submodules = true;
         };
         libName = "valence_domain_clients";
@@ -27306,6 +27464,11 @@ Unicode Standard Annex #31.
             features = [ "full" ];
           }
           {
+            name = "toml";
+            packageId = "toml 0.9.5";
+            optional = true;
+          }
+          {
             name = "uuid";
             packageId = "uuid";
             optional = true;
@@ -27323,12 +27486,15 @@ Unicode Standard Annex #31.
           "base64" = [ "dep:base64" ];
           "bip32" = [ "dep:bip32" ];
           "bs58" = [ "dep:bs58" ];
+          "clap" = [ "dep:clap" ];
+          "colored" = [ "dep:colored" ];
           "const-hex" = [ "dep:const-hex" ];
-          "coprocessor" = [ "base64" "const-hex" "msgpacker" "uuid" "valence-crypto-utils" ];
+          "coprocessor" = [ "base64" "const-hex" "msgpacker" "toml" "uuid" "valence-crypto-utils" ];
+          "coprocessor-bin" = [ "clap" "colored" "coprocessor" ];
           "cosmos" = [ "alloy" "bip32" "cosmos-sdk-proto" "cosmrs" "ed25519-zebra" "hex" "ibc" "log" "neutron-std" "prost" "tonic" ];
           "cosmos-sdk-proto" = [ "dep:cosmos-sdk-proto" ];
           "cosmrs" = [ "dep:cosmrs" ];
-          "default" = [ "coprocessor" "cosmos" "evm" "indexer" ];
+          "default" = [ "coprocessor" "coprocessor-bin" "cosmos" "evm" "indexer" ];
           "ed25519-dalek" = [ "dep:ed25519-dalek" ];
           "ed25519-zebra" = [ "dep:ed25519-zebra" ];
           "evm" = [ "alloy" "alloy_signer_local" "log" "tonic" ];
@@ -27346,11 +27512,12 @@ Unicode Standard Annex #31.
           "solana-rpc-client-api" = [ "dep:solana-rpc-client-api" ];
           "solana-sdk" = [ "dep:solana-sdk" ];
           "solana-transaction-status" = [ "dep:solana-transaction-status" ];
+          "toml" = [ "dep:toml" ];
           "tonic" = [ "dep:tonic" ];
           "uuid" = [ "dep:uuid" ];
           "valence-crypto-utils" = [ "dep:valence-crypto-utils" ];
         };
-        resolvedDefaultFeatures = [ "base64" "const-hex" "coprocessor" "msgpacker" "uuid" "valence-crypto-utils" ];
+        resolvedDefaultFeatures = [ "base64" "const-hex" "coprocessor" "msgpacker" "toml" "uuid" "valence-crypto-utils" ];
       };
       "valuable" = rec {
         crateName = "valuable";
