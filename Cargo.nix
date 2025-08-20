@@ -901,7 +901,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -1154,7 +1154,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -1262,7 +1262,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -1705,7 +1705,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
           {
@@ -2106,7 +2106,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -2280,7 +2280,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -2397,7 +2397,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -2706,7 +2706,7 @@ rec {
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -5665,13 +5665,13 @@ code.
       };
       "cfg-if" = rec {
         crateName = "cfg-if";
-        version = "1.0.1";
+        version = "1.0.3";
         edition = "2018";
         description = "A macro to ergonomically define an item depending on a large number of #[cfg]
 parameters. Structured like an if-else chain, the first matching branch is the
 item that gets emitted.
 ";
-        sha256 = "0s0jr5j797q1vqjcd41l0v5izlmlqm7lxy512b418xz5r65mfmcm";
+        sha256 = "1afg7146gbxjvkbjx7i5sdrpqp9q5akmk9004fr8rsm90jf2il9g";
         libName = "cfg_if";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -16144,7 +16144,7 @@ cryptographic private keys.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             optional = true;
           }
           {
@@ -16876,7 +16876,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
           }
           {
             name = "tokio";
@@ -16992,7 +16992,7 @@ equation coefficients
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
           }
           {
             name = "tinyvec";
@@ -22876,7 +22876,7 @@ possible intended.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
             usesDefaultFeatures = false;
           }
         ];
@@ -23734,10 +23734,10 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
       };
       "tempfile" = rec {
         crateName = "tempfile";
-        version = "3.20.0";
+        version = "3.21.0";
         edition = "2021";
         description = "A library for managing temporary files and directories.";
-        sha256 = "18fnp7mjckd9c9ldlb2zhp1hd4467y2hpvx9l50j97rlhlwlx9p8";
+        sha256 = "07kx58ibjk3ydq1gcb7q637fs5zkxaa550lxckhgg9p3427izdhm";
         authors = [
           "Steven Allen <steven@stebalien.com>"
           "The Rust Project Developers"
@@ -23770,7 +23770,7 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.59.0";
+            packageId = "windows-sys 0.60.2";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Storage_FileSystem" "Win32_Foundation" ];
           }
@@ -23798,19 +23798,19 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         ];
 
       };
-      "thiserror 2.0.15" = rec {
+      "thiserror 2.0.16" = rec {
         crateName = "thiserror";
-        version = "2.0.15";
+        version = "2.0.16";
         edition = "2021";
         description = "derive(Error)";
-        sha256 = "0l18636gw537pp3h94jv3nngvy8bbbsbgdmlxj4i762b0qznvmw0";
+        sha256 = "1h30bqyjn5s9ypm668yd9849371rzwk185klwgjg503k2hadcrrl";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
         dependencies = [
           {
             name = "thiserror-impl";
-            packageId = "thiserror-impl 2.0.15";
+            packageId = "thiserror-impl 2.0.16";
           }
         ];
         features = {
@@ -23845,12 +23845,12 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         ];
 
       };
-      "thiserror-impl 2.0.15" = rec {
+      "thiserror-impl 2.0.16" = rec {
         crateName = "thiserror-impl";
-        version = "2.0.15";
+        version = "2.0.16";
         edition = "2021";
         description = "Implementation detail of the `thiserror` crate";
-        sha256 = "1q1xc98s70ipx2jymcvi4gwq6sc5k9aw7nbbj3mbd1p96gmrzlj4";
+        sha256 = "0q3r1ipr1rhff6cgrcvc0njffw17rpcqz9hdc7p754cbqkhinpkc";
         procMacro = true;
         libName = "thiserror_impl";
         authors = [
@@ -25836,7 +25836,7 @@ clients and servers.
           }
           {
             name = "thiserror";
-            packageId = "thiserror 2.0.15";
+            packageId = "thiserror 2.0.16";
           }
           {
             name = "utf-8";
@@ -26393,7 +26393,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.6";
+        version = "1.1.7";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26523,7 +26523,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.6";
+        version = "1.1.7";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26576,7 +26576,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.6";
+        version = "1.1.7";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26708,7 +26708,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.6";
+        version = "1.1.7";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26788,7 +26788,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.6";
+        version = "1.1.7";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26814,10 +26814,20 @@ Unicode Standard Annex #31.
             features = [ "derive" ];
           }
           {
+            name = "helios-consensus-core";
+            packageId = "helios-consensus-core";
+          }
+          {
             name = "hex";
             packageId = "hex";
             usesDefaultFeatures = false;
             features = [ "alloc" ];
+          }
+          {
+            name = "msgpacker";
+            packageId = "msgpacker";
+            usesDefaultFeatures = false;
+            features = [ "alloc" "derive" ];
           }
           {
             name = "reqwest";
@@ -30617,7 +30627,7 @@ dependency.
           "Win32_Web" = [ "Win32" ];
           "Win32_Web_InternetExplorer" = [ "Win32_Web" ];
         };
-        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_Console" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
+        resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_Storage" "Win32_Storage_FileSystem" "Win32_System" "Win32_System_Console" "Win32_System_Diagnostics" "Win32_System_Diagnostics_Debug" "default" ];
       };
       "windows-targets 0.48.5" = rec {
         crateName = "windows-targets";
