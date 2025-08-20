@@ -8,7 +8,9 @@ description = "The Valence co-processor domain definition."
 [dependencies]
 anyhow.workspace = true
 clap.workspace = true
+helios-consensus-core.workspace = true
 hex.workspace = true
+msgpacker.workspace = true
 reqwest.workspace = true
 serde.workspace = true
 serde_json.workspace = true

@@ -1,10 +1,11 @@
 use std::time::Duration;
 
 use clap::Parser;
+use msgpacker::Packable as _;
 use serde_json::Value;
 use tracing_subscriber::{fmt, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter};
 use valence_coprocessor::DomainData;
-use valence_coprocessor_ethereum_lightclient::ServiceState;
+use valence_coprocessor_ethereum_lightclient::{Config, History, ServiceState};
 use valence_coprocessor_prover::client::Client as Prover;
 use valence_domain_clients::{
     clients::coprocessor::CoprocessorClient as Coprocessor,
@@ -70,40 +71,54 @@ async fn main() -> anyhow::Result<()> {
     tracing::info!("Clients loaded...");
 
     loop {
-        let service = match coprocessor.get_storage_raw(&id).await {
-            Ok(Some(s)) => {
-                tracing::debug!("Loading service state...");
+        let history = coprocessor
+            .get_storage_raw(&id)
+            .await
+            .and_then(|h| h.ok_or_else(|| anyhow::anyhow!("no data available")))
+            .and_then(|h| History::try_from_slice(&h));
 
-                ServiceState::try_from_slice(&s)
-            }
+        let mut history = match history {
+            Ok(h) => h,
             _ => {
                 tracing::warn!("Service state not available!");
                 tracing::info!("Initializing service state...");
 
-                ServiceState::genesis(&prover)
+                let state = ServiceState::genesis(&prover)?;
+                let mut h = History::default();
+
+                h.append(state)?;
+
+                h
             }
         };
 
-        let mut service = match service {
-            Ok(s) => s,
-            Err(e) => {
-                tracing::warn!("Service state corrupted: {e}");
-                tracing::warn!("Forcing state initialization...");
+        tracing::info!(
+            "History loaded with `{}` entries; latest block on `{}`...",
+            history.len(),
+            history.latest_block().unwrap_or_default()
+        );
 
-                ServiceState::genesis(&prover)?
-            }
-        };
+        history.override_defaults();
+
+        let service = history
+            .latest()
+            .ok_or_else(|| anyhow::anyhow!("no state available"))?;
 
         tracing::debug!("Service state loaded...");
 
         let state = match service.to_state() {
             Ok(s) => s,
             Err(e) => {
-                tracing::error!("Inner state corrupted: {e}");
-                tracing::warn!("Forcing state initialization...");
+                history.discard_latest();
 
-                service = ServiceState::genesis(&prover)?;
-                service.to_state()?
+                tracing::error!("Inner state corrupted: {e}");
+                tracing::error!(
+                    "Discarding latest proof from series; len at {}...",
+                    history.len()
+                );
+
+                tokio::time::sleep(interval).await;
+                continue;
             }
         };
 
@@ -116,7 +131,7 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Loaded latest block `{latest}`...");
 
-        let input = match state.fetch_input().await {
+        let mut input = match state.fetch_input().await {
             Some(i) => i,
             None => {
                 tracing::warn!("No state input available...");
@@ -127,10 +142,69 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Loaded input...");
 
+        let Config {
+            genesis_root,
+            forks,
+            ..
+        } = Config::default();
+
+        let mut store = state.store.clone();
+        let updates: Vec<_> = input.updates.drain(..).collect();
+
+        for u in updates.into_iter() {
+            match helios_consensus_core::verify_update(
+                &u,
+                input.expected_current_slot,
+                &store,
+                genesis_root,
+                &forks,
+            ) {
+                Ok(_) => {
+                    helios_consensus_core::apply_update(&mut store, &u);
+                    input.updates.push(u);
+                }
+                Err(e) if e.to_string().contains("not relevant") => (),
+                Err(e) => {
+                    history.discard_latest();
+
+                    tracing::error!("invalid update for state: {e}");
+                    tracing::error!(
+                        "Discarding latest proof from series; len at {}...",
+                        history.len()
+                    );
+
+                    tokio::time::sleep(interval).await;
+                    continue;
+                }
+            }
+        }
+
+        if let Err(e) = state.clone().apply(&input) {
+            history.discard_latest();
+
+            tracing::error!("invalid input for state: {e}");
+            tracing::error!(
+                "Discarding latest proof from series; len at {}...",
+                history.len()
+            );
+
+            tokio::time::sleep(interval).await;
+            continue;
+        }
+
+        tracing::debug!("Sanity check ok...");
+
         let proof = match service.prove(&prover, input) {
             Ok(p) => p,
             Err(e) => {
+                history.discard_latest();
+
                 tracing::error!("Error computing service proof: {e}");
+                tracing::error!(
+                    "Discarding latest proof from series; len at {}...",
+                    history.len()
+                );
+
                 tokio::time::sleep(interval).await;
                 continue;
             }
@@ -138,29 +212,26 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Proof computed...");
 
-        let current = match proof.to_validated_block() {
-            Ok(a) => {
-                tracing::info!(
-                    "Submitting block number {}, root {}",
-                    a.number,
-                    hex::encode(a.root)
-                );
-                a.number
-            }
+        let mut transition = service.clone();
+
+        match transition.apply(proof.clone()).and_then(|block| {
+            tracing::debug!("block proof for `{}` validated...", block.number);
+            history.append(transition)
+        }) {
+            Ok(_) => tracing::debug!("transition appended to history..."),
             Err(e) => {
-                tracing::error!("invalid wrapper proof: {e}");
+                history.discard_latest();
+
+                tracing::error!("Service proof computed but invalid: {e}");
+                tracing::error!(
+                    "Discarding latest proof from series; len at {}...",
+                    history.len()
+                );
+
                 tokio::time::sleep(interval).await;
                 continue;
             }
-        };
-
-        tracing::debug!("Proof parsed...");
-
-        let mut state = service.clone();
-        if let Err(e) = state.apply(proof.clone()) {
-            tracing::error!("The generated proof yielded an inconsistent state: {e}");
         }
-        let file = state.to_vec();
 
         let service = service.encode();
         let proof = proof.encode();
@@ -169,10 +240,7 @@ async fn main() -> anyhow::Result<()> {
             "proof": proof,
         });
 
-        tracing::debug!(
-            "Publishing block `{}`...",
-            serde_json::to_string(&args).unwrap_or_default()
-        );
+        tracing::debug!("Publishing block...",);
 
         match coprocessor.add_domain_block(&domain, &args).await {
             Ok(b) => {
@@ -183,7 +251,7 @@ async fn main() -> anyhow::Result<()> {
                 if let Some(l) = b.get("log").and_then(Value::as_array) {
                     for le in l {
                         if let Some(le) = le.as_str() {
-                            tracing::debug!("{le}");
+                            tracing::debug!("log: {le}");
                         }
                     }
                 }
@@ -194,11 +262,18 @@ async fn main() -> anyhow::Result<()> {
             }
         }
 
-        if current > latest {
-            if let Err(e) = coprocessor.set_storage_raw(&id, &file).await {
-                tracing::error!("error updating co-processor state: {e}");
-            }
+        let file = history.pack_to_vec();
+
+        tracing::debug!(
+            "Publishing `{}` kbytes to co-processor...",
+            file.len() / 1024
+        );
+
+        if let Err(e) = coprocessor.set_storage_raw(&id, &file).await {
+            tracing::error!("error updating co-processor state: {e}");
         }
+
+        tracing::debug!("State published");
 
         tokio::time::sleep(interval).await;
     }

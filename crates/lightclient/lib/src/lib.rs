@@ -11,8 +11,10 @@ pub mod prover;
 #[cfg(feature = "verifier")]
 pub mod verifier;
 
+mod history;
 mod state;
 mod types;
 
+pub use history::*;
 pub use state::*;
 pub use types::*;

@@ -12,7 +12,7 @@ use zerocopy::TryFromBytes as _;
 
 use crate::State;
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, MsgPacker)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize, MsgPacker)]
 pub struct ServiceState {
     pub latest_inner_proof: Proof,
     pub inner_vk: Vec<u8>,
