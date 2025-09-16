@@ -163,18 +163,8 @@ async fn main() -> anyhow::Result<()> {
                     helios_consensus_core::apply_update(&mut store, &u);
                     input.updates.push(u);
                 }
-                Err(e) if e.to_string().contains("not relevant") => (),
                 Err(e) => {
-                    history.discard_latest();
-
-                    tracing::error!("invalid update for state: {e}");
-                    tracing::error!(
-                        "Discarding latest proof from series; len at {}...",
-                        history.len()
-                    );
-
-                    tokio::time::sleep(interval).await;
-                    continue;
+                    tracing::debug!("update skipped: {e}");
                 }
             }
         }
