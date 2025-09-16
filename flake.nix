@@ -132,12 +132,11 @@
             systemd.services = {
               valence-coprocessor-ethereum = {
                 enable = true;
-                restartIfChanged = false;
                 serviceConfig = {
                   Type = "simple";
                   DynamicUser = true;
                   StateDirectory = "valence-coprocessor-ethereum";
-                  ExecStart = "${lib.getExe cfg.package} ${lib.escapeShellArgs cfg.flags}";
+                  ExecStart = "${lib.getExe cfg.package} ${lib.concatStringsSep " " cfg.flags}";
                   Restart = "on-failure";
                 };
                 wantedBy = [ "multi-user.target" ];
