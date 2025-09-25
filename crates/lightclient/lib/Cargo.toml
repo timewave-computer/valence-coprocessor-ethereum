@@ -8,6 +8,7 @@ description = "The Valence co-processor domain definition."
 [dependencies]
 alloy-primitives.workspace = true
 anyhow.workspace = true
+eyre.workspace = true
 helios-consensus-core.workspace = true
 msgpacker.workspace = true
 serde.workspace = true

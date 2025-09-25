@@ -10,7 +10,7 @@ extern crate alloc;
 pub struct Ethereum;
 
 impl Ethereum {
-    pub const ID: &str = "ethereum-electra-alpha";
+    pub const ID: &str = "ethereum-electra-beta";
     pub const NETWORK: &str = "eth-mainnet";
 }
 

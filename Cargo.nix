@@ -167,11 +167,11 @@ rec {
       };
       "addr2line" = rec {
         crateName = "addr2line";
-        version = "0.24.2";
+        version = "0.25.1";
         edition = "2018";
         description = "A cross-platform symbolication library written in Rust, using `gimli`";
         crateBin = [];
-        sha256 = "1hd1i57zxgz08j6h5qrhsnm2fi0bcqvsh389fw400xm3arz2ggnz";
+        sha256 = "0jwb96gv17vdr29hbzi0ha5q6jkpgjyn7rjlg5nis65k41rk0p8v";
         dependencies = [
           {
             name = "gimli";
@@ -181,19 +181,19 @@ rec {
           }
         ];
         features = {
-          "all" = [ "bin" ];
+          "all" = [ "bin" "wasm" ];
           "alloc" = [ "dep:alloc" ];
           "bin" = [ "loader" "rustc-demangle" "cpp_demangle" "fallible-iterator" "smallvec" "dep:clap" ];
-          "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
           "cpp_demangle" = [ "dep:cpp_demangle" ];
           "default" = [ "rustc-demangle" "cpp_demangle" "loader" "fallible-iterator" "smallvec" ];
           "fallible-iterator" = [ "dep:fallible-iterator" ];
           "loader" = [ "std" "dep:object" "dep:memmap2" "dep:typed-arena" ];
           "rustc-demangle" = [ "dep:rustc-demangle" ];
-          "rustc-dep-of-std" = [ "core" "alloc" "compiler_builtins" "gimli/rustc-dep-of-std" ];
+          "rustc-dep-of-std" = [ "core" "alloc" "gimli/rustc-dep-of-std" ];
           "smallvec" = [ "dep:smallvec" ];
           "std" = [ "gimli/std" ];
+          "wasm" = [ "object/wasm" ];
         };
       };
       "adler2" = rec {
@@ -1356,7 +1356,7 @@ rec {
           }
           {
             name = "foldhash";
-            packageId = "foldhash";
+            packageId = "foldhash 0.1.5";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -1462,12 +1462,12 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "k256" "map" "map-foldhash" "rlp" "serde" "std" ];
       };
-      "alloy-primitives 1.3.1" = rec {
+      "alloy-primitives 1.4.0" = rec {
         crateName = "alloy-primitives";
-        version = "1.3.1";
+        version = "1.4.0";
         edition = "2024";
         description = "Ethereum primitive types";
-        sha256 = "1fgdm6isqs473p6qs1m7y7x4jgc0hx66n6kkg893hd72dp2qb55w";
+        sha256 = "1r82dwbddsp706ra88mndmxa04lpj6bq02r0s9msxn0awvazfxsv";
         libName = "alloy_primitives";
         authors = [
           "Alloy Contributors"
@@ -1497,7 +1497,7 @@ rec {
           }
           {
             name = "hashbrown";
-            packageId = "hashbrown 0.15.5";
+            packageId = "hashbrown 0.16.0";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "default-hasher" "inline-more" ];
@@ -1554,6 +1554,7 @@ rec {
           "allocative" = [ "dep:allocative" ];
           "arbitrary" = [ "std" "dep:arbitrary" "dep:proptest" "dep:proptest-derive" "ruint/arbitrary" "ruint/proptest" "indexmap?/arbitrary" ];
           "asm-keccak" = [ "dep:keccak-asm" ];
+          "borsh" = [ "dep:borsh" "ruint/borsh" ];
           "default" = [ "std" "map" "map-foldhash" ];
           "diesel" = [ "std" "dep:diesel" "ruint/diesel" ];
           "getrandom" = [ "dep:getrandom" ];
@@ -1564,10 +1565,11 @@ rec {
           "map-fxhash" = [ "map" "dep:rustc-hash" ];
           "map-hashbrown" = [ "map" ];
           "map-indexmap" = [ "map" "dep:indexmap" ];
-          "nightly" = [ "hex/nightly" "ruint/nightly" "hashbrown?/nightly" "rustc-hash?/nightly" ];
+          "nightly" = [ "foldhash?/nightly" "hashbrown?/nightly" "hex/nightly" "ruint/nightly" "rustc-hash?/nightly" ];
           "postgres" = [ "std" "dep:postgres-types" "ruint/postgres" ];
           "rand" = [ "dep:rand" "getrandom" "ruint/rand-09" "rustc-hash?/rand" ];
           "rayon" = [ "dep:rayon" "hashbrown?/rayon" "indexmap?/rayon" ];
+          "rkyv" = [ "dep:rkyv" "ruint/rkyv" ];
           "rlp" = [ "dep:alloy-rlp" "ruint/alloy-rlp" ];
           "serde" = [ "dep:serde" "bytes/serde" "hex/serde" "ruint/serde" "hashbrown?/serde" "indexmap?/serde" "rand?/serde" ];
           "sha3-keccak" = [ "dep:sha3" ];
@@ -3036,10 +3038,10 @@ and proof generator for prefix-sorted nibbles
       };
       "anyhow" = rec {
         crateName = "anyhow";
-        version = "1.0.99";
+        version = "1.0.100";
         edition = "2018";
         description = "Flexible concrete Error type built on std::error::Error";
-        sha256 = "001icqvkfl28rxxmk99rm4gvdzxqngj5v50yg2bh3dzcvqfllrxh";
+        sha256 = "0qbfmw4hhv2ampza1csyvf1jqjs2dgrj29cv3h3sh623c6qvcgm2";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -4447,11 +4449,11 @@ and proof generator for prefix-sorted nibbles
       };
       "backtrace" = rec {
         crateName = "backtrace";
-        version = "0.3.75";
+        version = "0.3.76";
         edition = "2021";
         description = "A library to acquire a stack trace (backtrace) at runtime in a Rust program.
 ";
-        sha256 = "00hhizz29mvd7cdqyz5wrj98vqkihgcxmv2vl7z0d0f53qrac1k8";
+        sha256 = "1mibx75x4jf6wz7qjifynld3hpw3vq6sy3d3c9y5s88sg59ihlxv";
         authors = [
           "The Rust Project Developers"
         ];
@@ -4496,8 +4498,8 @@ and proof generator for prefix-sorted nibbles
             features = [ "derive" ];
           }
           {
-            name = "windows-targets";
-            packageId = "windows-targets 0.52.6";
+            name = "windows-link";
+            packageId = "windows-link 0.2.0";
             target = { target, features }: ((target."windows" or false) || ("cygwin" == target."os" or null));
           }
         ];
@@ -5159,11 +5161,11 @@ constant-time operation and embedded-friendly no_std support
       };
       "blst" = rec {
         crateName = "blst";
-        version = "0.3.15";
+        version = "0.3.16";
         edition = "2018";
         description = "Bindings for blst BLS12-381 library";
         links = "blst";
-        sha256 = "105hj0mf38mc3b61xpd3jnk670mmp5k896d5szfbdj9ay6b9im2g";
+        sha256 = "0igvf6gc8fn7h9i4c5r8j46vmynvhqqi4pf5kw7ib6hk2dq4rnyw";
         authors = [
           "sean-sn <sean@supranational.net>"
         ];
@@ -5612,13 +5614,13 @@ constant-time operation and embedded-friendly no_std support
       };
       "cc" = rec {
         crateName = "cc";
-        version = "1.2.37";
+        version = "1.2.39";
         edition = "2018";
         description = "A build-time dependency for Cargo build scripts to assist in invoking the native
 C compiler to compile native C code into a static archive to be linked into Rust
 code.
 ";
-        sha256 = "0i5xlxsgd7jif1ry9k3ysnpsmbrckapqwq8d8l5vhkj0qs4ka6b5";
+        sha256 = "0py3546wz3k5qi6pbfz80jvg0g3qgzr21c7a1p5wjvscjm4l6dg1";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -5817,11 +5819,11 @@ item that gets emitted.
       };
       "clap" = rec {
         crateName = "clap";
-        version = "4.5.47";
+        version = "4.5.48";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
         crateBin = [];
-        sha256 = "0c99f6m4a7d4ffgahid49h0ci2pv4ccdf417f76nl4wx5n801b3y";
+        sha256 = "1bjz3d7bavy13ph2a6rm3c9y02ak70b195xakii7h6q2xarln4z2";
         dependencies = [
           {
             name = "clap_builder";
@@ -5860,10 +5862,10 @@ item that gets emitted.
       };
       "clap_builder" = rec {
         crateName = "clap_builder";
-        version = "4.5.47";
+        version = "4.5.48";
         edition = "2021";
         description = "A simple to use, efficient, and full-featured Command Line Argument Parser";
-        sha256 = "1mp1f0fz6wp9v87jc9372lg6r4514ja1l8cazf25hfz7a3vvpn9a";
+        sha256 = "1jaxnr7ik25r4yxgz657vm8kz62f64qmwxhplmzxz9n0lfpn9fn2";
         dependencies = [
           {
             name = "anstream";
@@ -6466,7 +6468,7 @@ no_std-friendly implementations of modern formulas using const generics.
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_System_Threading" "Win32_Security" "Win32_System_Console" ];
           }
@@ -6474,7 +6476,7 @@ no_std-friendly implementations of modern formulas using const generics.
         devDependencies = [
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Storage_FileSystem" "Win32_Foundation" "Win32_System_IO" "Win32_System_Console" ];
           }
@@ -6534,6 +6536,35 @@ implementing custom derives.
         features = {
           "default" = [ "suggestions" ];
           "diagnostics" = [ "darling_core/diagnostics" ];
+          "suggestions" = [ "darling_core/suggestions" ];
+        };
+        resolvedDefaultFeatures = [ "default" "suggestions" ];
+      };
+      "darling 0.21.3" = rec {
+        crateName = "darling";
+        version = "0.21.3";
+        edition = "2021";
+        description = "A proc-macro library for reading attributes into structs when
+implementing custom derives.
+";
+        sha256 = "1h281ah78pz05450r71h3gwm2n24hy8yngbz58g426l4j1q37pww";
+        authors = [
+          "Ted Driggs <ted.driggs@outlook.com>"
+        ];
+        dependencies = [
+          {
+            name = "darling_core";
+            packageId = "darling_core 0.21.3";
+          }
+          {
+            name = "darling_macro";
+            packageId = "darling_macro 0.21.3";
+          }
+        ];
+        features = {
+          "default" = [ "suggestions" ];
+          "diagnostics" = [ "darling_core/diagnostics" ];
+          "serde" = [ "darling_core/serde" ];
           "suggestions" = [ "darling_core/suggestions" ];
         };
         resolvedDefaultFeatures = [ "default" "suggestions" ];
@@ -6628,6 +6659,52 @@ implementing custom derives. Use https://crates.io/crates/darling in your code.
         };
         resolvedDefaultFeatures = [ "strsim" "suggestions" ];
       };
+      "darling_core 0.21.3" = rec {
+        crateName = "darling_core";
+        version = "0.21.3";
+        edition = "2021";
+        description = "Helper crate for proc-macro library for reading attributes into structs when
+implementing custom derives. Use https://crates.io/crates/darling in your code.
+";
+        sha256 = "193ya45qgac0a4siwghk0bl8im8h89p3cald7kw8ag3yrmg1jiqj";
+        authors = [
+          "Ted Driggs <ted.driggs@outlook.com>"
+        ];
+        dependencies = [
+          {
+            name = "fnv";
+            packageId = "fnv";
+          }
+          {
+            name = "ident_case";
+            packageId = "ident_case";
+          }
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+          {
+            name = "strsim";
+            packageId = "strsim 0.11.1";
+            optional = true;
+          }
+          {
+            name = "syn";
+            packageId = "syn 2.0.106";
+            features = [ "full" "extra-traits" ];
+          }
+        ];
+        features = {
+          "serde" = [ "dep:serde" ];
+          "strsim" = [ "dep:strsim" ];
+          "suggestions" = [ "strsim" ];
+        };
+        resolvedDefaultFeatures = [ "strsim" "suggestions" ];
+      };
       "darling_macro 0.13.4" = rec {
         crateName = "darling_macro";
         version = "0.13.4";
@@ -6672,6 +6749,34 @@ implementing custom derives. Use https://crates.io/crates/darling in your code.
           {
             name = "darling_core";
             packageId = "darling_core 0.20.11";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+          {
+            name = "syn";
+            packageId = "syn 2.0.106";
+          }
+        ];
+
+      };
+      "darling_macro 0.21.3" = rec {
+        crateName = "darling_macro";
+        version = "0.21.3";
+        edition = "2021";
+        description = "Internal support for a proc-macro library for reading attributes into structs when
+implementing custom derives. Use https://crates.io/crates/darling in your code.
+";
+        sha256 = "10ac85n4lnx3rmf5rw8lijl2c0sbl6ghcpgfmzh0s26ihbghi0yk";
+        procMacro = true;
+        authors = [
+          "Ted Driggs <ted.driggs@outlook.com>"
+        ];
+        dependencies = [
+          {
+            name = "darling_core";
+            packageId = "darling_core 0.21.3";
           }
           {
             name = "quote";
@@ -7088,10 +7193,10 @@ full support for heapless no_std targets
       };
       "deranged" = rec {
         crateName = "deranged";
-        version = "0.5.3";
+        version = "0.5.4";
         edition = "2021";
         description = "Ranged integers";
-        sha256 = "1k473y8lzjac956dm3s1cs2rz364py9zd52y9fkbanws8b6vqc6n";
+        sha256 = "0wch36gpg2crz2f72p7c0i5l4bzxjkwxw96sdj57c1cadzw566d4";
         authors = [
           "Jacob Pratt <jacob@jhpratt.dev>"
         ];
@@ -7111,7 +7216,7 @@ full support for heapless no_std targets
           "rand" = [ "rand08" "rand09" ];
           "rand08" = [ "dep:rand08" ];
           "rand09" = [ "dep:rand09" ];
-          "serde" = [ "dep:serde" ];
+          "serde" = [ "dep:serde_core" ];
         };
         resolvedDefaultFeatures = [ "default" "powerfmt" ];
       };
@@ -8121,7 +8226,7 @@ and public/secret keys composed thereof.
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_System_Diagnostics_Debug" ];
           }
@@ -8623,10 +8728,10 @@ and public/secret keys composed thereof.
       };
       "find-msvc-tools" = rec {
         crateName = "find-msvc-tools";
-        version = "0.1.1";
+        version = "0.1.2";
         edition = "2018";
         description = "Find windows-specific tools, read MSVC versions from the registry and from COM interfaces";
-        sha256 = "0b8rhghgjssjw9q8a3gg7f9kl8zhy9d7nqsc4s4nc52dyqq9knbz";
+        sha256 = "0nbrhvk4m04hviiwbqp2jwcv9j2k70x0q2kcvfk51iygvaqp7v8w";
         libName = "find_msvc_tools";
 
       };
@@ -8743,7 +8848,7 @@ and public/secret keys composed thereof.
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
-      "foldhash" = rec {
+      "foldhash 0.1.5" = rec {
         crateName = "foldhash";
         version = "0.1.5";
         edition = "2021";
@@ -8756,6 +8861,19 @@ and public/secret keys composed thereof.
           "default" = [ "std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
+      };
+      "foldhash 0.2.0" = rec {
+        crateName = "foldhash";
+        version = "0.2.0";
+        edition = "2021";
+        description = "A fast, non-cryptographic, minimally DoS-resistant hashing algorithm.";
+        sha256 = "1nvgylb099s11xpfm1kn2wcsql080nqmnhj1l25bp3r2b35j9kkp";
+        authors = [
+          "Orson Peters <orsonpeters@gmail.com>"
+        ];
+        features = {
+          "default" = [ "std" ];
+        };
       };
       "foreign-types" = rec {
         crateName = "foreign-types";
@@ -9403,17 +9521,17 @@ composability, and iterator-like interfaces.
       };
       "gimli" = rec {
         crateName = "gimli";
-        version = "0.31.1";
+        version = "0.32.3";
         edition = "2018";
         description = "A library for reading and writing the DWARF debugging format.";
-        sha256 = "0gvqc0ramx8szv76jhfd4dms0zyamvlg4whhiz11j34hh3dqxqh7";
+        sha256 = "1iqk5xznimn5bfa8jy4h7pa1dv3c624hzgd2dkz8mpgkiswvjag6";
         features = {
           "default" = [ "read-all" "write" ];
           "endian-reader" = [ "read" "dep:stable_deref_trait" ];
           "fallible-iterator" = [ "dep:fallible-iterator" ];
           "read" = [ "read-core" ];
           "read-all" = [ "read" "std" "fallible-iterator" "endian-reader" ];
-          "rustc-dep-of-std" = [ "dep:core" "dep:alloc" "dep:compiler_builtins" ];
+          "rustc-dep-of-std" = [ "dep:core" "dep:alloc" ];
           "std" = [ "fallible-iterator?/std" "stable_deref_trait?/std" ];
           "write" = [ "dep:indexmap" ];
         };
@@ -10130,7 +10248,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "foldhash";
-            packageId = "foldhash";
+            packageId = "foldhash 0.1.5";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -10154,6 +10272,43 @@ simultaneously, and returning all of the globs that matched.
           "serde" = [ "dep:serde" ];
         };
         resolvedDefaultFeatures = [ "allocator-api2" "default" "default-hasher" "equivalent" "inline-more" "raw-entry" "serde" ];
+      };
+      "hashbrown 0.16.0" = rec {
+        crateName = "hashbrown";
+        version = "0.16.0";
+        edition = "2021";
+        description = "A Rust port of Google's SwissTable hash map";
+        sha256 = "13blh9j2yv77a6ni236ixiwdzbc1sh2bc4bdpaz7y859yv2bs6al";
+        authors = [
+          "Amanieu d'Antras <amanieu@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "foldhash";
+            packageId = "foldhash 0.2.0";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "alloc" = [ "dep:alloc" ];
+          "allocator-api2" = [ "dep:allocator-api2" ];
+          "core" = [ "dep:core" ];
+          "default" = [ "default-hasher" "inline-more" "allocator-api2" "equivalent" "raw-entry" ];
+          "default-hasher" = [ "dep:foldhash" ];
+          "equivalent" = [ "dep:equivalent" ];
+          "nightly" = [ "foldhash?/nightly" "bumpalo/allocator_api" ];
+          "rayon" = [ "dep:rayon" ];
+          "rustc-dep-of-std" = [ "nightly" "core" "alloc" "rustc-internal-api" ];
+          "serde" = [ "dep:serde" ];
+        };
+        resolvedDefaultFeatures = [ "default-hasher" "inline-more" "serde" ];
       };
       "heapless" = rec {
         crateName = "heapless";
@@ -11300,7 +11455,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             usesDefaultFeatures = false;
           }
           {
@@ -11314,7 +11469,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "tokio-rustls";
-            packageId = "tokio-rustls 0.26.2";
+            packageId = "tokio-rustls 0.26.4";
             usesDefaultFeatures = false;
           }
           {
@@ -11336,7 +11491,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             usesDefaultFeatures = false;
             features = [ "tls12" ];
           }
@@ -11665,7 +11820,7 @@ simultaneously, and returning all of the globs that matched.
           }
           {
             name = "windows-core";
-            packageId = "windows-core 0.62.0";
+            packageId = "windows-core 0.62.1";
             target = { target, features }: ("windows" == target."os" or null);
           }
         ];
@@ -12483,12 +12638,12 @@ simultaneously, and returning all of the globs that matched.
       };
       "js-sys" = rec {
         crateName = "js-sys";
-        version = "0.3.78";
+        version = "0.3.81";
         edition = "2021";
         description = "Bindings for all JS global objects and functions in all JS environments like
 Node.js and browsers, built on `#[wasm_bindgen]` using the `wasm-bindgen` crate.
 ";
-        sha256 = "0f17vdkpbarm0qlbqb0p1fyiy4l9bs62zvw3fv0ywb29g0shc2qc";
+        sha256 = "01ckbf16iwh7qj92fax9zh8vf2y9sk60cli6999cn7a1jxx96j7c";
         libName = "js_sys";
         authors = [
           "The wasm-bindgen Developers"
@@ -13386,10 +13541,10 @@ and keccak-p variants
       };
       "libc" = rec {
         crateName = "libc";
-        version = "0.2.175";
+        version = "0.2.176";
         edition = "2021";
         description = "Raw FFI bindings to platform libraries like libc.";
-        sha256 = "0hw5sb3gjr0ivah7s3fmavlpvspjpd4mr009abmam2sr7r4sx0ka";
+        sha256 = "0x7ivn80h7nz2l46vra7bxx36s6r8d0lkax14dx97skjsss2kyaq";
         authors = [
           "The Rust Project Developers"
         ];
@@ -13403,10 +13558,10 @@ and keccak-p variants
       };
       "libloading" = rec {
         crateName = "libloading";
-        version = "0.8.8";
+        version = "0.8.9";
         edition = "2015";
         description = "Bindings around the platform's dynamic library loading primitives with greatly improved memory safety.";
-        sha256 = "0rw6q94psj3d6k0bi9nymqhyrz78lbdblryphhaszsw9p9ikj0q7";
+        sha256 = "0mfwxwjwi2cf0plxcd685yxzavlslz7xirss3b9cbrzyk4hv1i6p";
         authors = [
           "Simonas Kazlauskas <libloading@kazlauskas.me>"
         ];
@@ -13417,8 +13572,8 @@ and keccak-p variants
             target = { target, features }: (target."unix" or false);
           }
           {
-            name = "windows-targets";
-            packageId = "windows-targets 0.53.3";
+            name = "windows-link";
+            packageId = "windows-link 0.2.0";
             target = { target, features }: (target."windows" or false);
           }
         ];
@@ -13688,12 +13843,12 @@ and keccak-p variants
       };
       "memchr" = rec {
         crateName = "memchr";
-        version = "2.7.5";
+        version = "2.7.6";
         edition = "2021";
         description = "Provides extremely fast (uses SIMD on x86_64, aarch64 and wasm32) routines for
 1, 2 or 3 byte search and single substring search.
 ";
-        sha256 = "1h2bh2jajkizz04fh047lpid5wgw2cr9igpkdhl3ibzscpd858ij";
+        sha256 = "0wy29kf6pb4fbhfksjbs05jy2f32r2f3r1ga6qkmpz31k79h0azm";
         authors = [
           "Andrew Gallant <jamslam@gmail.com>"
           "bluss"
@@ -14672,10 +14827,10 @@ Supports various backends including num-bigint, etc..
       };
       "object" = rec {
         crateName = "object";
-        version = "0.36.7";
+        version = "0.37.3";
         edition = "2018";
         description = "A unified interface for reading and writing object file formats.";
-        sha256 = "11vv97djn9nc5n6w1gc6bd96d2qk2c8cg1kw5km9bsi3v4a8x532";
+        sha256 = "1zikiy9xhk6lfx1dn2gn2pxbnfpmlkn0byd7ib1n720x0cgj0xpz";
         dependencies = [
           {
             name = "memchr";
@@ -14688,14 +14843,13 @@ Supports various backends including num-bigint, etc..
           "alloc" = [ "dep:alloc" ];
           "build" = [ "build_core" "write_std" "elf" ];
           "build_core" = [ "read_core" "write_core" ];
-          "compiler_builtins" = [ "dep:compiler_builtins" ];
           "compression" = [ "dep:flate2" "dep:ruzstd" "std" ];
           "core" = [ "dep:core" ];
           "default" = [ "read" "compression" ];
           "doc" = [ "read_core" "write_std" "build_core" "std" "compression" "archive" "coff" "elf" "macho" "pe" "wasm" "xcoff" ];
           "pe" = [ "coff" ];
           "read" = [ "read_core" "archive" "coff" "elf" "macho" "pe" "xcoff" "unaligned" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" "alloc" "memchr/rustc-dep-of-std" ];
+          "rustc-dep-of-std" = [ "core" "alloc" "memchr/rustc-dep-of-std" ];
           "std" = [ "memchr/std" ];
           "unstable-all" = [ "all" "unstable" ];
           "wasm" = [ "dep:wasmparser" ];
@@ -16655,11 +16809,11 @@ equation coefficients
       };
       "proptest" = rec {
         crateName = "proptest";
-        version = "1.7.0";
+        version = "1.8.0";
         edition = "2021";
         description = "Hypothesis-like property-based testing and shrinking.
 ";
-        sha256 = "07s73fqbhdzmnhnd8ks6l5mlkwaz048a49kprwqml6dmvqcspkbg";
+        sha256 = "1kp45ni5j31l0r27fqx68if0ldi5nj7jj1xl1dm6h46dpq3vxc1b";
         authors = [
           "Jason Lingle"
         ];
@@ -16862,7 +17016,7 @@ equation coefficients
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -16974,7 +17128,7 @@ equation coefficients
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -17533,12 +17687,12 @@ equation coefficients
       };
       "regex" = rec {
         crateName = "regex";
-        version = "1.11.2";
+        version = "1.11.3";
         edition = "2021";
         description = "An implementation of regular expressions for Rust. This implementation uses
 finite automata and guarantees linear time matching on all inputs.
 ";
-        sha256 = "04k9rzxd11hcahpyihlswy6f1zqw7lspirv4imm4h0lcdl8gvmr3";
+        sha256 = "0b58ya98c4i5cjjiwhpcnjr61cv9g143qhdwhsryggj09098hllb";
         authors = [
           "The Rust Project Developers"
           "Andrew Gallant <jamslam@gmail.com>"
@@ -17594,10 +17748,10 @@ finite automata and guarantees linear time matching on all inputs.
       };
       "regex-automata" = rec {
         crateName = "regex-automata";
-        version = "0.4.10";
+        version = "0.4.11";
         edition = "2021";
         description = "Automata construction and matching using regular expressions.";
-        sha256 = "1mllcfmgjcl6d52d5k09lwwq9wj5mwxccix4bhmw5spy1gx5i53b";
+        sha256 = "1bawj908pxixpggcnma3xazw53mwyz68lv9hn4yg63nlhv7bjgl3";
         libName = "regex_automata";
         authors = [
           "The Rust Project Developers"
@@ -17834,7 +17988,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             optional = true;
             usesDefaultFeatures = false;
             target = { target, features }: (!("wasm32" == target."arch" or null));
@@ -17885,7 +18039,7 @@ finite automata and guarantees linear time matching on all inputs.
           }
           {
             name = "tokio-rustls";
-            packageId = "tokio-rustls 0.26.2";
+            packageId = "tokio-rustls 0.26.4";
             optional = true;
             usesDefaultFeatures = false;
             target = { target, features }: (!("wasm32" == target."arch" or null));
@@ -18968,7 +19122,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Foundation" "Win32_Networking_WinSock" ];
           }
@@ -19051,12 +19205,12 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
         };
         resolvedDefaultFeatures = [ "log" "logging" "tls12" ];
       };
-      "rustls 0.23.31" = rec {
+      "rustls 0.23.32" = rec {
         crateName = "rustls";
-        version = "0.23.31";
+        version = "0.23.32";
         edition = "2021";
         description = "Rustls is a modern TLS library written in Rust.";
-        sha256 = "1k5ncablbb2h7hzllq3j3panqnks295v56xd488zrq1xy39cpsy0";
+        sha256 = "0h2ddlnbjhs47hcmf3rbvr32sxj5kpf0m56rgk739l192rijag6d";
         dependencies = [
           {
             name = "log";
@@ -19177,7 +19331,7 @@ Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm
           }
           {
             name = "security-framework";
-            packageId = "security-framework 3.4.0";
+            packageId = "security-framework 3.5.0";
             target = { target, features }: ("macos" == target."os" or null);
           }
         ];
@@ -19513,14 +19667,14 @@ fork-like interface.
         dependencies = [
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             features = [ "Win32_Foundation" "Win32_Security_Cryptography" "Win32_Security_Authentication_Identity" "Win32_Security_Credentials" "Win32_System_LibraryLoader" "Win32_System_Memory" "Win32_System_SystemInformation" ];
           }
         ];
         devDependencies = [
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             features = [ "Win32_System_SystemInformation" "Win32_System_Time" ];
           }
         ];
@@ -19793,12 +19947,12 @@ Elliptic-Curve-Point-to-Octet-String encoding
         };
         resolvedDefaultFeatures = [ "OSX_10_10" "OSX_10_11" "OSX_10_12" "OSX_10_9" "default" ];
       };
-      "security-framework 3.4.0" = rec {
+      "security-framework 3.5.0" = rec {
         crateName = "security-framework";
-        version = "3.4.0";
+        version = "3.5.0";
         edition = "2021";
         description = "Security.framework bindings for macOS and iOS";
-        sha256 = "0h4n11pqr0idh5sx4wdfcpbbg69wjq3h1p04b0s8nf4ki38nkcv0";
+        sha256 = "0jkgq7k2yvaqgsbnbmvi6czr231a0vsib6lwjckhhldpv518w6fc";
         libName = "security_framework";
         authors = [
           "Steven Fackler <sfackler@gmail.com>"
@@ -20234,10 +20388,10 @@ a panic occurs.";
       };
       "serde_with" = rec {
         crateName = "serde_with";
-        version = "3.14.0";
+        version = "3.14.1";
         edition = "2021";
         description = "Custom de/serialization functions for Rust's serde";
-        sha256 = "1manlm83865xwlvgv8frc472x19b75pd89a54mpxpagg3zb5ri7j";
+        sha256 = "0vip5g1106h5zvhwiw0dngax8l53s1ip4l61xa7gf325j03i08n5";
         authors = [
           "Jonas Bushart"
           "Marcin Kaźmierczak"
@@ -20329,10 +20483,10 @@ a panic occurs.";
       };
       "serde_with_macros" = rec {
         crateName = "serde_with_macros";
-        version = "3.14.0";
+        version = "3.14.1";
         edition = "2021";
         description = "proc-macro library for serde_with";
-        sha256 = "03xk9ghj2s6n331r565mgh22w0749vnq50094nd0vkk5cmg9946y";
+        sha256 = "0phk6d37y5bc033n39dra6h5lrngj0g939jm3snbljnnyw0dlyij";
         procMacro = true;
         authors = [
           "Jonas Bushart"
@@ -20340,7 +20494,7 @@ a panic occurs.";
         dependencies = [
           {
             name = "darling";
-            packageId = "darling 0.20.11";
+            packageId = "darling 0.21.3";
           }
           {
             name = "proc-macro2";
@@ -22496,7 +22650,7 @@ possible intended.
         dependencies = [
           {
             name = "alloy-primitives";
-            packageId = "alloy-primitives 1.3.1";
+            packageId = "alloy-primitives 1.4.0";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "k256" "serde" ];
@@ -23692,10 +23846,10 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
       };
       "tempfile" = rec {
         crateName = "tempfile";
-        version = "3.22.0";
+        version = "3.23.0";
         edition = "2021";
         description = "A library for managing temporary files and directories.";
-        sha256 = "0lza9r7dzm4k9fghw24yql6iz59wq8xgs46a7i29ir6xz88lvyl4";
+        sha256 = "05igl2gml6z6i2va1bv49f9f1wb3f752c2i63lvlb9s2vxxwfc9d";
         authors = [
           "Steven Allen <steven@stebalien.com>"
           "The Rust Project Developers"
@@ -23728,7 +23882,7 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
           }
           {
             name = "windows-sys";
-            packageId = "windows-sys 0.61.0";
+            packageId = "windows-sys 0.61.1";
             target = { target, features }: (target."windows" or false);
             features = [ "Win32_Storage_FileSystem" "Win32_Foundation" ];
           }
@@ -23870,10 +24024,10 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
       };
       "time" = rec {
         crateName = "time";
-        version = "0.3.43";
+        version = "0.3.44";
         edition = "2021";
         description = "Date and time library. Fully interoperable with the standard library. Mostly compatible with #![no_std].";
-        sha256 = "0c90pxn59zccwdyvh8pn9ql04c32ky9kqqli7mc2vrqhxkqydgc3";
+        sha256 = "179awlwb36zly3nmz5h9awai1h4pbf1d83g2pmvlw4v1pgixkrwi";
         authors = [
           "Jacob Pratt <open-source@jhpratt.dev>"
           "Time contributors"
@@ -23883,6 +24037,11 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
             name = "deranged";
             packageId = "deranged";
             features = [ "powerfmt" ];
+          }
+          {
+            name = "itoa";
+            packageId = "itoa";
+            optional = true;
           }
           {
             name = "num-conv";
@@ -23928,7 +24087,7 @@ OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
         features = {
           "alloc" = [ "serde?/alloc" ];
           "default" = [ "std" ];
-          "formatting" = [ "std" "time-macros?/formatting" ];
+          "formatting" = [ "dep:itoa" "std" "time-macros?/formatting" ];
           "large-dates" = [ "time-macros?/large-dates" ];
           "local-offset" = [ "std" "dep:libc" "dep:num_threads" ];
           "macros" = [ "dep:time-macros" ];
@@ -24319,17 +24478,17 @@ for nonblocking I/O streams.
         };
         resolvedDefaultFeatures = [ "default" "logging" "tls12" ];
       };
-      "tokio-rustls 0.26.2" = rec {
+      "tokio-rustls 0.26.4" = rec {
         crateName = "tokio-rustls";
-        version = "0.26.2";
+        version = "0.26.4";
         edition = "2021";
         description = "Asynchronous TLS/SSL streams for Tokio using Rustls.";
-        sha256 = "16wf007q3584j46wc4s0zc4szj6280g23hka6x6bgs50l4v7nwlf";
+        sha256 = "0qggwknz9w4bbsv1z158hlnpkm97j3w8v31586jipn99byaala8p";
         libName = "tokio_rustls";
         dependencies = [
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             usesDefaultFeatures = false;
             features = [ "std" ];
           }
@@ -24348,11 +24507,13 @@ for nonblocking I/O streams.
         features = {
           "aws-lc-rs" = [ "aws_lc_rs" ];
           "aws_lc_rs" = [ "rustls/aws_lc_rs" ];
+          "brotli" = [ "rustls/brotli" ];
           "default" = [ "logging" "tls12" "aws_lc_rs" ];
           "fips" = [ "rustls/fips" ];
           "logging" = [ "rustls/logging" ];
           "ring" = [ "rustls/ring" ];
           "tls12" = [ "rustls/tls12" ];
+          "zlib" = [ "rustls/zlib" ];
         };
         resolvedDefaultFeatures = [ "logging" "ring" "tls12" ];
       };
@@ -24758,10 +24919,10 @@ facilitate deserializing and serializing Rust structures.
       };
       "toml_parser" = rec {
         crateName = "toml_parser";
-        version = "1.0.2";
+        version = "1.0.3";
         edition = "2021";
         description = "Yet another format-preserving TOML parser.";
-        sha256 = "042wp5ni22yqcbrfqq9c63g2vbbp4m59zamxw97hvacs8ipqhldm";
+        sha256 = "09x6i0b57lwc7yn6w1kbd2ypm4vpcrgd2vdax7h745g77g1r7y2c";
         dependencies = [
           {
             name = "winnow";
@@ -24792,11 +24953,11 @@ facilitate deserializing and serializing Rust structures.
       };
       "toml_writer" = rec {
         crateName = "toml_writer";
-        version = "1.0.2";
+        version = "1.0.3";
         edition = "2021";
         description = "A low-level interface for writing out TOML
 ";
-        sha256 = "0r7x3m050c66s9lssaq965vmrsxvxj131db4fq0m5vrd3w4l5j7w";
+        sha256 = "0281l7bgchmlbvxmci01p9x2w5br9p61ylns5ji65rbc24yacqyi";
         features = {
           "default" = [ "std" ];
           "std" = [ "alloc" ];
@@ -24911,7 +25072,7 @@ facilitate deserializing and serializing Rust structures.
           }
           {
             name = "tokio-rustls";
-            packageId = "tokio-rustls 0.26.2";
+            packageId = "tokio-rustls 0.26.4";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "logging" "tls12" "ring" ];
@@ -25797,7 +25958,7 @@ clients and servers.
           }
           {
             name = "rustls";
-            packageId = "rustls 0.23.31";
+            packageId = "rustls 0.23.32";
             optional = true;
             usesDefaultFeatures = false;
             features = [ "std" ];
@@ -26278,14 +26439,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor" = rec {
         crateName = "valence-coprocessor";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor";
@@ -26377,7 +26538,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.1.8";
+        version = "1.2.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26507,7 +26668,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.1.8";
+        version = "1.2.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26560,7 +26721,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.1.8";
+        version = "1.2.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26578,6 +26739,10 @@ Unicode Standard Annex #31.
             name = "anyhow";
             packageId = "anyhow";
             usesDefaultFeatures = false;
+          }
+          {
+            name = "eyre";
+            packageId = "eyre";
           }
           {
             name = "helios-consensus-core";
@@ -26692,7 +26857,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.1.8";
+        version = "1.2.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26772,7 +26937,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.1.8";
+        version = "1.2.0";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26946,14 +27111,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-merkle" = rec {
         crateName = "valence-coprocessor-merkle";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor Merkle primitives";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor_merkle";
@@ -26998,15 +27163,15 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-prover" = rec {
         crateName = "valence-coprocessor-prover";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor prover service.";
         crateBin = [];
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor_prover";
@@ -27033,6 +27198,10 @@ Unicode Standard Annex #31.
             packageId = "flume";
           }
           {
+            name = "hashbrown";
+            packageId = "hashbrown 0.15.5";
+          }
+          {
             name = "hex";
             packageId = "hex";
             usesDefaultFeatures = false;
@@ -27046,6 +27215,10 @@ Unicode Standard Annex #31.
             name = "msgpacker";
             packageId = "msgpacker";
             features = [ "alloc" "derive" ];
+          }
+          {
+            name = "parking_lot";
+            packageId = "parking_lot";
           }
           {
             name = "rand";
@@ -27108,14 +27281,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-sp1" = rec {
         crateName = "valence-coprocessor-sp1";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor SP1 prover backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor_sp1";
@@ -27208,14 +27381,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-types" = rec {
         crateName = "valence-coprocessor-types";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor types definition";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor_types";
@@ -27271,14 +27444,14 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-wasm" = rec {
         crateName = "valence-coprocessor-wasm";
-        version = "0.4.7";
+        version = "0.4.9";
         edition = "2021";
         description = "The Valence co-processor WASM module backend.";
         workspace_member = null;
         src = builtins.fetchGit {
           url = "https://github.com/timewave-computer/valence-coprocessor.git";
-          rev = "fbfd406dbf3d7681ba5f358ad0280f504f9f35bc";
-          ref = "refs/tags/v0.4.7";
+          rev = "29544cb35cf284ef10f3cf73e1b58c03766397f5";
+          ref = "refs/tags/v0.4.9";
           submodules = true;
         };
         libName = "valence_coprocessor_wasm";
@@ -27338,10 +27511,10 @@ Unicode Standard Annex #31.
       };
       "valence-crypto-utils" = rec {
         crateName = "valence-crypto-utils";
-        version = "0.1.1";
+        version = "0.1.2";
         edition = "2024";
         description = "A collection of crypto utilities for the Valence ecosystem.";
-        sha256 = "0crpnnqwdfklfs2wj13555w2jjx38rmfwd3lglnbpg5azahqyjh3";
+        sha256 = "16sr5kdllxnbqcbp10c869c20v814dga8328hnwgjvg2xizms67f";
         libName = "valence_crypto_utils";
         authors = [
           "Timewave Labs"
@@ -27398,16 +27571,11 @@ Unicode Standard Annex #31.
       };
       "valence-domain-clients" = rec {
         crateName = "valence-domain-clients";
-        version = "2.0.0";
+        version = "3.0.0";
         edition = "2021";
         description = "Client implementations for interacting with Valence Protocol domains";
         crateBin = [];
-        workspace_member = null;
-        src = builtins.fetchGit {
-          url = "https://github.com/timewave-computer/valence-domain-clients.git";
-          rev = "578bf89e4806bacf32c216595ba5064ccc57f816";
-          submodules = true;
-        };
+        sha256 = "0i0f8wa34s927aa8asql0y9v1dp7j6bf8wkvlwgcvj42ng703c40";
         libName = "valence_domain_clients";
         authors = [
           "Timewave Labs"
@@ -27703,11 +27871,11 @@ Windows platforms.
       };
       "wasm-bindgen" = rec {
         crateName = "wasm-bindgen";
-        version = "0.2.101";
+        version = "0.2.104";
         edition = "2021";
         description = "Easy support for interacting between JS and Rust.
 ";
-        sha256 = "0fv0yrfx170gf7i4dds4c69dxh8axp247wyip2dm4nylmmf9253y";
+        sha256 = "0b8f4l6pqm0bz0lj5xgwmchb6977n71vmh7srd0axwg93b011nn1";
         libName = "wasm_bindgen";
         authors = [
           "The wasm-bindgen Developers"
@@ -27723,17 +27891,19 @@ Windows platforms.
             usesDefaultFeatures = false;
           }
           {
-            name = "rustversion";
-            packageId = "rustversion";
-            optional = true;
-          }
-          {
             name = "wasm-bindgen-macro";
             packageId = "wasm-bindgen-macro";
           }
           {
             name = "wasm-bindgen-shared";
             packageId = "wasm-bindgen-shared";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "rustversion";
+            packageId = "rustversion";
+            rename = "rustversion-compat";
           }
         ];
         devDependencies = [
@@ -27743,24 +27913,22 @@ Windows platforms.
           }
         ];
         features = {
-          "default" = [ "std" "msrv" ];
+          "default" = [ "std" ];
           "enable-interning" = [ "std" ];
-          "msrv" = [ "rustversion" ];
-          "rustversion" = [ "dep:rustversion" ];
           "serde" = [ "dep:serde" ];
           "serde-serialize" = [ "serde" "serde_json" "std" ];
           "serde_json" = [ "dep:serde_json" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
         };
-        resolvedDefaultFeatures = [ "default" "msrv" "rustversion" "std" ];
+        resolvedDefaultFeatures = [ "default" "msrv" "std" ];
       };
       "wasm-bindgen-backend" = rec {
         crateName = "wasm-bindgen-backend";
-        version = "0.2.101";
+        version = "0.2.104";
         edition = "2021";
         description = "Backend code generation of the wasm-bindgen tool
 ";
-        sha256 = "1fwkzc2z701g2rm2jq4m20a0lkc6qqq5r3a407yj6yfahalip3g2";
+        sha256 = "069vnhhn2j4w2gwd8rch6g8d3iwkrgi45fas6i3qm7glcrd9l737";
         libName = "wasm_bindgen_backend";
         authors = [
           "The wasm-bindgen Developers"
@@ -27798,10 +27966,10 @@ Windows platforms.
       };
       "wasm-bindgen-futures" = rec {
         crateName = "wasm-bindgen-futures";
-        version = "0.4.51";
+        version = "0.4.54";
         edition = "2021";
         description = "Bridging the gap between Rust Futures and JavaScript Promises";
-        sha256 = "1znz8i8kyrlpq6q2fals223zrwwixmn6s7a16s1v6sdlm4wm1a0c";
+        sha256 = "0p5c10vfd7p7c607x3cgyfw9h77z1k33d6zzw2x77k3qwi0qs0vy";
         libName = "wasm_bindgen_futures";
         authors = [
           "The wasm-bindgen Developers"
@@ -27844,11 +28012,11 @@ Windows platforms.
       };
       "wasm-bindgen-macro" = rec {
         crateName = "wasm-bindgen-macro";
-        version = "0.2.101";
+        version = "0.2.104";
         edition = "2021";
         description = "Definition of the `#[wasm_bindgen]` attribute, an internal dependency
 ";
-        sha256 = "038vxk2yg11c3qv9iyasqcm70dw8sr2xmyaxqjq7bxzgwcx4cgbw";
+        sha256 = "06d1m5bg272h6jabq0snm7c50fifjz6r20f5hqlmz7y5wivh99kw";
         procMacro = true;
         libName = "wasm_bindgen_macro";
         authors = [
@@ -27870,11 +28038,11 @@ Windows platforms.
       };
       "wasm-bindgen-macro-support" = rec {
         crateName = "wasm-bindgen-macro-support";
-        version = "0.2.101";
+        version = "0.2.104";
         edition = "2021";
         description = "The part of the implementation of the `#[wasm_bindgen]` attribute that is not in the shared backend crate
 ";
-        sha256 = "1ajjqmdbi7ybdpw41avskjfdqnxpc9v547gmr8izj4c2n24wxd3v";
+        sha256 = "1mr18kx7ima1pmsqlkk982q4a0vf3r8s1x6901jb59sd1prd41wz";
         libName = "wasm_bindgen_macro_support";
         authors = [
           "The wasm-bindgen Developers"
@@ -27908,13 +28076,13 @@ Windows platforms.
       };
       "wasm-bindgen-shared" = rec {
         crateName = "wasm-bindgen-shared";
-        version = "0.2.101";
+        version = "0.2.104";
         edition = "2021";
         description = "Shared support between wasm-bindgen and wasm-bindgen cli, an internal
 dependency.
 ";
         links = "wasm_bindgen";
-        sha256 = "1h94nvm5p8zyr3718x4zhdz7rcmd0rir0b46a1ljqx8k7d58ahzi";
+        sha256 = "1la1xj9v3gmawnlyi7lc3mb3xi447r6frb98hi2fb9m1nb47vmms";
         libName = "wasm_bindgen_shared";
         authors = [
           "The wasm-bindgen Developers"
@@ -28081,11 +28249,11 @@ dependency.
       };
       "web-sys" = rec {
         crateName = "web-sys";
-        version = "0.3.78";
+        version = "0.3.81";
         edition = "2021";
         description = "Bindings for all Web APIs, a procedurally generated crate from WebIDL
 ";
-        sha256 = "04lbcdr74pilsrf1g76lbw9bwg7zghgslqxdiwmxkw4zfhvvdr3p";
+        sha256 = "0871ifd79ni9813sp5amk7wb3avznkijlsly2ap4r9r4m4bw8rwk";
         libName = "web_sys";
         authors = [
           "The wasm-bindgen Developers"
@@ -29376,12 +29544,12 @@ dependency.
         };
         resolvedDefaultFeatures = [ "default" ];
       };
-      "windows-core 0.62.0" = rec {
+      "windows-core 0.62.1" = rec {
         crateName = "windows-core";
-        version = "0.62.0";
+        version = "0.62.1";
         edition = "2021";
         description = "Core type support for COM and Windows";
-        sha256 = "0z294cblga0dl2dg9s9080xyglkh33b7zc05i8nqsmyyyxl73zjp";
+        sha256 = "1aa94x61q0x39xnlzxjmahwck9i5p51xgzrz7m6hi1dj2rafwi38";
         libName = "windows_core";
         dependencies = [
           {
@@ -29418,15 +29586,12 @@ dependency.
       };
       "windows-implement" = rec {
         crateName = "windows-implement";
-        version = "0.60.0";
+        version = "0.60.1";
         edition = "2021";
         description = "The implement macro for the windows crate";
-        sha256 = "0dm88k3hlaax85xkls4gf597ar4z8m5vzjjagzk910ph7b8xszx4";
+        sha256 = "1q2lfwdqrkfzsrlshvvyr2cj7ckq4rqxj0ispzlnvyvl5bj0gczd";
         procMacro = true;
         libName = "windows_implement";
-        authors = [
-          "Microsoft"
-        ];
         dependencies = [
           {
             name = "proc-macro2";
@@ -29449,15 +29614,12 @@ dependency.
       };
       "windows-interface" = rec {
         crateName = "windows-interface";
-        version = "0.59.1";
+        version = "0.59.2";
         edition = "2021";
         description = "The interface macro for the windows crate";
-        sha256 = "1a4zr8740gyzzhq02xgl6vx8l669jwfby57xgf0zmkcdkyv134mx";
+        sha256 = "19a6if8dfnazjgjw4hm0kayk9vrjclyj3iqivcaaqr39pkfx3ay0";
         procMacro = true;
         libName = "windows_interface";
-        authors = [
-          "Microsoft"
-        ];
         dependencies = [
           {
             name = "proc-macro2";
@@ -30431,7 +30593,7 @@ dependency.
         dependencies = [
           {
             name = "windows-targets";
-            packageId = "windows-targets 0.53.3";
+            packageId = "windows-targets 0.53.4";
             usesDefaultFeatures = false;
           }
         ];
@@ -30684,12 +30846,12 @@ dependency.
         };
         resolvedDefaultFeatures = [ "Win32" "Win32_Foundation" "Win32_Networking" "Win32_Networking_WinSock" "Win32_System" "Win32_System_Console" "Win32_System_IO" "default" ];
       };
-      "windows-sys 0.61.0" = rec {
+      "windows-sys 0.61.1" = rec {
         crateName = "windows-sys";
-        version = "0.61.0";
+        version = "0.61.1";
         edition = "2021";
         description = "Rust for Windows";
-        sha256 = "1ajpwsmzfcsa1r7i0dxzvfn24dp3525rcd7aq95ydvdj8171h0g2";
+        sha256 = "03vg2rxm0lyiyq64b5sm95lkg2x95sjdb0zb0y4q8g2avm0rw43g";
         libName = "windows_sys";
         dependencies = [
           {
@@ -31050,20 +31212,17 @@ dependency.
         ];
 
       };
-      "windows-targets 0.53.3" = rec {
+      "windows-targets 0.53.4" = rec {
         crateName = "windows-targets";
-        version = "0.53.3";
+        version = "0.53.4";
         edition = "2021";
         description = "Import libs for Windows";
-        sha256 = "14fwwm136dhs3i1impqrrip7nvkra3bdxa4nqkblj604qhqn1znm";
+        sha256 = "0jxc6f032xb3bbb7mj9rlhky84w7vz7hkbsh8s2hcakdysvvfhid";
         libName = "windows_targets";
-        authors = [
-          "Microsoft"
-        ];
         dependencies = [
           {
             name = "windows-link";
-            packageId = "windows-link 0.1.3";
+            packageId = "windows-link 0.2.0";
             usesDefaultFeatures = false;
             target = { target, features }: (target."windows_raw_dylib" or false);
           }
