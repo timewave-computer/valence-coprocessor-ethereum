@@ -5,7 +5,7 @@ use msgpacker::Packable as _;
 use serde_json::Value;
 use tracing_subscriber::{fmt, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter};
 use valence_coprocessor::DomainData;
-use valence_coprocessor_ethereum_lightclient::{Config, History, ServiceState};
+use valence_coprocessor_ethereum_lightclient::{History, ServiceState};
 use valence_coprocessor_prover::client::Client as Prover;
 use valence_domain_clients::{
     clients::coprocessor::CoprocessorClient as Coprocessor,
@@ -32,7 +32,7 @@ struct Cli {
     coprocessor: String,
 
     /// Co-processor domain name.
-    #[arg(long, value_name = "CHAIN", default_value = "ethereum-electra-alpha")]
+    #[arg(long, value_name = "CHAIN", default_value = "ethereum-electra-beta")]
     domain: String,
 
     /// Proof interval (ms).
@@ -71,6 +71,8 @@ async fn main() -> anyhow::Result<()> {
     tracing::info!("Clients loaded...");
 
     loop {
+        tracing::debug!("fetching storage state from `{id}`...");
+
         let history = coprocessor
             .get_storage_raw(&id)
             .await
@@ -79,8 +81,8 @@ async fn main() -> anyhow::Result<()> {
 
         let mut history = match history {
             Ok(h) => h,
-            _ => {
-                tracing::warn!("Service state not available!");
+            Err(e) => {
+                tracing::warn!("Service state not available: {e}");
                 tracing::info!("Initializing service state...");
 
                 let state = ServiceState::genesis(&prover)?;
@@ -131,7 +133,7 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::debug!("Loaded latest block `{latest}`...");
 
-        let mut input = match state.fetch_input().await {
+        let input = match state.fetch_input().await {
             Some(i) => i,
             None => {
                 tracing::warn!("No state input available...");
@@ -141,33 +143,6 @@ async fn main() -> anyhow::Result<()> {
         };
 
         tracing::debug!("Loaded input...");
-
-        let Config {
-            genesis_root,
-            forks,
-            ..
-        } = Config::default();
-
-        let mut store = state.store.clone();
-        let updates: Vec<_> = input.updates.drain(..).collect();
-
-        for u in updates.into_iter() {
-            match helios_consensus_core::verify_update(
-                &u,
-                input.expected_current_slot,
-                &store,
-                genesis_root,
-                &forks,
-            ) {
-                Ok(_) => {
-                    helios_consensus_core::apply_update(&mut store, &u);
-                    input.updates.push(u);
-                }
-                Err(e) => {
-                    tracing::debug!("update skipped: {e}");
-                }
-            }
-        }
 
         if let Err(e) = state.clone().apply(&input) {
             history.discard_latest();

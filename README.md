@@ -140,6 +140,7 @@ VALENCE_REBUILD=1 \
 
 ```shell
 VALENCE_REBUILD=1 \
+  VALENCE_REBUILD_SKIP_CONTROLLER=1 \
   cargo build \
   -p valence-coprocessor-ethereum-lightclient-builder
 ```

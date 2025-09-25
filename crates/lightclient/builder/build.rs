@@ -64,33 +64,35 @@ fn main() {
 
     // controller
 
-    assert!(Command::new("cargo")
-        .current_dir(root)
-        .args([
-            "build",
-            "-p",
-            "valence-coprocessor-ethereum-controller",
-            "--target",
-            "wasm32-unknown-unknown",
-            "--release",
-        ])
-        .status()
-        .unwrap()
-        .success());
+    if env::var("VALENCE_REBUILD_SKIP_CONTROLLER").is_err() {
+        assert!(Command::new("cargo")
+            .current_dir(root)
+            .args([
+                "build",
+                "-p",
+                "valence-coprocessor-ethereum-controller",
+                "--target",
+                "wasm32-unknown-unknown",
+                "--release",
+            ])
+            .status()
+            .unwrap()
+            .success());
 
-    let wasm = root
-        .join("target")
-        .join("wasm32-unknown-unknown")
-        .join("release")
-        .join("valence_coprocessor_ethereum_controller.wasm");
+        let wasm = root
+            .join("target")
+            .join("wasm32-unknown-unknown")
+            .join("release")
+            .join("valence_coprocessor_ethereum_controller.wasm");
 
-    let wasm = fs::read(&wasm).unwrap();
+        let wasm = fs::read(&wasm).unwrap();
 
-    fs::write(out.join("controller.wasm"), &wasm).unwrap();
+        fs::write(out.join("controller.wasm"), &wasm).unwrap();
+    }
 
     // id
 
-    let id = DomainData::identifier_from_parts("ethereum-electra-alpha");
+    let id = DomainData::identifier_from_parts("ethereum-electra-beta");
     let id = hex::encode(id);
 
     fs::write(out.join("id"), id).unwrap();

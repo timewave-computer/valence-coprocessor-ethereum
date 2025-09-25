@@ -1,7 +1,7 @@
 use alloc::vec::Vec;
 use helios_consensus_core::{
     apply_finality_update, apply_update, consensus_spec::MainnetConsensusSpec,
-    types::LightClientStore, verify_finality_update, verify_update,
+    errors::ConsensusError, types::LightClientStore, verify_finality_update, verify_update,
 };
 use serde::{Deserialize, Serialize};
 
@@ -23,6 +23,33 @@ impl Default for State {
 impl State {
     pub fn to_vec(&self) -> Vec<u8> {
         serde_cbor::to_vec(self).unwrap()
+    }
+
+    /// Filter irrelevant errors that are improperly setup as critical on helios
+    pub fn filter_error(e: &eyre::Report) -> anyhow::Result<()> {
+        let mut skip = false;
+
+        for cause in e.chain() {
+            if let Some(ce) = cause.downcast_ref::<ConsensusError>() {
+                skip = matches!(
+                    ce,
+                    ConsensusError::InvalidTimestamp
+                        | ConsensusError::InvalidPeriod
+                        | ConsensusError::NotRelevant
+                        | ConsensusError::CheckpointTooOld
+                );
+
+                if skip {
+                    break;
+                }
+            }
+        }
+
+        if !skip {
+            anyhow::bail!("{e}");
+        }
+
+        Ok(())
     }
 
     pub fn try_from_slice<B>(bytes: B) -> anyhow::Result<Self>
@@ -64,25 +91,29 @@ impl State {
         let prev_head = self.store.finalized_header.beacon().slot;
 
         for u in updates.iter() {
-            verify_update(u, *expected_current_slot, &self.store, genesis_root, &forks)
-                .map_err(|e| anyhow::anyhow!("failed to verify update: {e}"))?;
+            if let Err(e) =
+                verify_update(u, *expected_current_slot, &self.store, genesis_root, &forks)
+            {
+                Self::filter_error(&e)?;
+            }
 
             apply_update(&mut self.store, u);
         }
 
-        verify_finality_update(
+        if let Err(e) = verify_finality_update(
             finality_update,
             *expected_current_slot,
             &self.store,
             genesis_root,
             &forks,
-        )
-        .map_err(|e| anyhow::anyhow!("failed to verify finality update: {e}"))?;
+        ) {
+            Self::filter_error(&e)?;
+        }
 
         apply_finality_update(&mut self.store, finality_update);
 
         anyhow::ensure!(
-            self.store.finalized_header.beacon().slot > prev_head,
+            self.store.finalized_header.beacon().slot >= prev_head,
             "New head is not greater than previous head."
         );
         anyhow::ensure!(
