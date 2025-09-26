@@ -15,7 +15,7 @@ impl Default for History {
     fn default() -> Self {
         Self {
             capacity: 10,
-            minimum: 2,
+            minimum: 0,
             states: BTreeMap::new(),
         }
     }

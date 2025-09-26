@@ -92,7 +92,7 @@ fn main() {
 
     // id
 
-    let id = DomainData::identifier_from_parts("ethereum-electra-beta");
+    let id = DomainData::identifier_from_parts("ethereum-electra-alpha");
     let id = hex::encode(id);
 
     fs::write(out.join("id"), id).unwrap();

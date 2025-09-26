@@ -32,7 +32,7 @@ struct Cli {
     coprocessor: String,
 
     /// Co-processor domain name.
-    #[arg(long, value_name = "CHAIN", default_value = "ethereum-electra-beta")]
+    #[arg(long, value_name = "CHAIN", default_value = "ethereum-electra-alpha")]
     domain: String,
 
     /// Proof interval (ms).
