@@ -7599,7 +7599,7 @@ dependencies = [
 
 [[package]]
 name = "valence-coprocessor-ethereum"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "alloy-primitives 0.8.25",
  "alloy-rlp",
@@ -7620,7 +7620,7 @@ dependencies = [
 
 [[package]]
 name = "valence-coprocessor-ethereum-controller"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "anyhow",
  "msgpacker",
@@ -7633,7 +7633,7 @@ dependencies = [
 
 [[package]]
 name = "valence-coprocessor-ethereum-lightclient"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "alloy-primitives 0.8.25",
  "anyhow",
@@ -7658,7 +7658,7 @@ dependencies = [
 
 [[package]]
 name = "valence-coprocessor-ethereum-lightclient-builder"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -7676,7 +7676,7 @@ dependencies = [
 
 [[package]]
 name = "valence-coprocessor-ethereum-service"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "anyhow",
  "clap",

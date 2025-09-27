@@ -26538,7 +26538,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum" = rec {
         crateName = "valence-coprocessor-ethereum";
-        version = "1.2.0";
+        version = "1.2.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
@@ -26668,7 +26668,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-controller" = rec {
         crateName = "valence-coprocessor-ethereum-controller";
-        version = "1.2.0";
+        version = "1.2.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/domain; };
@@ -26721,7 +26721,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient";
-        version = "1.2.0";
+        version = "1.2.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/lightclient/lib; };
@@ -26857,7 +26857,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-lightclient-builder" = rec {
         crateName = "valence-coprocessor-ethereum-lightclient-builder";
-        version = "1.2.0";
+        version = "1.2.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
@@ -26937,7 +26937,7 @@ Unicode Standard Annex #31.
       };
       "valence-coprocessor-ethereum-service" = rec {
         crateName = "valence-coprocessor-ethereum-service";
-        version = "1.2.0";
+        version = "1.2.1";
         edition = "2021";
         description = "The Valence co-processor domain definition.";
         crateBin = [
